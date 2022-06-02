@@ -1,14 +1,10 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import './App.scss';
-import { increment, decrement } from '../../features/counter/counterSlice';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import Counter from '../Counter';
 
 const App: FC = () => {
   const [text, setText] = useState<string>('Текст');
   const [clickTimes, setClickTimes] = useState<number>(0);
-
-  const counter = useAppSelector((state) => state.counter.value);
-  const dispatch = useAppDispatch();
 
   const handleClick = () => {
     console.log('Click!');
@@ -31,9 +27,7 @@ const App: FC = () => {
       </div>
 
       <div className="state-block">
-        <div>Counter: {counter}</div>
-        <button onClick={() => dispatch(increment())}>Inc</button>
-        <button onClick={() => dispatch(decrement())}>Dec</button>
+        <Counter />
       </div>
     </div>
   );
