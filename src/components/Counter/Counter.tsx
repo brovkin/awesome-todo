@@ -9,8 +9,12 @@ const Counter: FC = () => {
   return (
     <>
       <div>Counter: {counter}</div>
-      <button onClick={() => dispatch(increment())}>Inc</button>
-      <button onClick={() => dispatch(decrement())}>Dec</button>
+      <button className="inc" onClick={() => dispatch(increment())}>
+        Inc
+      </button>
+      <button className="dec" onClick={() => dispatch(decrement())}>
+        Dec
+      </button>
     </>
   );
 };
