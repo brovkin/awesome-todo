@@ -1,7 +1,13 @@
 {
   "name": "awesome-todo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest --coverage",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
     "@testing-library/jest-dom": "^5.14.1",
@@ -31,12 +37,6 @@
     "prettier": "^2.6.2",
     "sass": "^1.52.1",
     "ts-jest": "^28.0.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "jest --coverage",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
