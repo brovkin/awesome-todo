@@ -9,7 +9,9 @@
       display: block;
       position: absolute;
       top: 10px;
-      animation: title-crossout .3s ease-in-out forwards .1s alternate;
+      width: 104%;
+      opacity: 0.2;
+      animation: title-crossout .2s ease-in-out forwards .1s alternate;
     }
   }
 
@@ -25,7 +27,7 @@
       top: 10px;
       width: 104%;
       right: -2px;
-      opacity: 0.2;
+      opacity: 0.1;
       animation: title-off-crossout .3s ease-in-out forwards;
     }
   }
@@ -50,12 +52,11 @@
 
 @keyframes title-crossout {
   0% {
-    width: 0;
-    right: 100px;
+    right: 50px;
   }
 
   100% {
-    width: 104%;
+    opacity: 0.5;
     right: -2px;
   }
 }
@@ -67,7 +68,7 @@
   }
 
   100% {
-    width: 200%;
+    width: 0;
     right: -100px;
     opacity: 0;
   }
