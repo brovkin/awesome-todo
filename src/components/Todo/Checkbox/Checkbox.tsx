@@ -5,15 +5,16 @@ import cn from 'classnames';
 
 export interface CheckboxProps {
   name: string;
-  initialValue: boolean;
+  checked: boolean;
+  title: string;
 }
 
-const Checkbox: FC<CheckboxProps> = ({ name, initialValue }) => {
-  const [checked, setChecked] = useState<boolean>(initialValue);
+const Checkbox: FC<CheckboxProps> = ({ name, checked, title }) => {
+  const [done, setDone] = useState<boolean>(checked);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked;
-    setChecked(value);
+    setDone(value);
   };
 
   return (
@@ -23,7 +24,7 @@ const Checkbox: FC<CheckboxProps> = ({ name, initialValue }) => {
           className="todo-checkbox__real-checkbox"
           type="checkbox"
           onChange={handleChange}
-          checked={checked}
+          checked={done}
           name={name}
         />
         <div className="todo-checkbox__checkbox">
@@ -32,10 +33,10 @@ const Checkbox: FC<CheckboxProps> = ({ name, initialValue }) => {
       </div>
       <Title
         className={cn({
-          active: checked,
+          active: done,
         })}
       >
-        My first todo
+        {title}
       </Title>
     </>
   );
