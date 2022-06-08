@@ -1,0 +1,10 @@
+.edit-field {
+  display: flex;
+  &__input {
+    margin-right: 10px;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #E9E3FF;
+    padding: 5px;
+  }
+}
