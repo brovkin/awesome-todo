@@ -1,7 +1,8 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import './InputField.scss';
+import { v4 as uuid } from 'uuid';
 import { addTodo, Todo } from '../../../features/todoSlice';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { useAppDispatch } from '../../../app/hooks';
 
 const InputField: FC = () => {
   const [todoText, setTodoText] = useState<string>('Buy a cup of coffee');
@@ -12,15 +13,18 @@ const InputField: FC = () => {
   };
 
   const addNewTodo = () => {
-    const newTodo: Todo = {
-      id: `123_${todoText}`,
-      title: todoText,
-      done: false,
-    };
+    if (todoText) {
+      const id = uuid();
+      const newTodo: Todo = {
+        id,
+        title: todoText,
+        done: false,
+      };
 
-    dispatch(addTodo(newTodo));
+      dispatch(addTodo(newTodo));
 
-    // setTodoText('');
+      // setTodoText('');
+    }
   };
 
   return (

@@ -1,8 +1,5 @@
-.wrapper {
-  margin: 0 auto;
-  width: 350px;
-}
-
-.app h1 {
-  text-align: center;
+.app {
+  &__wrapper {
+    text-align: center;
+  }
 }

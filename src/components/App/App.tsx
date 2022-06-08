@@ -1,20 +1,16 @@
 import React, { FC } from 'react';
 import './App.scss';
-import Item from '../Todo/Item';
 import InputField from '../Todo/InputField';
 import List from '../Todo/List';
+import Header from '../Header';
 
 const App: FC = () => {
   return (
     <div className="app">
-      <h1>Awesome Todo App</h1>
-
-      <div className="wrapper">
+      <div className="app__wrapper">
+        <Header />
         <InputField />
         <List />
-        {/*<Item />*/}
-        {/*<Item />*/}
-        {/*<Item />*/}
       </div>
     </div>
   );
