@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useAppSelector } from '../../../app/hooks';
 import './List.scss';
 import Item from '../Item';
