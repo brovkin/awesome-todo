@@ -19,12 +19,13 @@ export const todoSlice: Slice<State> = createSlice({
     addTodo: (state, action) => {
       state.items.push(action.payload);
     },
-    updateTodo: (state, action) => {
+    checkedTodo: (state, action) => {
       state.items.map((item) => {
-        if (item.id === action.payload.id) {
+        const payloadId = action.payload;
+        if (item.id === payloadId) {
           return {
             ...item,
-            ...action.payload,
+            done: !item.done,
           };
         }
 
@@ -34,6 +35,6 @@ export const todoSlice: Slice<State> = createSlice({
   },
 });
 
-export const { addTodo } = todoSlice.actions;
+export const { addTodo, checkedTodo } = todoSlice.actions;
 
 export default todoSlice.reducer;

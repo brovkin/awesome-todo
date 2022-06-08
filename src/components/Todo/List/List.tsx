@@ -1,15 +1,20 @@
 import React, { FC } from 'react';
 import { useAppSelector } from '../../../app/hooks';
+import './List.scss';
 import Item from '../Item';
 
 const List: FC = () => {
   const items = useAppSelector((state) => state.todo.items);
-  console.log('itesm', items);
+
   const renderList = () => {
-    return items.map((item) => <Item key={item.id} {...item} />);
+    if (items.length) {
+      return items.map((item) => <Item key={item.id} {...item} />);
+    }
+
+    return <div>В списке нет TODOs</div>;
   };
 
-  return <div>{renderList()}</div>;
+  return <div className="todo-list">{renderList()}</div>;
 };
 
 export default List;
