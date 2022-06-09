@@ -1,0 +1,12 @@
+.ui-button {
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 3px;
+  padding: 10px 15px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: .3s opacity;
+  &:hover {
+    opacity: 1;
+  }
+}

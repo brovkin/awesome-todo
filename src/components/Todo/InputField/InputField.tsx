@@ -10,6 +10,7 @@ import './InputField.scss';
 import { v4 as uuid } from 'uuid';
 import { addTodo, Todo } from '../../../features/todoSlice';
 import { useAppDispatch } from '../../../app/hooks';
+import Button from '../../ui/Button';
 
 const InputField: FC = () => {
   const [todoText, setTodoText] = useState<string>('Buy a cup of coffee');
@@ -56,9 +57,9 @@ const InputField: FC = () => {
         onKeyDown={handleKeyDown}
         value={todoText}
       />
-      <button className="input-field__add-btn" onClick={addNewTodo}>
+      <Button className="input-field__add-btn" clickHandler={addNewTodo}>
         Add New Todo
-      </button>
+      </Button>
     </div>
   );
 };
