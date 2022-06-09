@@ -1,0 +1,17 @@
+.notification {
+  padding: 10px 15px;
+  border: 1px solid;
+  border-radius: 3px;
+  &.info {
+
+    background-color: var(--notification-info-bg);
+    color: var(--notification-info-color);
+    border-color: var(--notification-info-border);
+  }
+
+  &.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+}
