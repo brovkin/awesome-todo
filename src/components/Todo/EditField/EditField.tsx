@@ -15,7 +15,6 @@ const EditField: FC<EditFieldProps> = ({ id, value }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    // inputRef.current?.focus();
     inputRef.current?.select();
   }, []);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

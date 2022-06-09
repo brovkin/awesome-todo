@@ -1,4 +1,5 @@
 import { createSlice, Slice } from '@reduxjs/toolkit';
+import changeTodoById from '../utils/changeTodoById';
 
 export interface Todo {
   id: string;
@@ -11,11 +12,7 @@ interface State {
   items: Todo[];
 }
 
-const mock = [
-  { id: 'tesdf23423', title: 'hello world', done: false, edit: false },
-];
-
-const initialState = { items: mock } as State;
+const initialState = { items: [] } as State;
 
 export const todoSlice: Slice<State> = createSlice({
   name: 'todo',
@@ -25,17 +22,10 @@ export const todoSlice: Slice<State> = createSlice({
       state.items.push(action.payload);
     },
     checkedTodo: (state, action) => {
-      state.items = state.items.map((item) => {
-        const payloadId = action.payload;
-        if (item.id === payloadId) {
-          return {
-            ...item,
-            done: !item.done,
-          };
-        }
-
-        return item;
-      });
+      const id = action.payload;
+      const currentItem = state.items.find((item) => item.id === id);
+      const value = currentItem?.done;
+      state.items = changeTodoById(id, state.items, { done: !value });
     },
     deleteTodo: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
@@ -44,51 +34,17 @@ export const todoSlice: Slice<State> = createSlice({
       const {
         payload: { id, value },
       } = action;
-      state.items = state.items.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            edit: value,
-          };
-        }
-
-        return item;
-      });
+      state.items = changeTodoById(id, state.items, { edit: value });
     },
     confirmEditTodo: (state, action) => {
       const {
         payload: { id, value },
       } = action;
-      state.items = state.items.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            title: value,
-            edit: false,
-          };
-        }
-
-        return item;
+      state.items = changeTodoById(id, state.items, {
+        title: value,
+        edit: false,
       });
     },
-    // updateTodo: (state, action) => {
-    //   const {
-    //     payload: { id, fields },
-    //   } = action;
-    //
-    //   state.items = state.items.map((item) => {
-    //     if (item.id === id) {
-    //       console.log('value', fields);
-    //       const fields;
-    //       return {
-    //         ...item,
-    //         ...fields,
-    //       };
-    //     }
-    //
-    //     return item;
-    //   });
-    // },
   },
 });
 
