@@ -1,5 +1,10 @@
 import { createSlice, Slice } from '@reduxjs/toolkit';
 import changeTodoById from '../utils/changeTodoById';
+import {
+  deleteFromLocalStorage,
+  getLocalStorage,
+  saveToLocalStorage,
+} from '../utils/localStorage';
 
 export interface Todo {
   id: string;
@@ -18,8 +23,12 @@ export const todoSlice: Slice<State> = createSlice({
   name: 'todo',
   initialState,
   reducers: {
+    getTodos: (state) => {
+      state.items = getLocalStorage('todos');
+    },
     addTodo: (state, action) => {
       state.items.push(action.payload);
+      saveToLocalStorage(action.payload);
     },
     checkedTodo: (state, action) => {
       const id = action.payload;
@@ -28,7 +37,9 @@ export const todoSlice: Slice<State> = createSlice({
       state.items = changeTodoById(id, state.items, { done: !value });
     },
     deleteTodo: (state, action) => {
+      const payloadId = action.payload;
       state.items = state.items.filter((item) => item.id !== action.payload);
+      deleteFromLocalStorage(payloadId);
     },
     editTodo: (state, action) => {
       const {
@@ -48,7 +59,13 @@ export const todoSlice: Slice<State> = createSlice({
   },
 });
 
-export const { addTodo, checkedTodo, deleteTodo, editTodo, confirmEditTodo } =
-  todoSlice.actions;
+export const {
+  getTodos,
+  addTodo,
+  checkedTodo,
+  deleteTodo,
+  editTodo,
+  confirmEditTodo,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;
