@@ -41,7 +41,6 @@ const InputField: FC = () => {
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    console.log('e', e.key);
     if (e.key === 'Enter') {
       addNewTodo();
     }
