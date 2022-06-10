@@ -1,5 +1,17 @@
 {
   "singleQuote": true,
   "printWidth": 80,
-  "trailingComma": "es5"
+  "trailingComma": "es5",
+  "importOrder": [
+    "^(react/(.*)$)|^(react)",
+    "<THIRD_PARTY_MODULES>",
+    "^@components/(.*)$",
+    "^@features/(.*)$",
+    "^@app/(.*)$",
+    "^@assets/(.*)$",
+    "^@utils/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true
 }
