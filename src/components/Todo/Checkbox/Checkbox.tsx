@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import './Checkbox.scss';
-import { checkedTodo } from '../../../features/todoSlice';
-import { useAppDispatch } from '../../../app/hooks';
-import Title from '../Title';
 import cn from 'classnames';
+import { checkedTodo } from '@features/todoSlice';
+import { useAppDispatch } from '@app/hooks';
+import Title from '../Title';
+import './Checkbox.scss';
 
 export interface CheckboxProps {
   id: string;

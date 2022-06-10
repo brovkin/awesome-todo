@@ -1,9 +1,9 @@
 import React, { FC, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import './List.scss';
-import Item from '../Item';
-import { getTodos } from '../../../features/todoSlice';
+import { getTodos } from '@features/todoSlice';
+import { useAppDispatch, useAppSelector } from '@app/hooks';
 import Notification from '../../Notification';
+import Item from '../Item';
+import './List.scss';
 
 const List: FC = () => {
   const items = useAppSelector((state) => state.todo.items);
