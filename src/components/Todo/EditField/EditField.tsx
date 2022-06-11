@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
-import { ReactComponent as Tick } from '../../../assets/icons/tick.svg';
-import { ReactComponent as Cancel } from '../../../assets/icons/cancel.svg';
 import { useAppDispatch } from '../../../app/hooks';
+import { ReactComponent as Cancel } from '../../../assets/icons/cancel.svg';
+import { ReactComponent as Tick } from '../../../assets/icons/tick.svg';
 import { confirmEditTodo, editTodo } from '../../../features/todoSlice';
 import './EditField.scss';
 
@@ -55,13 +55,13 @@ const EditField: FC<EditFieldProps> = ({ id, value }) => {
           className="todo-item__icon todo-item__menu-tick"
           onClick={handleConfirmUpdate}
         >
-          {<Tick />}
+          <Tick />
         </i>
         <i
           className="todo-item__icon todo-item__menu-cancel"
           onClick={handleCancelUpdate}
         >
-          {<Cancel />}
+          <Cancel />
         </i>
       </div>
     </div>

@@ -1,10 +1,10 @@
-import { createSlice, Slice } from '@reduxjs/toolkit';
-import changeTodoById from '../utils/changeTodoById';
+import { Slice, createSlice } from '@reduxjs/toolkit';
 import {
   deleteFromLocalStorage,
   getLocalStorage,
   saveToLocalStorage,
-} from '../utils/localStorage';
+} from '@utils/localStorage';
+import changeTodoById from '../utils/changeTodoById';
 
 export interface Todo {
   id: string;

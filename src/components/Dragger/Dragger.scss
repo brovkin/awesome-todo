@@ -1,0 +1,8 @@
+.dragger {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity .3s;
+  &:hover {
+    opacity: 1;
+  }
+}
