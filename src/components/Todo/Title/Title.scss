@@ -1,75 +1,79 @@
 .todo-title {
-  &.active {
-    animation: title-shift .3s ease-in-out forwards .1s;
-    position: relative;
-    &:before {
-      content: '';
-      background-color: #000;
-      height: 2px;
-      display: block;
-      position: absolute;
-      top: 10px;
-      width: 104%;
-      opacity: 0.2;
-      animation: title-crossout .2s ease-in-out forwards .1s alternate;
-    }
-  }
+  position: relative;
+  transition: all .3s ease;
 
-  &:not(.active) {
-    position: relative;
-
-    &:before {
-      content: '';
-      background-color: #000;
-      height: 2px;
-      display: block;
-      position: absolute;
-      top: 10px;
-      width: 104%;
-      right: -2px;
-      opacity: 0.1;
-      animation: title-off-crossout .3s ease-in-out forwards;
-    }
-  }
-}
-
-@keyframes title-shift {
-  0% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  30% {
-    opacity: 1;
-    transform: translateX(3px);
-  }
-
-  100% {
-    opacity: 0.2;
-    transform: translateX(0);
-  }
-}
-
-@keyframes title-crossout {
-  0% {
-    right: 50px;
-  }
-
-  100% {
-    opacity: 0.5;
-    right: -2px;
-  }
-}
-
-@keyframes title-off-crossout {
-  0% {
-    width: 104%;
-    right: -2px;
-  }
-
-  100% {
-    width: 0;
-    right: -100px;
+  &:before {
+    content: '';
+    background-color: #000;
+    height: 2px;
+    display: block;
+    position: absolute;
+    top: 10px;
     opacity: 0;
+    width: 104%;
+    transition: all .3s ease;
+  }
+
+  &.crossout {
+    opacity: 0.5;
+    &:before {
+      opacity: 0.3;
+    }
+  }
+
+  &:not(.crossout) {
+    overflow: hidden;
+    &:before {
+      opacity: 0;
+    }
+  }
+}
+
+.title-shift {
+  &-enter {
+    &-active {
+      &.todo-title {
+        opacity: 1;
+        transform: translateX(5px);
+      }
+
+      &.todo-title.crossout {
+        &:before {
+          right: 50px;
+        }
+      }
+    }
+
+    &-done {
+      &.todo-title {
+        transform: translateX(0px);
+      }
+
+      &.todo-title.crossout {
+        &:before {
+          opacity: 0.3;
+          right: -2px;
+          width: 104%;
+        }
+      }
+    }
+  }
+
+  &-exit {
+    &-active {
+
+    }
+
+    &-done {
+      &.todo-title {
+        &:not(.crossout) {
+          &:before {
+            width: 0;
+            opacity: 0;
+            right: -100px;
+          }
+        }
+      }
+    }
   }
 }

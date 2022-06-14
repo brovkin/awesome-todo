@@ -8,11 +8,6 @@ import './List.scss';
 const List: FC = () => {
   const items = useAppSelector((state) => state.todo.items);
   const dispatch = useAppDispatch();
-  const [draggableList, setDraggableList] = useState(items);
-
-  useEffect(() => {
-    setDraggableList(items);
-  }, [items]);
 
   useEffect(() => {
     dispatch(getTodos(null));
@@ -20,7 +15,7 @@ const List: FC = () => {
 
   const renderList = () => {
     if (items.length) {
-      return <DragDrop draggableList={draggableList} />;
+      return <DragDrop draggableList={items} />;
     }
 
     return <Notification type="info" text="В списке нет TODOs" />;

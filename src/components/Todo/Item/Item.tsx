@@ -22,7 +22,7 @@ const Item: FC<ItemProps> = ({ id, title, done, edit, children }) => {
   };
 
   return (
-    <div className="todo-item">
+    <div className="todo-item preload">
       {!edit && (
         <label className="todo-item__label">
           <div className="todo-item__wrapper">
