@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import cn from 'classnames';
+import { CSSTransition } from 'react-transition-group';
 import { checkedTodo } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import Title from '../Title';
@@ -29,19 +29,14 @@ const Checkbox: FC<CheckboxProps> = ({ id, checked, title, edit }) => {
           onChange={handleChange}
           checked={checked}
         />
-        <div className="todo-checkbox__checkbox">
-          <div className="todo-checkbox__checkbox-tick" />
-        </div>
+
+        <CSSTransition in={checked} timeout={100} classNames="tick-animation">
+          <div className="todo-checkbox__checkbox">
+            <div className="todo-checkbox__checkbox-tick" />
+          </div>
+        </CSSTransition>
       </div>
-      {!edit && (
-        <Title
-          className={cn({
-            active: checked,
-          })}
-        >
-          {title}
-        </Title>
-      )}
+      {!edit && <Title checked={checked}>{title}</Title>}
     </>
   );
 };

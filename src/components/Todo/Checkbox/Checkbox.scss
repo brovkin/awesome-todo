@@ -14,8 +14,30 @@
     border-radius: 50%;
     position: relative;
 
+    &:before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: auto;
+      background: var(--check);
+      border-radius: 2px;
+      transition: all .5s ease;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      opacity: 0.1;
+      border-radius: 50%;
+      background: var(--check);
+      transition: all .3s ease;
+    }
+
     &-tick {
-      display: none;
       &:before {
         content: "";
         position: absolute;
@@ -31,7 +53,7 @@
         right: 2px;
         opacity: 0;
         z-index: 10;
-        animation: fill-tick .3s ease forwards .1s;
+        transition: all .3s ease;
       }
     }
   }
@@ -41,86 +63,104 @@
 
     &:checked {
       & ~ .todo-checkbox__checkbox {
+        transition: none;
+        &:after {
+          opacity: 1;
+          box-shadow: 0 0 0 0 #E9E3FF;
+          height: 20px;
+          width: 20px;
+        }
 
         & .todo-checkbox__checkbox-tick {
-          display: block;
-        }
-
-        &:after {
-          content: "";
-          position: absolute;
-          top: auto;
-          width: 1px;
-          height: 1px;
-          opacity: 0.1;
-          border-radius: 50%;
-          background: var(--check);
-          animation: fill-circle .3s ease forwards .1s;
-        }
-
-        &:before {
-          content: "";
-          position: absolute;
-          width: 0;
-          height: 0;
-          top: auto;
-          background: var(--check);
-          border-radius: 2px;
-          animation: firework .5s ease forwards .1s;
+          &:before {
+            transform: rotate(37deg) scale(1);
+            opacity: 1;
+          }
         }
       }
     }
   }
 }
 
-@keyframes firework {
-  0% {
-    opacity: 1;
-    box-shadow: 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0;
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    box-shadow: 0 -15px 0 0px #4F29F0, 14px -8px 0 0px #4F29F0, 14px 8px 0 0px #4F29F0, 0 15px 0 0px #4F29F0, -14px 8px 0 0px #4F29F0, -14px -8px 0 0px #4F29F0;
-    width: 4px;
-    height: 4px;
-  }
-}
+// tick-animation
 
-@keyframes fill-circle {
-  0% {
-    opacity: 1;
-    box-shadow: 0 0 0 1px #4F29F0;
+.tick-animation {
+  &-enter {
+    &-active {
+      &.todo-checkbox__checkbox {
+        // firework start
+        &:before {
+          opacity: 1;
+          box-shadow: 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0;
+        }
+
+        // fill-circle start
+        &:after {
+          box-shadow: 0 0 0 4px #4F29F0;
+          width: 10px;
+          height: 10px;
+        }
+      }
+
+      & .todo-checkbox__checkbox-tick {
+        // tick start
+        &:before {
+          transform: rotate(35deg) scale(0.6);
+          opacity: .5;
+        }
+      }
+    }
+
+    &-done {
+      &.todo-checkbox__checkbox {
+        // firework end
+        &:before {
+          opacity: 0;
+          box-shadow: 0 -15px 0 0px #4F29F0, 14px -8px 0 0px #4F29F0, 14px 8px 0 0px #4F29F0, 0 15px 0 0px #4F29F0, -14px 8px 0 0px #4F29F0, -14px -8px 0 0px #4F29F0;
+          width: 4px;
+          height: 4px;
+        }
+
+        // fill-circle end
+        &:after {
+          opacity: 1;
+          box-shadow: 0 0 0 0 #E9E3FF;
+          height: 20px;
+          width: 20px;
+        }
+      }
+
+      & .todo-checkbox__checkbox-tick {
+        // tick end
+        &:before {
+          transform: rotate(37deg) scale(1);
+          opacity: 1;
+        }
+      }
+    }
   }
 
-  25% {
-    box-shadow: 0 0 0 4px #4F29F0;
-    width: 10px;
-    height: 10px;
-  }
+  &-exit {
+    &-active {
+      &.todo-checkbox__checkbox {
+        &:before {
+          transition: none;
+        }
 
-  75% {
-    box-shadow: 0 0 0 1px #E9E3FF;
-  }
+        &:after {
+          transition: none;
+        }
+      }
 
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 0 0 #E9E3FF;
-    height: 20px;
-    width: 20px;
-  }
-}
+      & .todo-checkbox__checkbox-tick {
+        &:before {
+          transition: none;
+        }
+      }
+    }
 
-@keyframes fill-tick {
-  0% {
-    transform: rotate(35deg) scale(0.6);
-    opacity: .5;
-  }
+    &-done {
 
-  100% {
-    transform: rotate(37deg) scale(1);
-    opacity: 1;
+    }
   }
 }

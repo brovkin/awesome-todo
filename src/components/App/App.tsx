@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import './App.scss';
+import Header from '../Header';
 import InputField from '../Todo/InputField';
 import List from '../Todo/List';
-import Header from '../Header';
+import './App.scss';
 
 const App: FC = () => {
   return (
