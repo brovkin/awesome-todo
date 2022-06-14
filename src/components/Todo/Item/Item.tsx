@@ -1,6 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
-import cn from 'classnames';
-import Dragger from '@components/Dragger';
+import React, { FC } from 'react';
 import { Todo, deleteTodo, editTodo } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import { ReactComponent as Delete } from '@assets/icons/delete.svg';
@@ -9,8 +7,11 @@ import Checkbox from '../Checkbox';
 import EditField from '../EditField';
 import './Item.scss';
 
-const Item: FC<Todo> = ({ id, title, done, edit }) => {
-  const itemRef = useRef(null);
+interface ItemProps extends Todo {
+  children: JSX.Element | React.ReactNode;
+}
+
+const Item: FC<ItemProps> = ({ id, title, done, edit, children }) => {
   const dispatch = useAppDispatch();
   const handleEdit = () => {
     dispatch(editTodo({ id, value: true }));
@@ -48,7 +49,7 @@ const Item: FC<Todo> = ({ id, title, done, edit }) => {
           </>
         )}
       </div>
-      <Dragger id={id} itemRef={itemRef} />
+      {children}
     </div>
   );
 };

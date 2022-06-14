@@ -3,6 +3,7 @@ import {
   deleteFromLocalStorage,
   getLocalStorage,
   saveToLocalStorage,
+  updateLocalStorage,
 } from '@utils/localStorage';
 import changeTodoById from '../utils/changeTodoById';
 
@@ -56,6 +57,10 @@ export const todoSlice: Slice<State> = createSlice({
         edit: false,
       });
     },
+    updateAllTodos: (state, action) => {
+      state.items = action.payload;
+      updateLocalStorage(action.payload);
+    },
   },
 });
 
@@ -66,6 +71,7 @@ export const {
   deleteTodo,
   editTodo,
   confirmEditTodo,
+  updateAllTodos,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
