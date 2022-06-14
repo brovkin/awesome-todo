@@ -1,4 +1,4 @@
-import { Todo } from '../features/todoSlice';
+import { Todo } from '@features/todoSlice';
 
 const STORAGE_NAME = 'todos';
 

@@ -1,10 +1,11 @@
-import { createSlice, Slice } from '@reduxjs/toolkit';
-import changeTodoById from '../utils/changeTodoById';
+import { Slice, createSlice } from '@reduxjs/toolkit';
 import {
   deleteFromLocalStorage,
   getLocalStorage,
   saveToLocalStorage,
-} from '../utils/localStorage';
+  updateLocalStorage,
+} from '@utils/localStorage';
+import changeTodoById from '../utils/changeTodoById';
 
 export interface Todo {
   id: string;
@@ -56,6 +57,10 @@ export const todoSlice: Slice<State> = createSlice({
         edit: false,
       });
     },
+    updateAllTodos: (state, action) => {
+      state.items = action.payload;
+      updateLocalStorage(action.payload);
+    },
   },
 });
 
@@ -66,6 +71,7 @@ export const {
   deleteTodo,
   editTodo,
   confirmEditTodo,
+  updateAllTodos,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
