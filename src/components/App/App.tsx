@@ -1,6 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import Actions from '@components/Actions';
 import Button from '@components/ui/Button';
 import Icon from '@components/ui/Icon';
+import Modal from '@components/ui/Modal';
 import Header from '../Header';
 import InputField from '../Todo/InputField';
 import List from '../Todo/List';
@@ -11,16 +13,9 @@ const App: FC = () => {
     <div className="app">
       <div className="app__wrapper">
         <Header />
+        <Actions />
         <InputField />
         <List />
-        <div>
-          <h2>Создать новый лист</h2>
-          <Button
-            clickHandler={() => console.log('test')}
-            type="icon"
-            icon={<Icon type="plus" />}
-          />
-        </div>
       </div>
     </div>
   );
