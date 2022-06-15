@@ -6,11 +6,11 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import './InputField.scss';
 import { v4 as uuid } from 'uuid';
-import { addTodo, Todo } from '../../../features/todoSlice';
 import { useAppDispatch } from '../../../app/hooks';
+import { Todo, addTodo } from '../../../features/todoSlice';
 import Button from '../../ui/Button';
+import './InputField.scss';
 
 const InputField: FC = () => {
   const [todoText, setTodoText] = useState<string>('Buy a cup of coffee');
@@ -37,7 +37,7 @@ const InputField: FC = () => {
 
       dispatch(addTodo(newTodo));
 
-      // setTodoText('');
+      setTodoText('');
     }
   };
 

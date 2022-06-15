@@ -22,7 +22,7 @@ const Item: FC<ItemProps> = ({ id, title, done, edit, children }) => {
   };
 
   return (
-    <div className="todo-item preload">
+    <div className="todo-item">
       {!edit && (
         <label className="todo-item__label">
           <div className="todo-item__wrapper">
@@ -31,8 +31,8 @@ const Item: FC<ItemProps> = ({ id, title, done, edit, children }) => {
         </label>
       )}
       {edit && <EditField id={id} value={title} />}
-      <div className="todo-item__menu">
-        {!edit && (
+      {!edit && (
+        <div className="todo-item__menu">
           <>
             <i
               className="todo-item__icon todo-item__menu-edit"
@@ -47,8 +47,8 @@ const Item: FC<ItemProps> = ({ id, title, done, edit, children }) => {
               <Delete />
             </i>
           </>
-        )}
-      </div>
+        </div>
+      )}
       {children}
     </div>
   );

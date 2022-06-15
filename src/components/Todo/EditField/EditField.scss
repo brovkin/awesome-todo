@@ -1,7 +1,13 @@
 .edit-field {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
   &__input {
-    margin-right: 10px;
+    margin: 0 20px;
+    width: auto;
     outline: none;
     border: none;
     border-bottom: 2px solid #E9E3FF;

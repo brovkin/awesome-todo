@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  //padding: 10px 15px;
 
   &__icon {
     cursor: pointer;
@@ -51,6 +51,10 @@
 
   &__dragger {
     cursor: pointer;
+    padding: 15px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0.7;
     transition: opacity .3s;
     &:hover {
@@ -66,6 +70,7 @@
   &__label {
     width: 100%;
     cursor: pointer;
+    padding: 15px;
   }
 
   &__menu {
@@ -74,6 +79,7 @@
 
   &__wrapper {
     display: flex;
+    align-items: center;
   }
 }
 
