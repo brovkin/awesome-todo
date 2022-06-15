@@ -8,8 +8,8 @@ import React, {
 } from 'react';
 import { confirmEditTodo, editTodo } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
-import { ReactComponent as Cancel } from '../../../assets/icons/cancel.svg';
-import { ReactComponent as Tick } from '../../../assets/icons/tick.svg';
+import { ReactComponent as Cancel } from '@assets/icons/cancel.svg';
+import { ReactComponent as Tick } from '@assets/icons/tick.svg';
 import './EditField.scss';
 
 interface EditFieldProps {
