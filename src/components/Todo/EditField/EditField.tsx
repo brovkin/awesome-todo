@@ -1,8 +1,15 @@
-import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
-import { useAppDispatch } from '../../../app/hooks';
-import { ReactComponent as Cancel } from '../../../assets/icons/cancel.svg';
-import { ReactComponent as Tick } from '../../../assets/icons/tick.svg';
-import { confirmEditTodo, editTodo } from '../../../features/todoSlice';
+import React, {
+  ChangeEvent,
+  FC,
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { confirmEditTodo, editTodo } from '@features/todoSlice';
+import { useAppDispatch } from '@app/hooks';
+import { ReactComponent as Cancel } from '@assets/icons/cancel.svg';
+import { ReactComponent as Tick } from '@assets/icons/tick.svg';
 import './EditField.scss';
 
 interface EditFieldProps {
@@ -40,6 +47,16 @@ const EditField: FC<EditFieldProps> = ({ id, value }) => {
     );
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleConfirmUpdate();
+    }
+
+    if (e.key === 'Escape') {
+      handleCancelUpdate();
+    }
+  };
+
   return (
     <div className="edit-field">
       <input
@@ -47,6 +64,7 @@ const EditField: FC<EditFieldProps> = ({ id, value }) => {
         className="edit-field__input"
         type="text"
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         value={text}
       />
 

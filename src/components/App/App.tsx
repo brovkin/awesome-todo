@@ -1,4 +1,6 @@
 import React, { FC } from 'react';
+import Button from '@components/ui/Button';
+import Icon from '@components/ui/Icon';
 import Header from '../Header';
 import InputField from '../Todo/InputField';
 import List from '../Todo/List';
@@ -11,6 +13,14 @@ const App: FC = () => {
         <Header />
         <InputField />
         <List />
+        <div>
+          <h2>Создать новый лист</h2>
+          <Button
+            clickHandler={() => console.log('test')}
+            type="icon"
+            icon={<Icon type="plus" />}
+          />
+        </div>
       </div>
     </div>
   );
