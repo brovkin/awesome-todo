@@ -2,6 +2,10 @@
   background-color: #fff;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 .app {
   --main-color: #E9E3FF;
 
@@ -17,4 +21,18 @@
   --notification-success-bg: #d4edda;
   --notification-success-color: #155724;
   --notification-success-border: #c3e6cb;
+}
+
+// Source mixin
+@mixin make-container($padding-x: $container-padding-x) {
+  width: 100%;
+  padding-right: $padding-x !important;
+  padding-left: $padding-x !important;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+// Usage
+.app-container {
+  @include make-container(33px);
 }

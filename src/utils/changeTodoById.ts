@@ -1,5 +1,4 @@
-import { Todo } from '../features/todoSlice';
-import { updateLocalStorage } from './localStorage';
+import { Todo } from '@features/todoSlice';
 
 interface changeTodoProps {
   (
@@ -10,7 +9,7 @@ interface changeTodoProps {
 }
 
 const changeTodoById: changeTodoProps = (id, items, changedValues) => {
-  const todos = items.map((item) => {
+  return items.map((item) => {
     if (item.id === id) {
       return {
         ...item,
@@ -20,10 +19,6 @@ const changeTodoById: changeTodoProps = (id, items, changedValues) => {
 
     return item;
   });
-
-  updateLocalStorage(todos);
-
-  return todos;
 };
 
 export default changeTodoById;

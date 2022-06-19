@@ -10,6 +10,7 @@ module.exports = {
       '@components': resolvePath('./src/components'),
       '@features': resolvePath('./src/features'),
       '@utils': resolvePath('./src/utils'),
+      '@constants': resolvePath('./src/constants'),
     },
   },
 };

@@ -1,4 +1,4 @@
-import React, { FC, ReactEventHandler } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import cn from 'classnames';
 import Icon from '@components/ui/Icon';
 import './Modal.scss';
@@ -16,9 +16,12 @@ const Modal: FC<ModalProps> = ({
   children,
   className,
 }) => {
+  const handleOutsideClick = (e: MouseEvent<HTMLDivElement>) =>
+    e.stopPropagation();
+
   return isOpen ? (
     <div className={cn('modal', className)} onClick={closeHandler}>
-      <div className="modal__wrapper" onClick={(e: any) => e.stopPropagation()}>
+      <div className="modal__wrapper" onClick={handleOutsideClick}>
         <Icon
           className="modal__close"
           type="cross"

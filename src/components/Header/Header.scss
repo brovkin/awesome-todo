@@ -1,10 +1,26 @@
 .header {
+  background-color: #E9E3FF;
   &__wrapper {
-    background-color: #E9E3FF;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    padding: 10px;
+  }
+
+  &__menu {
+    flex: 1;
+    &-icon {
+      cursor: pointer;
+      & svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
 
   &__title {
-    padding: 10px;
-    text-align: center;
+    flex: 2;
+    margin: 0;
+    font-size: 22px;
   }
 }

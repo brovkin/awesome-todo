@@ -1,21 +1,20 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import Actions from '@components/Actions';
-import Button from '@components/ui/Button';
-import Icon from '@components/ui/Icon';
-import Modal from '@components/ui/Modal';
 import Header from '../Header';
-import InputField from '../Todo/InputField';
-import List from '../Todo/List';
+import ItemsList from '../Todo/ItemsList';
 import './App.scss';
 
 const App: FC = () => {
   return (
     <div className="app">
-      <div className="app__wrapper">
+      <div className="app-wrapper">
         <Header />
         <Actions />
-        <InputField />
-        <List />
+        <div className="app-content">
+          <div className="container">
+            <ItemsList />
+          </div>
+        </div>
       </div>
     </div>
   );
