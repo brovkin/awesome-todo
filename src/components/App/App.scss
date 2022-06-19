@@ -1,5 +1,10 @@
 .app {
-  &__wrapper {
-    text-align: center;
+  &-wrapper {
+    //text-align: center;
+  }
+
+  &-content {
+    position: relative;
+    transition: all .3s;
   }
 }
