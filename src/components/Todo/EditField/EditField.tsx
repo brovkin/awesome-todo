@@ -15,9 +15,10 @@ import './EditField.scss';
 interface EditFieldProps {
   id: string;
   value: string;
+  listId: string;
 }
 
-const EditField: FC<EditFieldProps> = ({ id, value }) => {
+const EditField: FC<EditFieldProps> = ({ id, listId, value }) => {
   const [text, setText] = useState<string>(value);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ const EditField: FC<EditFieldProps> = ({ id, value }) => {
   const handleConfirmUpdate = () => {
     dispatch(
       confirmEditTodo({
+        listId,
         id,
         value: text,
       })
@@ -41,6 +43,7 @@ const EditField: FC<EditFieldProps> = ({ id, value }) => {
   const handleCancelUpdate = () => {
     dispatch(
       editTodo({
+        listId,
         id,
         value: false,
       })

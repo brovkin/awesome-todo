@@ -1,27 +1,27 @@
-import React, { FC, useEffect, useState } from 'react';
-import DragDrop from '@components/Todo/DragDrop';
-import { getTodos } from '@features/todoSlice';
-import { useAppDispatch, useAppSelector } from '@app/hooks';
-import Notification from '../../Notification';
+import React, { FC } from 'react';
+import cn from 'classnames';
+import { TodoList, setActiveList } from '@features/todoSlice';
+import { useAppDispatch } from '@app/hooks';
 import './List.scss';
 
-const List: FC = () => {
-  const items = useAppSelector((state) => state.todo.items);
+const List: FC<TodoList> = ({ id, title, todos, active }) => {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(getTodos(null));
-  }, []);
-
-  const renderList = () => {
-    if (items.length) {
-      return <DragDrop draggableList={items} />;
-    }
-
-    return <Notification type="info" text="В списке нет TODOs" />;
+  const handleClick = () => {
+    dispatch(setActiveList(id));
   };
 
-  return renderList();
+  return (
+    <div
+      className={cn('list', {
+        active,
+      })}
+      onClick={handleClick}
+    >
+      <div className="list__title">{title}</div>
+      <div className="list__todos-quantity">{todos.length}</div>
+    </div>
+  );
 };
 
 export default List;

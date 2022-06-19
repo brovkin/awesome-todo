@@ -7,16 +7,17 @@ import './Checkbox.scss';
 
 export interface CheckboxProps {
   id: string;
+  listId: string;
   checked: boolean;
   title: string;
   edit: boolean;
 }
 
-const Checkbox: FC<CheckboxProps> = ({ id, checked, title, edit }) => {
+const Checkbox: FC<CheckboxProps> = ({ id, listId, checked, title, edit }) => {
   const dispatch = useAppDispatch();
 
   const handleChange = () => {
-    dispatch(checkedTodo(id));
+    dispatch(checkedTodo({ id, listId }));
   };
 
   return (

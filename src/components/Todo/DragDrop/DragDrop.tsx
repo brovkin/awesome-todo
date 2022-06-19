@@ -7,14 +7,15 @@ import {
 } from 'react-beautiful-dnd';
 import Item from '@components/Todo/Item';
 import Icon from '@components/ui/Icon';
-import { Todo, updateAllTodos } from '@features/todoSlice';
+import { Todo, TodoList, updateAllTodos } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 
 interface DragDropProps {
   draggableList: Todo[];
+  listId: TodoList['id'];
 }
 
-const DragDrop: FC<DragDropProps> = ({ draggableList }) => {
+const DragDrop: FC<DragDropProps> = ({ listId, draggableList }) => {
   const dispatch = useAppDispatch();
   const handleDrop = (droppedItem: DropResult) => {
     if (!droppedItem.destination) return;
@@ -22,8 +23,9 @@ const DragDrop: FC<DragDropProps> = ({ draggableList }) => {
     const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
     updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
 
-    dispatch(updateAllTodos(updatedList));
+    dispatch(updateAllTodos({ listId, updatedList }));
   };
+
   return (
     <DragDropContext onDragEnd={handleDrop}>
       <Droppable droppableId="todo-list">
@@ -41,7 +43,7 @@ const DragDrop: FC<DragDropProps> = ({ draggableList }) => {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                   >
-                    <Item key={item.id} {...item}>
+                    <Item key={item.id} listId={listId} {...item}>
                       <div
                         className="todo-item__dragger"
                         {...provided.dragHandleProps}

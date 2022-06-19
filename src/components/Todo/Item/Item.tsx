@@ -9,16 +9,17 @@ import './Item.scss';
 
 interface ItemProps extends Todo {
   children: JSX.Element | React.ReactNode;
+  listId: string;
 }
 
-const Item: FC<ItemProps> = ({ id, title, done, edit, children }) => {
+const Item: FC<ItemProps> = ({ id, title, done, edit, listId, children }) => {
   const dispatch = useAppDispatch();
   const handleEdit = () => {
-    dispatch(editTodo({ id, value: true }));
+    dispatch(editTodo({ listId, id, value: true }));
   };
 
   const handleDelete = () => {
-    dispatch(deleteTodo(id));
+    dispatch(deleteTodo({ listId, id }));
   };
 
   return (
@@ -26,11 +27,17 @@ const Item: FC<ItemProps> = ({ id, title, done, edit, children }) => {
       {!edit && (
         <label className="todo-item__label">
           <div className="todo-item__wrapper">
-            <Checkbox id={id} checked={done} title={title} edit={edit} />
+            <Checkbox
+              id={id}
+              listId={listId}
+              checked={done}
+              title={title}
+              edit={edit}
+            />
           </div>
         </label>
       )}
-      {edit && <EditField id={id} value={title} />}
+      {edit && <EditField id={id} listId={listId} value={title} />}
       {!edit && (
         <div className="todo-item__menu">
           <>

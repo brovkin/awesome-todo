@@ -4,9 +4,57 @@
   border-radius: 3px;
   padding: 10px 15px;
   cursor: pointer;
-  opacity: 0.8;
+  position: relative;
+  opacity: 0.7;
   transition: .3s opacity;
+
+  &.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .2);
+    transition: all .3s ease;
+    &:hover {
+      box-shadow: 0 5px 10px 1px rgba(0, 0, 0, .2);
+    }
+
+  }
+
+  &__tooltip {
+    position: absolute;
+    font-size: 10px;
+    background: #000;
+    border-radius: 3px;
+    color: #fff;
+    padding: 5px;
+    min-width: 150px;
+    z-index: 100;
+    opacity: 0;
+    right: 40px;
+    transition: all .3s ease;
+  }
+
   &:hover {
     opacity: 1;
+  }
+}
+
+.tooltip-animation {
+  &-enter {
+    &-active {
+
+    }
+
+    &-done {
+      right: 60px;
+      opacity: 1;
+    }
+  }
+
+  &-exit {
+
   }
 }
