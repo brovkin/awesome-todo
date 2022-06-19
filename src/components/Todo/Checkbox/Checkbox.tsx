@@ -1,22 +1,23 @@
 import React, { FC } from 'react';
-import './Checkbox.scss';
-import { checkedTodo } from '../../../features/todoSlice';
-import { useAppDispatch } from '../../../app/hooks';
+import { CSSTransition } from 'react-transition-group';
+import { checkedTodo } from '@features/todoSlice';
+import { useAppDispatch } from '@app/hooks';
 import Title from '../Title';
-import cn from 'classnames';
+import './Checkbox.scss';
 
 export interface CheckboxProps {
   id: string;
+  listId: string;
   checked: boolean;
   title: string;
   edit: boolean;
 }
 
-const Checkbox: FC<CheckboxProps> = ({ id, checked, title, edit }) => {
+const Checkbox: FC<CheckboxProps> = ({ id, listId, checked, title, edit }) => {
   const dispatch = useAppDispatch();
 
   const handleChange = () => {
-    dispatch(checkedTodo(id));
+    dispatch(checkedTodo({ id, listId }));
   };
 
   return (
@@ -29,19 +30,14 @@ const Checkbox: FC<CheckboxProps> = ({ id, checked, title, edit }) => {
           onChange={handleChange}
           checked={checked}
         />
-        <div className="todo-checkbox__checkbox">
-          <div className="todo-checkbox__checkbox-tick" />
-        </div>
+
+        <CSSTransition in={checked} timeout={100} classNames="tick-animation">
+          <div className="todo-checkbox__checkbox">
+            <div className="todo-checkbox__checkbox-tick" />
+          </div>
+        </CSSTransition>
       </div>
-      {!edit && (
-        <Title
-          className={cn({
-            active: checked,
-          })}
-        >
-          {title}
-        </Title>
-      )}
+      {!edit && <Title checked={checked}>{title}</Title>}
     </>
   );
 };

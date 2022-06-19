@@ -1,6 +1,23 @@
-.todo-list {
-  max-width: 350px;
-  text-align: left;
-  margin: 10px auto 0 auto;
-  padding: 20px;
+.list {
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+  padding: 7px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover {
+    background-color: #eee;
+  }
+
+  &.active {
+    background-color: #eee;
+
+    & .list__todos-quantity {
+      font-weight: bold;
+    }
+  }
 }

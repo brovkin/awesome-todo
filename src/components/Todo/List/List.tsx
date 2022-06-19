@@ -1,20 +1,27 @@
 import React, { FC } from 'react';
-import { useAppSelector } from '../../../app/hooks';
+import cn from 'classnames';
+import { TodoList, setActiveList } from '@features/todoSlice';
+import { useAppDispatch } from '@app/hooks';
 import './List.scss';
-import Item from '../Item';
 
-const List: FC = () => {
-  const items = useAppSelector((state) => state.todo.items);
+const List: FC<TodoList> = ({ id, title, todos, active }) => {
+  const dispatch = useAppDispatch();
 
-  const renderList = () => {
-    if (items.length) {
-      return items.map((item) => <Item key={item.id} {...item} />);
-    }
-
-    return <div>В списке нет TODOs</div>;
+  const handleClick = () => {
+    dispatch(setActiveList(id));
   };
 
-  return <div className="todo-list">{renderList()}</div>;
+  return (
+    <div
+      className={cn('list', {
+        active,
+      })}
+      onClick={handleClick}
+    >
+      <div className="list__title">{title}</div>
+      <div className="list__todos-quantity">{todos.length}</div>
+    </div>
+  );
 };
 
 export default List;

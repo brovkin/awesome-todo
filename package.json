@@ -3,12 +3,13 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "craco start",
     "build": "react-scripts build",
     "test": "jest --coverage",
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@craco/craco": "^6.4.3",
     "@reduxjs/toolkit": "^1.8.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -16,18 +17,23 @@
     "@types/jest": "^28.1.0",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
+    "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-dom": "^18.0.0",
+    "@types/react-transition-group": "^4.4.4",
     "bootstrap": "^5.1.3",
     "classnames": "^2.3.1",
     "react": "^18.1.0",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.2",
     "react-scripts": "5.0.1",
+    "react-transition-group": "^4.4.2",
     "typescript": "^4.4.2",
     "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "eslint-config-prettier": "^8.5.0",
