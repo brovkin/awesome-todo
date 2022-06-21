@@ -1,11 +1,5 @@
-import React, {
-  ChangeEvent,
-  FC,
-  KeyboardEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
+import Input from '@components/ui/Input';
 import { confirmEditTodo, editTodo } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import { ReactComponent as Cancel } from '@assets/icons/cancel.svg';
@@ -20,11 +14,8 @@ interface EditFieldProps {
 
 const EditField: FC<EditFieldProps> = ({ id, listId, value }) => {
   const [text, setText] = useState<string>(value);
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    inputRef.current?.select();
-  }, []);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setText(value);
@@ -62,12 +53,12 @@ const EditField: FC<EditFieldProps> = ({ id, listId, value }) => {
 
   return (
     <div className="edit-field">
-      <input
-        ref={inputRef}
+      <Input
         className="edit-field__input"
         type="text"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        onMount="select"
         value={text}
       />
 

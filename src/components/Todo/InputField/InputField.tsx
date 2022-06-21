@@ -1,12 +1,6 @@
-import React, {
-  ChangeEvent,
-  FC,
-  KeyboardEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import Input from '@components/ui/Input';
 import { Todo, TodoList, addTodo } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import Button from '../../ui/Button';
@@ -19,11 +13,6 @@ interface InputFieldProps {
 const InputField: FC<InputFieldProps> = ({ listId }) => {
   const [todoText, setTodoText] = useState<string>('Buy a cup of coffee');
   const dispatch = useAppDispatch();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -54,12 +43,12 @@ const InputField: FC<InputFieldProps> = ({ listId }) => {
 
   return (
     <div className="input-field">
-      <input
-        ref={inputRef}
+      <Input
         type="text"
         className="input-field__input"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        onMount="focus"
         value={todoText}
       />
       <Button className="input-field__add-btn" clickHandler={addNewTodo}>
