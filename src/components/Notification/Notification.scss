@@ -1,9 +1,10 @@
 .notification {
-  padding: 10px 15px;
+  padding: 5px;
   border: 1px solid;
   border-radius: 3px;
+  font-size: 12px;
+  margin: 10px 0;
   &.info {
-
     background-color: var(--notification-info-bg);
     color: var(--notification-info-color);
     border-color: var(--notification-info-border);

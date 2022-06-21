@@ -9,12 +9,16 @@ html {
 .app {
   --main-color: #E9E3FF;
 
+  // colors
+
+  --error-bg: #f8d7da;
+
   // notifications
   --notification-info-bg: #cce5ff;
   --notification-info-color: #004085;
   --notification-info-border: #b8daff;
 
-  --notification-error-bg: #f8d7da;
+  --notification-error-bg: var(--error-bg);
   --notification-error-color: #721c24;
   --notification-error-border: #f5c6cb;
 

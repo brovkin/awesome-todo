@@ -140,7 +140,10 @@ export const todoSlice: Slice<State> = createSlice({
     // lists
 
     createList: (state, action) => {
-      state.lists.push(action.payload);
+      const newList = action.payload;
+      const allLists = [...state.lists, newList];
+      state.lists = allLists;
+      updateLocalStorage(allLists);
     },
 
     setActiveList: (state, action) => {

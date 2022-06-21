@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import RightMenu from '@components/Header/RightMenu';
 import ListMenu from '@components/ListMenu';
 import Icon from '@components/ui/Icon';
 import './Header.scss';
@@ -17,6 +18,7 @@ const Header: FC = () => {
             />
           </div>
           <h1 className="header__title">Awesome Todo App</h1>
+          <RightMenu />
         </div>
       </div>
 
