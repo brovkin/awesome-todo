@@ -11,7 +11,7 @@ const App: FC = () => {
         <Header />
         <Actions />
         <div className="app-content">
-          <div className="container">
+          <div className="main-container">
             <ItemsList />
           </div>
         </div>

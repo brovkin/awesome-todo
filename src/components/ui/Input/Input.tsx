@@ -21,6 +21,7 @@ interface InputProps {
   value?: string;
   error?: string;
   onMount?: 'select' | 'focus';
+  getRef?: (ref: RefObject<HTMLInputElement>) => void;
 }
 
 const Input: FC<InputProps> = ({
@@ -31,6 +32,7 @@ const Input: FC<InputProps> = ({
   type,
   onMount,
   error,
+  getRef,
   ...props
 }) => {
   const ref = useRef<HTMLInputElement | null>(null);
@@ -44,6 +46,12 @@ const Input: FC<InputProps> = ({
       ref?.current?.focus();
     }
   }, []);
+
+  useEffect(() => {
+    if (ref && getRef) {
+      getRef(ref);
+    }
+  }, [ref]);
 
   return (
     <div className={cn('ui-input', className)}>

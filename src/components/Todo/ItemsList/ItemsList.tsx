@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import DragDrop from '@components/Todo/DragDrop';
 import InputField from '@components/Todo/InputField';
+import Button from '@components/ui/Button';
 import { getTodos } from '@features/todoSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import Notification from '../../Notification';
@@ -18,7 +19,13 @@ const ItemsList: FC = () => {
   );
 
   if (!activeList) {
-    return <Notification type="info" text="Нет активных листов" />;
+    // const createList
+    return (
+      <>
+        <Button>Создать первый список</Button>
+        <Notification type="info" text="Нет активных списков" />
+      </>
+    );
   }
 
   const { id, todos } = activeList;

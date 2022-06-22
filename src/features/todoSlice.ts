@@ -1,5 +1,9 @@
 import { Slice, createSlice } from '@reduxjs/toolkit';
-import { getLocalStorage, updateLocalStorage } from '@utils/localStorage';
+import {
+  clearLocalStorage,
+  getLocalStorage,
+  updateLocalStorage,
+} from '@utils/localStorage';
 import { STORAGE_NAME } from '@constants';
 import changeTodoById from '../utils/changeTodoById';
 
@@ -37,7 +41,7 @@ export const todoSlice: Slice<State> = createSlice({
         if (list.id === listId) {
           return {
             ...list,
-            todos: [...list.todos, newTodo],
+            todos: [newTodo, ...list.todos],
           };
         }
 
@@ -163,6 +167,11 @@ export const todoSlice: Slice<State> = createSlice({
         };
       });
     },
+
+    clearAll: (state) => {
+      state.lists = [];
+      clearLocalStorage();
+    },
   },
 });
 
@@ -176,6 +185,7 @@ export const {
   updateAllTodos,
   createList,
   setActiveList,
+  clearAll,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
