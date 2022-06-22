@@ -22,9 +22,9 @@ const Actions: FC = () => {
   const [title, setTitle] = useState<string>('Новый лист');
   const [error, setError] = useState<string>('');
 
-  const allListsTitles = useSelector((state: RootState) =>
-    state.todo.lists.map((item: TodoList) => item.title)
-  );
+  const allLists = useSelector((state: RootState) => state.todo.lists);
+
+  const allListsTitles = allLists.map((list) => list.title);
 
   useEffect(() => {
     setError('');
@@ -52,7 +52,8 @@ const Actions: FC = () => {
         id: uuid(),
         title,
         todos: [],
-        active: false,
+        // if lists haven't exist
+        active: allLists.length === 0,
       };
 
       dispatch(createList(newList));
@@ -85,7 +86,6 @@ const Actions: FC = () => {
             error={error}
             onMount="select"
           />
-          {/*{error ? <Notification type="error" text={error} /> : null}*/}
           <Button
             clickHandler={handleCreateList}
             className="actions__modal-create-btn"

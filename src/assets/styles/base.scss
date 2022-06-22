@@ -6,6 +6,10 @@ html {
   overflow-x: hidden;
 }
 
+hr {
+  margin: 5px 0;
+}
+
 .app {
   --main-color: #E9E3FF;
 
@@ -27,7 +31,6 @@ html {
   --notification-success-border: #c3e6cb;
 }
 
-// Source mixin
 @mixin make-container($padding-x: $container-padding-x) {
   width: 100%;
   padding-right: $padding-x !important;
@@ -36,7 +39,12 @@ html {
   margin-left: auto;
 }
 
-// Usage
 .app-container {
   @include make-container(33px);
+}
+
+.main-container {
+  max-width: 450px;
+  margin-right: auto;
+  margin-left: auto;
 }

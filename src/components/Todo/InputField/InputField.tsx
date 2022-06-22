@@ -1,4 +1,10 @@
-import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  KeyboardEvent,
+  RefObject,
+  useState,
+} from 'react';
 import { v4 as uuid } from 'uuid';
 import Input from '@components/ui/Input';
 import { Todo, TodoList, addTodo } from '@features/todoSlice';
@@ -12,6 +18,8 @@ interface InputFieldProps {
 
 const InputField: FC<InputFieldProps> = ({ listId }) => {
   const [todoText, setTodoText] = useState<string>('Buy a cup of coffee');
+  const [inputRef, setInputRef] =
+    useState<React.RefObject<HTMLInputElement> | null>(null);
   const dispatch = useAppDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,12 +41,18 @@ const InputField: FC<InputFieldProps> = ({ listId }) => {
 
       setTodoText('');
     }
+
+    inputRef?.current?.focus();
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       addNewTodo();
     }
+  };
+
+  const getRef = (ref: RefObject<HTMLInputElement>): void => {
+    setInputRef(ref);
   };
 
   return (
@@ -50,9 +64,10 @@ const InputField: FC<InputFieldProps> = ({ listId }) => {
         onKeyDown={handleKeyDown}
         onMount="focus"
         value={todoText}
+        getRef={getRef}
       />
       <Button className="input-field__add-btn" clickHandler={addNewTodo}>
-        Add New Todo
+        Добавить
       </Button>
     </div>
   );

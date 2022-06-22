@@ -28,6 +28,8 @@
   }
 
   &__title {
+    display: flex;
+    justify-content: center;
     flex: 2;
     margin: 0;
     font-size: 22px;

@@ -1,5 +1,5 @@
-import { STORAGE_NAME } from '@constants';
 import { TodoList } from '@features/todoSlice';
+import { STORAGE_NAME } from '@constants';
 
 export const getLocalStorage = (storageName: string): TodoList[] => {
   const json: string | null = localStorage.getItem(storageName);
@@ -16,6 +16,10 @@ export const getLocalStorage = (storageName: string): TodoList[] => {
 export const updateLocalStorage = (lists: TodoList[]): void => {
   const json = JSON.stringify(lists);
   localStorage.setItem(STORAGE_NAME, json);
+};
+
+export const clearLocalStorage = (): void => {
+  localStorage.removeItem(STORAGE_NAME);
 };
 
 // export const deleteFromLocalStorage = (id: Todo['id']): void => {
