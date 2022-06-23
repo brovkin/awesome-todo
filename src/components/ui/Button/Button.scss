@@ -1,5 +1,7 @@
+@import './src/assets/styles/imports';
+
 .ui-button {
-  background-color: var(--main-color);
+  background-color: $main-color;
   border: none;
   border-radius: 3px;
   padding: 10px 15px;
@@ -7,6 +9,8 @@
   position: relative;
   opacity: 0.7;
   transition: .3s opacity;
+  margin-bottom: 10px;
+  outline: none;
 
   &.icon {
     display: flex;

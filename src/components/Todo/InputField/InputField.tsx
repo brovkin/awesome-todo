@@ -3,6 +3,7 @@ import React, {
   FC,
   KeyboardEvent,
   RefObject,
+  useEffect,
   useState,
 } from 'react';
 import { v4 as uuid } from 'uuid';
@@ -21,6 +22,10 @@ const InputField: FC<InputFieldProps> = ({ listId }) => {
   const [inputRef, setInputRef] =
     useState<React.RefObject<HTMLInputElement> | null>(null);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    inputRef?.current?.focus();
+  }, [listId]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
