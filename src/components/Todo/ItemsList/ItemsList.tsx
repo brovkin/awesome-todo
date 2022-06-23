@@ -1,13 +1,15 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import DragDrop from '@components/Todo/DragDrop';
 import InputField from '@components/Todo/InputField';
 import Button from '@components/ui/Button';
 import { getTodos } from '@features/todoSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { CreateListContext } from '@context/CreateListContext';
 import Notification from '../../Notification';
 import './ItemsList.scss';
 
 const ItemsList: FC = () => {
+  const { setListModal } = useContext(CreateListContext) as CreateListContext;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -17,12 +19,15 @@ const ItemsList: FC = () => {
   const activeList = useAppSelector(
     (state) => state.todo.lists.find((list) => list.active) || null
   );
+  //
+  // useEffect(() => {}, [activeList]);
 
   if (!activeList) {
-    // const createList
     return (
       <>
-        <Button>Создать первый список</Button>
+        <Button clickHandler={() => setListModal(true)}>
+          Создать первый список
+        </Button>
         <Notification type="info" text="Нет активных списков" />
       </>
     );

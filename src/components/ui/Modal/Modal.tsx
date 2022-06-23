@@ -1,8 +1,6 @@
-import React, { FC, KeyboardEvent, MouseEvent } from 'react';
-import { createPortal } from 'react-dom';
-import cn from 'classnames';
+import React, { FC, useEffect } from 'react';
+import ReactModal from 'react-modal';
 import Icon from '@components/ui/Icon';
-import usePortal from '@hooks/usePortal';
 import './Modal.scss';
 
 interface ModalProps {
@@ -12,49 +10,39 @@ interface ModalProps {
   className?: string;
 }
 
-interface PortalProps {
-  id: string;
-  children: JSX.Element | React.ReactNode;
-}
+ReactModal.setAppElement('#root');
 
-const Modal: FC<ModalProps> = ({
-  isOpen,
-  closeHandler,
-  children,
-  className,
-}) => {
-  const handleBlockClick = (e: MouseEvent<HTMLDivElement>) =>
-    e.stopPropagation();
+const Modal: FC<ModalProps> = ({ isOpen, closeHandler, children }) => {
+  useEffect(() => {
+    const close = (e: KeyboardEvent): void => {
+      if (e.key === 'Escape') {
+        closeHandler();
+      }
+    };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Escape') {
-      closeHandler();
-    }
-  };
+    window.addEventListener('keydown', close);
+    return () => window.removeEventListener('keydown', close);
+  }, []);
 
-  const Portal = ({ id, children }: PortalProps) => {
-    const target = usePortal(id);
-    return createPortal(children, target);
-  };
-
-  return isOpen ? (
-    <Portal id="modal" key="test">
-      <div
-        className={cn('modal', className)}
-        onClick={closeHandler}
-        onKeyDown={handleKeyDown}
-      >
-        <div className="modal__wrapper" onClick={handleBlockClick}>
-          <Icon
-            className="modal__close"
-            type="cross"
-            clickHandler={closeHandler}
-          />
-          {children}
-        </div>
+  return (
+    <ReactModal
+      isOpen={isOpen}
+      className="react-modal"
+      overlayClassName="modal"
+      portalClassName="modal-portal"
+      onRequestClose={closeHandler}
+      shouldCloseOnOverlayClick={true}
+    >
+      <div className="modal__wrapper">
+        <Icon
+          className="modal__close"
+          type="cross"
+          clickHandler={closeHandler}
+        />
+        {children}
       </div>
-    </Portal>
-  ) : null;
+    </ReactModal>
+  );
 };
 
 export default Modal;

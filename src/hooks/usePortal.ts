@@ -6,10 +6,19 @@ function createRootElement(id: string) {
   return rootContainer;
 }
 
-function addRootElement(rootElem: Element) {
-  const app = document.getElementById('root')?.querySelector('.app');
-  if (app) {
-    app.appendChild(rootElem);
+// function addRootElement(rootElem: Element) {
+//   const app = document.getElementById('root')?.querySelector('.app');
+//   if (app) {
+//     app.appendChild(rootElem);
+//   }
+// }
+
+function addRootElement(rootElem: any) {
+  if (document.body.lastElementChild) {
+    document.body.insertBefore(
+      rootElem,
+      document.body.lastElementChild.nextElementSibling
+    );
   }
 }
 
