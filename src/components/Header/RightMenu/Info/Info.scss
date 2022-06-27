@@ -1,0 +1,40 @@
+@import './src/assets/styles/imports';
+
+.info {
+  display: flex;
+  flex-flow: column wrap;
+  font-size: 14px;
+  &__personal {
+    padding: 10px;
+  }
+
+  &__menu {
+    &-item {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      padding: 5px;
+      margin: 5px;
+      border-radius: $border-radius;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #eee;
+      }
+
+      &-icon {
+        display: flex;
+        margin-right: 10px;
+
+        & svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      &-title {
+
+      }
+    }
+  }
+}

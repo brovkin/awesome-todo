@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
-import Info from './Info';
-import './Notification.scss';
 import cn from 'classnames';
+import './Notification.scss';
+
+export const INTERFACE_ERRORS = {
+  listAlreadyExists: 'Лист с таким названием уже существует',
+};
 
 interface NotificationProps {
   type: 'info' | 'error';
@@ -9,12 +12,7 @@ interface NotificationProps {
 }
 
 const Notification: FC<NotificationProps> = ({ type, text }) => {
-  return (
-    <div className={cn('notification', type)}>
-      {type === 'info' && <Info text={text} />}
-      {type === 'error' && 'error'}
-    </div>
-  );
+  return <div className={cn('notification', type)}>{text}</div>;
 };
 
 export default Notification;
