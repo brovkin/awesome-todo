@@ -9,6 +9,8 @@
     "^@features/(.*)$",
     "^@app/(.*)$",
     "^@assets/(.*)$",
+    "^@hooks/(.*)$",
+    "^@context/(.*)$",
     "^@utils/(.*)$",
     "^@constants(.*)$",
     "^[./]"

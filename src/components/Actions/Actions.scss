@@ -1,10 +1,39 @@
 .actions {
-  background-color: #fff;
-  box-shadow: 0 0 10px -1px rgba(0,0,0, 0.3);
+  background-color: transparent;
   width: auto;
   height: 100%;
-  padding: 20px;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
+
+  &__create-btn {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    &:hover {
+      margin-bottom: 1px;
+    }
+  }
+
+  &__modal {
+    &-create {
+      &-title {
+        margin-bottom: 20px;
+      }
+
+      &-form {
+        display: flex;
+        flex-flow: column wrap;
+        align-items: flex-start;
+      }
+
+      &-input {
+        margin-bottom: 20px;
+      }
+
+      &-btn {
+
+      }
+    }
+  }
 }
