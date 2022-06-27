@@ -19,14 +19,15 @@ const ItemsList: FC = () => {
   const activeList = useAppSelector(
     (state) => state.todo.lists.find((list) => list.active) || null
   );
-  //
-  // useEffect(() => {}, [activeList]);
 
   if (!activeList) {
     return (
       <>
-        <Button clickHandler={() => setListModal(true)}>
-          Создать первый список
+        <Button
+          className="todo-list__create-new-list-btn"
+          clickHandler={() => setListModal(true)}
+        >
+          Создать первый лист
         </Button>
         <Notification type="info" text="Нет активных списков" />
       </>
@@ -40,7 +41,7 @@ const ItemsList: FC = () => {
       return <DragDrop listId={id} draggableList={todos} />;
     }
 
-    return <Notification type="info" text="В списке нет TODOs" />;
+    return <Notification type="info" text="Список пуст" />;
   };
 
   return (

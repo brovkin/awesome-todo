@@ -16,7 +16,12 @@ const ListMenu: FC<ListMenuProps> = ({ isOpen }) => {
   return (
     <CSSTransition in={isOpen} timeout={100} classNames="list-menu-animation">
       <div className={cn('list-menu app-container', { active: isOpen })}>
-        <Button clickHandler={() => setListModal(true)}>Новый лист</Button>
+        <Button
+          className="list-menu__create-list-btn"
+          clickHandler={() => setListModal(true)}
+        >
+          Новый лист
+        </Button>
         <Lists />
       </div>
     </CSSTransition>

@@ -20,7 +20,6 @@ const App: FC = () => {
           </div>
           <ListModal />
         </CreateListProvider>
-        {/*<ListModal isOpen={listModal} onClose={() => setListModal(false)} />*/}
       </div>
     </div>
   );

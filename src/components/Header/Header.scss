@@ -33,5 +33,14 @@
     flex: 2;
     margin: 0;
     font-size: 22px;
+
+    &-link {
+      color: #000;
+      text-decoration: none;
+
+      &:hover {
+        color: initial;
+      }
+    }
   }
 }
