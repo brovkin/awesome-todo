@@ -19,7 +19,6 @@ const Header: FC = () => {
           </div>
           <h1 className="header__title">
             <a className="header__title-link" href="/">
-              {' '}
               Awesome Todo App
             </a>
           </h1>
