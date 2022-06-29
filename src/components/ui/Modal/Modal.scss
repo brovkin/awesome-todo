@@ -1,5 +1,4 @@
 .modal {
-  //background-color: var(--main-color);
   width: 100%;
   height: 100%;
   position: fixed;
@@ -38,4 +37,13 @@
   &__block {
 
   }
+
+  &__title {
+    border-bottom: 1px solid #cccc;
+    padding-bottom: 10px;
+  }
+}
+
+.react-modal {
+  outline: none;
 }

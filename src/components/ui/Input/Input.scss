@@ -11,6 +11,7 @@
     border: none;
     border-bottom: 2px solid #E9E3FF;
     padding: 5px 5px 5px 0;
+    background-color: transparent;
 
     &.error {
       border-bottom-color: $error-bg;

@@ -7,26 +7,30 @@ interface ButtonProps {
   className?: string;
   clickHandler?: () => void;
   children?: JSX.Element | React.ReactNode;
-  type?: 'button' | 'icon';
+  mode?: 'button' | 'icon';
   icon?: JSX.Element | React.ReactNode;
   tooltip?: string;
+  type?: 'submit' | 'cancel';
 }
 
 const Button: FC<ButtonProps> = ({
   children,
   clickHandler,
   className,
-  type = 'button',
+  mode = 'button',
+  type,
   icon,
   tooltip,
   ...props
 }) => {
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
-  const isIcon = type === 'icon';
-  const isButton = type === 'button';
+  const isIcon = mode === 'icon';
+  const isButton = mode === 'button';
   return (
     <button
-      className={cn('ui-button', type, className)}
+      className={cn('ui-button', mode, className, {
+        cancel: type === 'cancel',
+      })}
       onClick={clickHandler}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
