@@ -20,7 +20,7 @@ const ListMenu: FC<ListMenuProps> = ({ isOpen }) => {
           className="list-menu__create-list-btn"
           clickHandler={() => setListModal(true)}
         >
-          Новый лист
+          Новый список
         </Button>
         <Lists />
       </div>

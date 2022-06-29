@@ -2,7 +2,7 @@
 
 .ui-button {
   background-color: $main-color;
-  border: none;
+  border: 1px solid $main-color;
   border-radius: 3px;
   padding: 10px 15px;
   cursor: pointer;
@@ -10,6 +10,7 @@
   opacity: 0.7;
   transition: .3s opacity;
   outline: none;
+  font-size: 14px;
 
   &.icon {
     display: flex;
@@ -42,6 +43,16 @@
 
   &:hover {
     opacity: 1;
+  }
+
+  &.cancel {
+    background-color: #fff;
+    border: 1px solid $main-color;
+    border-radius: 3px;
+    transition: all .3s ease;
+    &:hover {
+      background-color: $main-color;
+    }
   }
 }
 

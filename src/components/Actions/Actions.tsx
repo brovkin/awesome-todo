@@ -12,7 +12,7 @@ const Actions: FC = () => {
       <Button
         clickHandler={() => setListModal(true)}
         className="actions__create-btn"
-        type="icon"
+        mode="icon"
         icon={<Icon type="plus" />}
         tooltip="Создать новый список"
       />

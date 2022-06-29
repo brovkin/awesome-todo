@@ -3,7 +3,7 @@ import cn from 'classnames';
 import './Notification.scss';
 
 export const INTERFACE_ERRORS = {
-  listAlreadyExists: 'Лист с таким названием уже существует',
+  listAlreadyExists: 'Список с таким названием уже существует',
 };
 
 interface NotificationProps {
