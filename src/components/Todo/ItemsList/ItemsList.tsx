@@ -1,24 +1,32 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import DragDrop from '@components/Todo/DragDrop';
 import InputField from '@components/Todo/InputField';
+import Button from '@components/ui/Button';
 import { getTodos } from '@features/todoSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { CreateListContext } from '@context/CreateListContext';
 import Notification from '../../Notification';
 import './ItemsList.scss';
 
 const ItemsList: FC = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getTodos(null));
-  }, []);
+  const { setListModal } = useContext(CreateListContext) as CreateListContext;
 
   const activeList = useAppSelector(
     (state) => state.todo.lists.find((list) => list.active) || null
   );
 
   if (!activeList) {
-    return <Notification type="info" text="Нет активных листов" />;
+    return (
+      <>
+        <Button
+          className="todo-list__create-new-list-btn"
+          clickHandler={() => setListModal(true)}
+        >
+          Создать первый список
+        </Button>
+        <Notification type="info" text="Нет активных списков" />
+      </>
+    );
   }
 
   const { id, todos } = activeList;
@@ -28,7 +36,7 @@ const ItemsList: FC = () => {
       return <DragDrop listId={id} draggableList={todos} />;
     }
 
-    return <Notification type="info" text="В списке нет TODOs" />;
+    return <Notification type="info" text="Список пуст" />;
   };
 
   return (

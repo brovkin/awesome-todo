@@ -1,6 +1,10 @@
 import { Slice, createSlice } from '@reduxjs/toolkit';
-import { getLocalStorage, updateLocalStorage } from '@utils/localStorage';
-import { STORAGE_NAME } from '@constants';
+import {
+  clearLocalStorage,
+  getLocalStorage,
+  updateLocalStorage,
+} from '@utils/localStorage';
+import { STORAGE_LISTS } from '@constants';
 import changeTodoById from '../utils/changeTodoById';
 
 export interface Todo {
@@ -18,18 +22,17 @@ export interface TodoList {
 }
 
 interface State {
-  items: Todo[];
   lists: TodoList[];
 }
 
-const initialState = { items: [], lists: [] } as State;
+const initialState = { lists: [] } as State;
 
 export const todoSlice: Slice<State> = createSlice({
   name: 'todo',
   initialState,
   reducers: {
     getTodos: (state) => {
-      state.lists = getLocalStorage(STORAGE_NAME);
+      state.lists = getLocalStorage(STORAGE_LISTS);
     },
     addTodo: (state, action) => {
       const { listId, newTodo } = action.payload;
@@ -37,14 +40,14 @@ export const todoSlice: Slice<State> = createSlice({
         if (list.id === listId) {
           return {
             ...list,
-            todos: [...list.todos, newTodo],
+            todos: [newTodo, ...list.todos],
           };
         }
 
         return list;
       });
       state.lists = updatedLists;
-      updateLocalStorage(updatedLists);
+      updateLocalStorage(STORAGE_LISTS, updatedLists);
     },
     checkedTodo: (state, action) => {
       const { id, listId } = action.payload;
@@ -63,7 +66,7 @@ export const todoSlice: Slice<State> = createSlice({
         return list;
       });
       state.lists = updatedLists;
-      updateLocalStorage(updatedLists);
+      updateLocalStorage(STORAGE_LISTS, updatedLists);
     },
     deleteTodo: (state, action) => {
       const { listId, id } = action.payload;
@@ -78,7 +81,7 @@ export const todoSlice: Slice<State> = createSlice({
         return list;
       });
       state.lists = updatedLists;
-      updateLocalStorage(updatedLists);
+      updateLocalStorage(STORAGE_LISTS, updatedLists);
     },
     editTodo: (state, action) => {
       const {
@@ -95,7 +98,7 @@ export const todoSlice: Slice<State> = createSlice({
         return list;
       });
       state.lists = updatedLists;
-      updateLocalStorage(updatedLists);
+      updateLocalStorage(STORAGE_LISTS, updatedLists);
     },
     confirmEditTodo: (state, action) => {
       const {
@@ -117,7 +120,7 @@ export const todoSlice: Slice<State> = createSlice({
       });
 
       state.lists = updatedLists;
-      updateLocalStorage(updatedLists);
+      updateLocalStorage(STORAGE_LISTS, updatedLists);
     },
     updateAllTodos: (state, action) => {
       const { listId, updatedList } = action.payload;
@@ -134,13 +137,16 @@ export const todoSlice: Slice<State> = createSlice({
       });
 
       state.lists = updatedLists;
-      updateLocalStorage(updatedLists);
+      updateLocalStorage(STORAGE_LISTS, updatedLists);
     },
 
     // lists
 
     createList: (state, action) => {
-      state.lists.push(action.payload);
+      const newList = action.payload;
+      const allLists = [...state.lists, newList];
+      state.lists = allLists;
+      updateLocalStorage(STORAGE_LISTS, allLists);
     },
 
     setActiveList: (state, action) => {
@@ -160,6 +166,11 @@ export const todoSlice: Slice<State> = createSlice({
         };
       });
     },
+
+    clearAll: (state) => {
+      state.lists = [];
+      clearLocalStorage(STORAGE_LISTS);
+    },
   },
 });
 
@@ -173,6 +184,7 @@ export const {
   updateAllTodos,
   createList,
   setActiveList,
+  clearAll,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

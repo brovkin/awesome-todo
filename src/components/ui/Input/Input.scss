@@ -1,0 +1,47 @@
+@import './src/assets/styles/imports';
+
+.ui-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &__input {
+    margin-right: 10px;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #E9E3FF;
+    padding: 5px 5px 5px 0;
+    background-color: transparent;
+
+    &.error {
+      border-bottom-color: $error-bg;
+      padding-right: 25px;
+      animation: shake 0.2s ease-in-out 0s 2;
+    }
+  }
+
+  &__error {
+    position: absolute;
+    right: 10px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background: $error-bg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    & svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+@keyframes shake {
+  0% { margin-left: 0; }
+  25% { margin-left: 2px; }
+  75% { margin-left: -2px; }
+  100% { margin-left: 0; }
+}
