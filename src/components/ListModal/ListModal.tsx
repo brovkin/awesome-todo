@@ -21,7 +21,7 @@ const ListModal: FC = () => {
   const { listModal, setListModal } = useContext(
     CreateListContext
   ) as CreateListContext;
-  const [title, setTitle] = useState<string>('Новый лист');
+  const [title, setTitle] = useState<string>('Новый список');
   const [error, setError] = useState<string>('');
 
   const allLists = useSelector((state: RootState) => state.todo.lists);
@@ -47,7 +47,7 @@ const ListModal: FC = () => {
       };
 
       dispatch(createList(newList));
-      setTitle('Новый лист');
+      setTitle('Новый список');
       setListModal(false);
     }
   };
@@ -64,10 +64,11 @@ const ListModal: FC = () => {
     }
   };
   return (
-    <Modal isOpen={listModal} closeHandler={() => setListModal(false)}>
-      <h3 className="actions__modal-create-title">
-        Введите название нового листа
-      </h3>
+    <Modal
+      isOpen={listModal}
+      closeHandler={() => setListModal(false)}
+      title="Введите название нового списка"
+    >
       <div className="actions__modal-create-form">
         <Input
           className="actions__modal-create-input"
@@ -83,7 +84,7 @@ const ListModal: FC = () => {
           clickHandler={handleCreateList}
           className="actions__modal-create-btn"
         >
-          Создать лист
+          Создать список
         </Button>
       </div>
     </Modal>
