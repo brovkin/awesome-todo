@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import GithubBadge from '@components/Header/GithubBadge';
 import RightMenu from '@components/Header/RightMenu';
 import ListMenu from '@components/ListMenu';
 import Icon from '@components/ui/Icon';
@@ -21,6 +22,7 @@ const Header: FC = () => {
             <a className="header__title-link" href="/">
               Awesome Todo App
             </a>
+            <GithubBadge />
           </h1>
           <RightMenu />
         </div>
