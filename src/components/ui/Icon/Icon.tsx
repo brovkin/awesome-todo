@@ -10,6 +10,7 @@ import { ReactComponent as Menu } from '@assets/icons/menu.svg';
 import { ReactComponent as Plus } from '@assets/icons/plus.svg';
 import { ReactComponent as Profile } from '@assets/icons/profile.svg';
 import { ReactComponent as Settings } from '@assets/icons/settings.svg';
+import { ReactComponent as Spinner } from '@assets/icons/spinner.svg';
 import './Icon.scss';
 
 interface IconMapProps {
@@ -34,6 +35,7 @@ const iconMap: IconMapProps = {
   profile: Profile,
   broom: Broom,
   edit: Edit,
+  spinner: Spinner,
 };
 
 const Icon: FC<IconProps> = ({ type, className, clickHandler, tooltip }) => {
