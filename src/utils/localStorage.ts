@@ -1,6 +1,17 @@
+import { STORAGE_LISTS } from '@constants';
+
 export const getLocalStorage = (storageName: string) => {
   const json: string | null = localStorage.getItem(storageName);
-  return json ? JSON.parse(json) : [];
+
+  if (json) {
+    return JSON.parse(json);
+  }
+
+  if (storageName === STORAGE_LISTS) {
+    return [];
+  }
+
+  return {};
 };
 
 export const updateLocalStorage = (storageName: string, value: any): void => {

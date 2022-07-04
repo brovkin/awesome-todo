@@ -12,7 +12,6 @@ interface ListMenuProps {
 
 const ListMenu: FC<ListMenuProps> = ({ isOpen }) => {
   const { setListModal } = useContext(CreateListContext) as CreateListContext;
-
   return (
     <CSSTransition in={isOpen} timeout={100} classNames="list-menu-animation">
       <div className={cn('list-menu app-container', { active: isOpen })}>

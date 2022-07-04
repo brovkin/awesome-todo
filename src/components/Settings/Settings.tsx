@@ -1,9 +1,10 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '@components/ui/Button';
 import FormInput from '@components/ui/FormInput';
 import Modal from '@components/ui/Modal';
 import { savePersonalInfo } from '@features/personalSlice';
+import { setSavePositionListMenu } from '@features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import './Settings.scss';
 
@@ -23,13 +24,15 @@ const onError = (type: any) => {
 
 const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
   const { name, surname } = useAppSelector((state) => state.personal.info);
+  const { savePositionListMenu } = useAppSelector((state) => state.settings);
   const dispatch = useAppDispatch();
-  const defaultValues = { name, surname };
+  const defaultValues = { name, surname, savePositionListMenu };
   const {
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { isDirty },
     control,
     reset,
+    register,
   } = useForm({ defaultValues });
 
   const cancel = () => {
@@ -38,7 +41,10 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
   };
 
   const onSubmit = (data: any) => {
-    dispatch(savePersonalInfo(data));
+    const { name, surname, savePositionListMenu } = data;
+    dispatch(savePersonalInfo({ name, surname }));
+    dispatch(setSavePositionListMenu(savePositionListMenu));
+    reset(data);
     closeHandler();
   };
 
@@ -69,13 +75,15 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
           </div>
         </div>
 
-        {/*<div className="settings__item">*/}
-        {/*  <div className="settings__item-title">Боковое меню со списками</div>*/}
-        {/*  <div className="settings__item-value">*/}
-        {/*    Свитч*/}
-        {/*    <input type="checkbox" />*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+        <div className="settings__item">
+          <div className="settings__item-title">Закрепить меню со списками</div>
+          <div className="settings__item-value">
+            <input
+              type="checkbox"
+              {...register('savePositionListMenu', { required: false })}
+            />
+          </div>
+        </div>
 
         <div className="settings__btn-wrapper">
           {isDirty ? (
