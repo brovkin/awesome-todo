@@ -21,7 +21,6 @@ interface IconProps {
   type: string;
   className?: string;
   clickHandler?: (e?: MouseEvent<HTMLElement>) => void;
-  tooltip?: string;
 }
 
 const iconMap: IconMapProps = {
@@ -38,12 +37,11 @@ const iconMap: IconMapProps = {
   spinner: Spinner,
 };
 
-const Icon: FC<IconProps> = ({ type, className, clickHandler, tooltip }) => {
+const Icon: FC<IconProps> = ({ type, className, clickHandler }) => {
   const Component = iconMap[type];
   return (
     <i className={cn('icon', className)} onClick={clickHandler}>
       <Component />
-      {tooltip ? <div className="icon__tooltip">{tooltip}</div> : null}
     </i>
   );
 };
