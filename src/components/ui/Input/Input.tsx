@@ -53,22 +53,27 @@ const Input: FC<InputProps> = ({
     }
   }, [ref]);
 
+  const Tooltip: FC = () => (
+    <div className="ui-input__error-tooltip">{error}</div>
+  );
+
   return (
-    <div className={cn('ui-input', className)}>
+    <div
+      className={cn('ui-input', className, {
+        error: error,
+      })}
+    >
       <input
         ref={ref}
-        className={cn('ui-input__input', {
-          error: error,
-        })}
+        className={cn('ui-input__input')}
         onChange={onChange}
         onKeyDown={onKeyDown}
         value={value}
         type={type}
         {...props}
       />
-      {error ? (
-        <Icon type="exclamation" className="ui-input__error" tooltip={error} />
-      ) : null}
+      {error ? <Icon type="exclamation" className="ui-input__error" /> : null}
+      {error ? <Tooltip /> : null}
     </div>
   );
 };
