@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { ReactComponent as Adjust } from '@assets/icons/adjust.svg';
 import { ReactComponent as Broom } from '@assets/icons/broom.svg';
 import { ReactComponent as Cross } from '@assets/icons/cross.svg';
+import { ReactComponent as Delete } from '@assets/icons/delete.svg';
 import { ReactComponent as DraggerIcon } from '@assets/icons/dragger.svg';
 import { ReactComponent as Edit } from '@assets/icons/edit.svg';
 import { ReactComponent as Exclamation } from '@assets/icons/exclamation.svg';
@@ -20,7 +21,7 @@ interface IconMapProps {
 interface IconProps {
   type: string;
   className?: string;
-  clickHandler?: (e?: MouseEvent<HTMLElement>) => void;
+  clickHandler?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 const iconMap: IconMapProps = {
@@ -35,6 +36,7 @@ const iconMap: IconMapProps = {
   broom: Broom,
   edit: Edit,
   spinner: Spinner,
+  delete: Delete,
 };
 
 const Icon: FC<IconProps> = ({ type, className, clickHandler }) => {
