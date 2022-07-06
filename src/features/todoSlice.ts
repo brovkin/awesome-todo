@@ -122,6 +122,7 @@ export const todoSlice: Slice<State> = createSlice({
       state.lists = updatedLists;
       updateLocalStorage(STORAGE_LISTS, updatedLists);
     },
+    // for dnd
     updateAllTodos: (state, action) => {
       const { listId, updatedList } = action.payload;
 
@@ -151,8 +152,7 @@ export const todoSlice: Slice<State> = createSlice({
 
     setActiveList: (state, action) => {
       const id = action.payload;
-
-      state.lists = state.lists.map((list) => {
+      const updatedLists = state.lists.map((list) => {
         if (list.id === id) {
           return {
             ...list,
@@ -165,6 +165,34 @@ export const todoSlice: Slice<State> = createSlice({
           active: false,
         };
       });
+
+      state.lists = updatedLists;
+      updateLocalStorage(STORAGE_LISTS, updatedLists);
+    },
+
+    deleteList: (state, action) => {
+      const id = action.payload;
+      const updatedLists = state.lists.filter((list) => list.id !== id);
+
+      state.lists = updatedLists;
+      updateLocalStorage(STORAGE_LISTS, updatedLists);
+    },
+
+    editList: (state, action) => {
+      const { id, data } = action.payload;
+      const updatedLists = state.lists.map((list) => {
+        if (list.id === id) {
+          return {
+            ...list,
+            ...data,
+          };
+        }
+
+        return list;
+      });
+
+      state.lists = updatedLists;
+      updateLocalStorage(STORAGE_LISTS, updatedLists);
     },
 
     clearAll: (state) => {
@@ -185,6 +213,8 @@ export const {
   createList,
   setActiveList,
   clearAll,
+  deleteList,
+  editList,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

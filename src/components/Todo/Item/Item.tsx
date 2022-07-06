@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Todo, deleteTodo, editTodo } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
+// Todo
 import { ReactComponent as Delete } from '@assets/icons/delete.svg';
 import { ReactComponent as Edit } from '@assets/icons/edit.svg';
 import Checkbox from '../Checkbox';
