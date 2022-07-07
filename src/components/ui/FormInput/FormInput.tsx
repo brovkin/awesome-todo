@@ -5,30 +5,37 @@ import './FormInput.scss';
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   control: any;
+  rules?: any;
+  defaultValue?: string;
   label: string;
 }
 
-const FormInput: FC<FormInputProps> = ({ control, name, label, ...props }) => {
+const FormInput: FC<FormInputProps> = ({
+  control,
+  name,
+  label,
+  rules,
+  defaultValue,
+  ...props
+}) => {
   const {
     field: { onChange, onBlur, value, ref },
-    fieldState: { invalid, isTouched, isDirty },
-    formState: { touchedFields, dirtyFields },
   } = useController({
     name,
     control,
-    rules: { required: true },
-    defaultValue: '',
+    rules,
+    defaultValue: defaultValue || '',
   });
   return (
-    <div className="form-item__item">
-      {label ? <div className="form-item__item-title">{label}</div> : null}
-      <div className="form-item__item-value-wrapper">
+    <div className="form-item">
+      {label ? <div className="form-item__title">{label}</div> : null}
+      <div className="form-item__value-wrapper">
         <input
           ref={ref}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          className="form-item__item-value-input"
+          className="form-item__value-input"
           {...props}
         />
       </div>

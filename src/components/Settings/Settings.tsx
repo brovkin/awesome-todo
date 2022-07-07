@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import Button from '@components/ui/Button';
 import FormInput from '@components/ui/FormInput';
 import Modal from '@components/ui/Modal';
+import Switch from '@components/ui/Switch';
 import { savePersonalInfo } from '@features/personalSlice';
 import { setSavePositionListMenu } from '@features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
@@ -57,15 +58,11 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
 
         <FormInput control={control} label="Фамилия" name="surname" />
 
-        <div className="settings__item">
-          <div className="settings__item-title">Закрепить меню со списками</div>
-          <div className="settings__item-value">
-            <input
-              type="checkbox"
-              {...register('savePositionListMenu', { required: false })}
-            />
-          </div>
-        </div>
+        <Switch
+          control={control}
+          name="savePositionListMenu"
+          label="Закрепить меню со списками"
+        />
 
         <div className="settings__btn-wrapper">
           {isDirty ? (
