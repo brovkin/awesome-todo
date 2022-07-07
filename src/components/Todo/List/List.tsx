@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, useState } from 'react';
+import React, { FC, MouseEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import cn from 'classnames';
 import Button from '@components/ui/Button';
@@ -15,7 +15,7 @@ import { useAppDispatch } from '@app/hooks';
 import './List.scss';
 
 const List: FC<TodoList> = ({ id, title, todos, active }) => {
-  const [showIcons, setShowIcons] = useState<boolean>(true);
+  const [showIcons, setShowIcons] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
 
   const defaultValues = { title };
@@ -28,6 +28,10 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
   } = useForm({ defaultValues });
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    !modal && setShowIcons(false);
+  }, [modal]);
+
   const handleClick = () => {
     dispatch(setActiveList(id));
   };
@@ -37,7 +41,7 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
   };
 
   const onListMouseLeave = () => {
-    setShowIcons(true);
+    setShowIcons(false);
   };
 
   const handleEdit = (e: MouseEvent<HTMLElement>) => {
@@ -47,7 +51,6 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
 
   const handleDelete = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-
     dispatch(deleteList(id));
   };
 
@@ -58,9 +61,14 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
     setModal(false);
   };
 
+  const close = () => {
+    setModal(false);
+  };
+
   const onSubmit = (data: { title: string }) => {
     dispatch(editList({ id, data }));
     setModal(false);
+    reset(data);
   };
 
   return (
@@ -89,15 +97,11 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
       ) : (
         <div className="list__todos-quantity">{todos.length}</div>
       )}
-      <Modal
-        title={renderModalTitle}
-        isOpen={modal}
-        closeHandler={() => setModal(false)}
-      >
+      <Modal title={renderModalTitle} isOpen={modal} closeHandler={close}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormInput name="title" control={control} />
+          <FormInput label="Название" name="title" control={control} />
 
-          <div className="settings__btn-wrapper">
+          <div className="list__btn-wrapper">
             {isDirty ? (
               <>
                 <Button
@@ -112,10 +116,7 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
                 </Button>
               </>
             ) : (
-              <Button
-                className="settings__btn-close"
-                clickHandler={() => setModal(false)}
-              >
+              <Button className="settings__btn-close" clickHandler={close}>
                 Закрыть
               </Button>
             )}

@@ -1,7 +1,5 @@
 @import './src/assets/styles/imports';
 
-$test: #7EBC89;
-
 .list {
   width: 100%;
   border-radius: 5px;
@@ -49,6 +47,21 @@ $test: #7EBC89;
     }
   }
 
+  &__btn {
+    &-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &-submit {
+
+    }
+
+    &-cancel {
+      margin-right: 10px;
+    }
+  }
+
   &:hover {
     background-color: #eee;
   }
@@ -69,11 +82,11 @@ $test: #7EBC89;
 
   50% {
     transform: translateY(-1px);
-    fill: $test;
+    fill: $secondary-color;
   }
 
   100% {
     transform: translateY(0);
-    fill: $test;
+    fill: $secondary-color;
   }
 }
