@@ -53,27 +53,9 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
       <form onSubmit={handleSubmit(onSubmit)} className="settings">
         <p>Информация</p>
 
-        <div className="settings__item">
-          <div className="settings__item-title">Имя</div>
-          <div className="settings__item-value-wrapper">
-            <FormInput
-              control={control}
-              className="settings__item-value-edit"
-              name="name"
-            />
-          </div>
-        </div>
+        <FormInput control={control} label="Имя" name="name" />
 
-        <div className="settings__item">
-          <div className="settings__item-title">Фамилия</div>
-          <div className="settings__item-value-wrapper">
-            <FormInput
-              control={control}
-              className="settings__item-value-edit"
-              name="surname"
-            />
-          </div>
-        </div>
+        <FormInput control={control} label="Фамилия" name="surname" />
 
         <div className="settings__item">
           <div className="settings__item-title">Закрепить меню со списками</div>
