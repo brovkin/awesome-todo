@@ -197,7 +197,7 @@ export const todoSlice: Slice<State> = createSlice({
 
     clearAll: (state) => {
       state.lists = [];
-      clearLocalStorage(STORAGE_LISTS);
+      clearLocalStorage();
     },
   },
 });

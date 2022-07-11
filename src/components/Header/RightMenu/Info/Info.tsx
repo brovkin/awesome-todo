@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import Icon from '@components/ui/Icon';
 import { clearAll } from '@features/todoSlice';
-import { useAppDispatch } from '@app/hooks';
+import { useAppDispatch, useAppSelector } from '@app/hooks';
 import './Info.scss';
 
 interface InfoProps {
@@ -11,16 +11,25 @@ interface InfoProps {
 
 const Info: FC<InfoProps> = ({ openSettingsModal, setRightMenu }) => {
   const dispatch = useAppDispatch();
+  const { name, surname, email } = useAppSelector(
+    (state) => state.personal.info
+  );
   const handleClear = () => {
     dispatch(clearAll(null));
     setRightMenu(false);
+    window.location.reload();
   };
 
   return (
     <>
       <div className="info">
         <div className="info__personal">
-          <div className="info__personal-name">Артем</div>
+          <div className="info__personal-name">
+            {surname} {name}
+          </div>
+          <a href={`mailto:${email}`} className="info__personal-email">
+            {email}
+          </a>
         </div>
         <hr />
         <div className="info__menu">
