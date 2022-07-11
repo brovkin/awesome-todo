@@ -9,6 +9,7 @@ interface ButtonProps {
   children?: JSX.Element | React.ReactNode;
   mode?: 'button' | 'icon';
   icon?: JSX.Element | React.ReactNode;
+  disabled?: boolean;
   tooltip?: string;
   type?: 'submit' | 'cancel';
 }
@@ -21,6 +22,7 @@ const Button: FC<ButtonProps> = ({
   type,
   icon,
   tooltip,
+  disabled,
   ...props
 }) => {
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
@@ -30,6 +32,7 @@ const Button: FC<ButtonProps> = ({
     <button
       className={cn('ui-button', mode, className, {
         cancel: type === 'cancel',
+        disabled,
       })}
       onClick={clickHandler}
       onMouseEnter={() => setShowTooltip(true)}

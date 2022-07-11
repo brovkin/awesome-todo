@@ -1,3 +1,4 @@
+import { initialState as personalState } from '@features/personalSlice';
 import { initialState as settingsState } from '@features/settingsSlice';
 import isEmpty from '@helpers/isEmpty';
 import { getLocalStorage } from '@utils/localStorage';
@@ -9,7 +10,10 @@ const setInitialState = (initialState: any, localStorage: any) => {
 
 export const getStorage = () => {
   const lists = getLocalStorage(STORAGE_LISTS);
-  const personal = getLocalStorage(STORAGE_PERSONAL);
+  const personal = setInitialState(
+    personalState,
+    getLocalStorage(STORAGE_PERSONAL)
+  );
   const settings = setInitialState(
     settingsState,
     getLocalStorage(STORAGE_SETTINGS)

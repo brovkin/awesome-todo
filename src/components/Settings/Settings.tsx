@@ -24,16 +24,17 @@ const onError = (type: any) => {
 };
 
 const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
-  const { name, surname } = useAppSelector((state) => state.personal.info);
+  const { name, surname, email } = useAppSelector(
+    (state) => state.personal.info
+  );
   const { savePositionListMenu } = useAppSelector((state) => state.settings);
   const dispatch = useAppDispatch();
-  const defaultValues = { name, surname, savePositionListMenu };
+  const defaultValues = { name, surname, email, savePositionListMenu };
   const {
     handleSubmit,
     formState: { isDirty },
     control,
     reset,
-    register,
   } = useForm({ defaultValues });
 
   const cancel = () => {
@@ -42,8 +43,8 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
   };
 
   const onSubmit = (data: any) => {
-    const { name, surname, savePositionListMenu } = data;
-    dispatch(savePersonalInfo({ name, surname }));
+    const { name, surname, email, savePositionListMenu } = data;
+    dispatch(savePersonalInfo({ name, surname, email }));
     dispatch(setSavePositionListMenu(savePositionListMenu));
     reset(data);
     closeHandler();
@@ -57,6 +58,19 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
         <FormInput control={control} label="Имя" name="name" />
 
         <FormInput control={control} label="Фамилия" name="surname" />
+
+        <FormInput
+          control={control}
+          label="Email"
+          name="email"
+          rules={{
+            required: true,
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: 'Entered value does not match email format',
+            },
+          }}
+        />
 
         <Switch
           control={control}
