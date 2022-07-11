@@ -4,6 +4,7 @@ import {
   getLocalStorage,
   updateLocalStorage,
 } from '@utils/localStorage';
+import { clearSessionStorage } from '@utils/sessionStorage';
 import { STORAGE_LISTS } from '@constants';
 import changeTodoById from '../utils/changeTodoById';
 
@@ -198,6 +199,7 @@ export const todoSlice: Slice<State> = createSlice({
     clearAll: (state) => {
       state.lists = [];
       clearLocalStorage();
+      clearSessionStorage();
     },
   },
 });

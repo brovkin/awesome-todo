@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { ReactComponent as Adjust } from '@assets/icons/adjust.svg';
 import { ReactComponent as Broom } from '@assets/icons/broom.svg';
 import { ReactComponent as Cross } from '@assets/icons/cross.svg';
+import { ReactComponent as Cup } from '@assets/icons/cup.svg';
 import { ReactComponent as Delete } from '@assets/icons/delete.svg';
 import { ReactComponent as DraggerIcon } from '@assets/icons/dragger.svg';
 import { ReactComponent as Edit } from '@assets/icons/edit.svg';
@@ -37,6 +38,7 @@ const iconMap: IconMapProps = {
   edit: Edit,
   spinner: Spinner,
   delete: Delete,
+  cup: Cup,
 };
 
 const Icon: FC<IconProps> = ({ type, className, clickHandler }) => {
