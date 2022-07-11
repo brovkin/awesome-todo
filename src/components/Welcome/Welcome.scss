@@ -1,0 +1,16 @@
+.welcome {
+  &__btn {
+    &-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &-submit {
+
+    }
+
+    &-cancel {
+      margin-right: 10px;
+    }
+  }
+}

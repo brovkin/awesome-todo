@@ -11,6 +11,7 @@
     "^@assets/(.*)$",
     "^@hooks/(.*)$",
     "^@context/(.*)$",
+    "^@helpers/(.*)$",
     "^@utils/(.*)$",
     "^@constants(.*)$",
     "^[./]"
