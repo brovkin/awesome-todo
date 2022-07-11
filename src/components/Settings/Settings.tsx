@@ -1,9 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '@components/ui/Button';
 import FormInput from '@components/ui/FormInput';
 import Modal from '@components/ui/Modal';
+import Switch from '@components/ui/Switch';
 import { savePersonalInfo } from '@features/personalSlice';
+import { setSavePositionListMenu } from '@features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import './Settings.scss';
 
@@ -22,12 +24,15 @@ const onError = (type: any) => {
 };
 
 const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
-  const { name, surname } = useAppSelector((state) => state.personal.info);
+  const { name, surname, email } = useAppSelector(
+    (state) => state.personal.info
+  );
+  const { savePositionListMenu } = useAppSelector((state) => state.settings);
   const dispatch = useAppDispatch();
-  const defaultValues = { name, surname };
+  const defaultValues = { name, surname, email, savePositionListMenu };
   const {
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { isDirty },
     control,
     reset,
   } = useForm({ defaultValues });
@@ -38,7 +43,10 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
   };
 
   const onSubmit = (data: any) => {
-    dispatch(savePersonalInfo(data));
+    const { name, surname, email, savePositionListMenu } = data;
+    dispatch(savePersonalInfo({ name, surname, email }));
+    dispatch(setSavePositionListMenu(savePositionListMenu));
+    reset(data);
     closeHandler();
   };
 
@@ -47,35 +55,28 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
       <form onSubmit={handleSubmit(onSubmit)} className="settings">
         <p>Информация</p>
 
-        <div className="settings__item">
-          <div className="settings__item-title">Имя</div>
-          <div className="settings__item-value-wrapper">
-            <FormInput
-              control={control}
-              className="settings__item-value-edit"
-              name="name"
-            />
-          </div>
-        </div>
+        <FormInput control={control} label="Имя" name="name" />
 
-        <div className="settings__item">
-          <div className="settings__item-title">Фамилия</div>
-          <div className="settings__item-value-wrapper">
-            <FormInput
-              control={control}
-              className="settings__item-value-edit"
-              name="surname"
-            />
-          </div>
-        </div>
+        <FormInput control={control} label="Фамилия" name="surname" />
 
-        {/*<div className="settings__item">*/}
-        {/*  <div className="settings__item-title">Боковое меню со списками</div>*/}
-        {/*  <div className="settings__item-value">*/}
-        {/*    Свитч*/}
-        {/*    <input type="checkbox" />*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+        <FormInput
+          control={control}
+          label="Email"
+          name="email"
+          rules={{
+            required: true,
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: 'Entered value does not match email format',
+            },
+          }}
+        />
+
+        <Switch
+          control={control}
+          name="savePositionListMenu"
+          label="Закрепить меню со списками"
+        />
 
         <div className="settings__btn-wrapper">
           {isDirty ? (

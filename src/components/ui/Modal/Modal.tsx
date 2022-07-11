@@ -5,7 +5,7 @@ import './Modal.scss';
 
 interface ModalProps {
   isOpen: boolean;
-  closeHandler: () => void;
+  closeHandler?: () => void;
   children: JSX.Element | React.ReactNode;
   title: JSX.Element | React.ReactNode;
 }
@@ -15,7 +15,7 @@ ReactModal.setAppElement('#root');
 const Modal: FC<ModalProps> = ({ isOpen, closeHandler, children, title }) => {
   useEffect(() => {
     const close = (e: KeyboardEvent): void => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && closeHandler) {
         closeHandler();
       }
     };

@@ -1,3 +1,5 @@
+@import './src/assets/styles/imports';
+
 .list {
   width: 100%;
   border-radius: 5px;
@@ -18,6 +20,48 @@
     align-items: center;
   }
 
+  &__icons-wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__icon {
+    margin-right: 3px;
+    transition: all .3s ease-in-out;
+    padding: 3px;
+
+    &:hover {
+      svg {
+        animation: icon-animation .5s ease-in-out forwards 0s;
+      }
+    }
+
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__btn {
+    &-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &-submit {
+
+    }
+
+    &-cancel {
+      margin-right: 10px;
+    }
+  }
+
   &:hover {
     background-color: #eee;
   }
@@ -28,5 +72,21 @@
     & .list__todos-quantity {
       font-weight: 500;
     }
+  }
+}
+
+@keyframes icon-animation {
+  0% {
+    transform: translateY(2px);
+  }
+
+  50% {
+    transform: translateY(-1px);
+    fill: $secondary-color;
+  }
+
+  100% {
+    transform: translateY(0);
+    fill: $secondary-color;
   }
 }

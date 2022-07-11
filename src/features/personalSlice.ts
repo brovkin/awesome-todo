@@ -2,16 +2,17 @@ import { Slice, createSlice } from '@reduxjs/toolkit';
 import { getLocalStorage, updateLocalStorage } from '@utils/localStorage';
 import { STORAGE_PERSONAL } from '@constants';
 
-interface Info {
+export interface PersonalInfo {
   name: string;
   surname: string;
+  email: string;
 }
 
 interface State {
-  info: Info;
+  info: PersonalInfo;
 }
 
-const initialState = { info: {} } as State;
+export const initialState = { info: {} } as State;
 
 export const personalSlice: Slice<State> = createSlice({
   name: 'personal',

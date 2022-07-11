@@ -1,9 +1,8 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import DragDrop from '@components/Todo/DragDrop';
 import InputField from '@components/Todo/InputField';
 import Button from '@components/ui/Button';
-import { getTodos } from '@features/todoSlice';
-import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { useAppSelector } from '@app/hooks';
 import { CreateListContext } from '@context/CreateListContext';
 import Notification from '../../Notification';
 import './ItemsList.scss';

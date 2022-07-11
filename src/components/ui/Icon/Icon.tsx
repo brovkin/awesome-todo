@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { ReactComponent as Adjust } from '@assets/icons/adjust.svg';
 import { ReactComponent as Broom } from '@assets/icons/broom.svg';
 import { ReactComponent as Cross } from '@assets/icons/cross.svg';
+import { ReactComponent as Delete } from '@assets/icons/delete.svg';
 import { ReactComponent as DraggerIcon } from '@assets/icons/dragger.svg';
 import { ReactComponent as Edit } from '@assets/icons/edit.svg';
 import { ReactComponent as Exclamation } from '@assets/icons/exclamation.svg';
@@ -10,6 +11,7 @@ import { ReactComponent as Menu } from '@assets/icons/menu.svg';
 import { ReactComponent as Plus } from '@assets/icons/plus.svg';
 import { ReactComponent as Profile } from '@assets/icons/profile.svg';
 import { ReactComponent as Settings } from '@assets/icons/settings.svg';
+import { ReactComponent as Spinner } from '@assets/icons/spinner.svg';
 import './Icon.scss';
 
 interface IconMapProps {
@@ -19,8 +21,7 @@ interface IconMapProps {
 interface IconProps {
   type: string;
   className?: string;
-  clickHandler?: (e?: MouseEvent<HTMLElement>) => void;
-  tooltip?: string;
+  clickHandler?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 const iconMap: IconMapProps = {
@@ -34,14 +35,15 @@ const iconMap: IconMapProps = {
   profile: Profile,
   broom: Broom,
   edit: Edit,
+  spinner: Spinner,
+  delete: Delete,
 };
 
-const Icon: FC<IconProps> = ({ type, className, clickHandler, tooltip }) => {
+const Icon: FC<IconProps> = ({ type, className, clickHandler }) => {
   const Component = iconMap[type];
   return (
     <i className={cn('icon', className)} onClick={clickHandler}>
       <Component />
-      {tooltip ? <div className="icon__tooltip">{tooltip}</div> : null}
     </i>
   );
 };
