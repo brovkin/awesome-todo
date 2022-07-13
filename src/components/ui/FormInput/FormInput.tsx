@@ -3,8 +3,8 @@ import { useController } from 'react-hook-form';
 import './FormInput.scss';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
   control: any;
+  name: string;
   rules?: any;
   defaultValue?: string;
   label: string;

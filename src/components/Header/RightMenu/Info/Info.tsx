@@ -6,10 +6,15 @@ import './Info.scss';
 
 interface InfoProps {
   openSettingsModal: () => void;
+  openFeedbackModal: () => void;
   setRightMenu: (state: boolean) => void;
 }
 
-const Info: FC<InfoProps> = ({ openSettingsModal, setRightMenu }) => {
+const Info: FC<InfoProps> = ({
+  openSettingsModal,
+  openFeedbackModal,
+  setRightMenu,
+}) => {
   const dispatch = useAppDispatch();
   const { name, surname, email } = useAppSelector(
     (state) => state.personal.info
@@ -38,6 +43,10 @@ const Info: FC<InfoProps> = ({ openSettingsModal, setRightMenu }) => {
             <div className="info__menu-item-title">Настройки</div>
           </div>
           <hr />
+          <div className="info__menu-item" onClick={openFeedbackModal}>
+            <Icon type="bug" className="info__menu-item-icon" />
+            <div className="info__menu-item-title">Ошибка?</div>
+          </div>
           <div className="info__menu-item" onClick={handleClear}>
             <Icon type="broom" className="info__menu-item-icon" />
             <div className="info__menu-item-title">Очистить все</div>
