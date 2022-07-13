@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
+import Icon from '@components/ui/Icon';
 import { Todo, deleteTodo, editTodo } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
-// Todo
-import { ReactComponent as Delete } from '@assets/icons/delete.svg';
-import { ReactComponent as Edit } from '@assets/icons/edit.svg';
 import Checkbox from '../Checkbox';
 import EditField from '../EditField';
 import './Item.scss';
@@ -41,20 +39,16 @@ const Item: FC<ItemProps> = ({ id, title, done, edit, listId, children }) => {
       {edit && <EditField id={id} listId={listId} value={title} />}
       {!edit && (
         <div className="todo-item__menu">
-          <>
-            <i
-              className="todo-item__icon todo-item__menu-edit"
-              onClick={handleEdit}
-            >
-              <Edit />
-            </i>
-            <i
-              className="todo-item__icon todo-item__menu-delete"
-              onClick={handleDelete}
-            >
-              <Delete />
-            </i>
-          </>
+          <Icon
+            type="edit"
+            clickHandler={handleEdit}
+            className="todo-item__icon"
+          />
+          <Icon
+            type="delete"
+            clickHandler={handleDelete}
+            className="todo-item__icon"
+          />
         </div>
       )}
       {children}
