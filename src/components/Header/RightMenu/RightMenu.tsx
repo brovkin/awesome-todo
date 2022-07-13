@@ -1,4 +1,5 @@
 import React, { FC, useRef, useState } from 'react';
+import Feedback from '@components/Feedback';
 import Info from '@components/Header/RightMenu/Info';
 import Settings from '@components/Settings';
 import Icon from '@components/ui/Icon';
@@ -8,6 +9,7 @@ import './RightMenu.scss';
 const RightMenu: FC = () => {
   const [rightMenu, setRightMenu] = useState<boolean>(false);
   const [settingsModal, setSettingsModal] = useState<boolean>(false);
+  const [feedbackModal, setFeedbackModal] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   useOnClickOutside(menuRef, () => setRightMenu(false));
@@ -19,6 +21,11 @@ const RightMenu: FC = () => {
   const openSettingsModal = () => {
     setRightMenu(false);
     setSettingsModal(true);
+  };
+
+  const openFeedbackModal = () => {
+    setRightMenu(false);
+    setFeedbackModal(true);
   };
 
   return (
@@ -34,6 +41,7 @@ const RightMenu: FC = () => {
           <div className="right-menu__modal-wrapper">
             <Info
               openSettingsModal={openSettingsModal}
+              openFeedbackModal={openFeedbackModal}
               setRightMenu={setRightMenu}
             />
           </div>
@@ -43,6 +51,11 @@ const RightMenu: FC = () => {
       <Settings
         isOpen={settingsModal}
         closeHandler={() => setSettingsModal(false)}
+      />
+
+      <Feedback
+        isOpen={feedbackModal}
+        closeHandler={() => setFeedbackModal(false)}
       />
     </div>
   );

@@ -2,6 +2,7 @@ import React, { FC, FunctionComponent, MouseEvent, SVGProps } from 'react';
 import cn from 'classnames';
 import { ReactComponent as Adjust } from '@assets/icons/adjust.svg';
 import { ReactComponent as Broom } from '@assets/icons/broom.svg';
+import { ReactComponent as Bug } from '@assets/icons/bug.svg';
 import { ReactComponent as Cross } from '@assets/icons/cross.svg';
 import { ReactComponent as Cup } from '@assets/icons/cup.svg';
 import { ReactComponent as Delete } from '@assets/icons/delete.svg';
@@ -39,6 +40,7 @@ const iconMap: IconMapProps = {
   spinner: Spinner,
   delete: Delete,
   cup: Cup,
+  bug: Bug,
 };
 
 const Icon: FC<IconProps> = ({ type, className, clickHandler }) => {

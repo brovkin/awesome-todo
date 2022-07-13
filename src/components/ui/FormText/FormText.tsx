@@ -1,21 +1,24 @@
 import React, { FC, InputHTMLAttributes } from 'react';
 import { useController } from 'react-hook-form';
-import './FormInput.scss';
+import cn from 'classnames';
+import './FormText.scss';
 
-interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  control: any;
+interface FormTextProps extends InputHTMLAttributes<HTMLTextAreaElement> {
   name: string;
+  control: any;
   rules?: any;
   defaultValue?: string;
+  className?: string;
   label: string;
 }
 
-const FormInput: FC<FormInputProps> = ({
+const FormText: FC<FormTextProps> = ({
   control,
   name,
   label,
   rules,
   defaultValue,
+  className,
   ...props
 }) => {
   const {
@@ -27,15 +30,15 @@ const FormInput: FC<FormInputProps> = ({
     defaultValue: defaultValue || '',
   });
   return (
-    <div className="form-item">
-      {label ? <div className="form-item__title">{label}</div> : null}
-      <div className="form-item__value-wrapper">
-        <input
+    <div className="form-textarea">
+      {label ? <div className="form-textarea__title">{label}</div> : null}
+      <div className="form-textarea__value-wrapper">
+        <textarea
           ref={ref}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          className="form-item__value-input"
+          className={cn('form-textarea__value', className)}
           {...props}
         />
       </div>
@@ -43,4 +46,4 @@ const FormInput: FC<FormInputProps> = ({
   );
 };
 
-export default FormInput;
+export default FormText;
