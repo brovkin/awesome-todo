@@ -21,6 +21,7 @@ const FormText: FC<FormTextProps> = ({
   className,
   ...props
 }) => {
+  const isRequired = rules?.required;
   const {
     field: { onChange, onBlur, value, ref },
   } = useController({
@@ -31,7 +32,12 @@ const FormText: FC<FormTextProps> = ({
   });
   return (
     <div className="form-textarea">
-      {label ? <div className="form-textarea__title">{label}</div> : null}
+      {label ? (
+        <div className="form-textarea__title">
+          {label}
+          {isRequired ? <sup className="form-textarea__required">*</sup> : null}
+        </div>
+      ) : null}
       <div className="form-textarea__value-wrapper">
         <textarea
           ref={ref}

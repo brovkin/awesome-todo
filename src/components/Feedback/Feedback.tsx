@@ -38,15 +38,37 @@ const Feedback: FC<{ isOpen: boolean; closeHandler: () => void }> = ({
   return (
     <Modal isOpen={isOpen} closeHandler={closeHandler} title="Нашел ошибку?">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormInput control={control} name="name" label="Имя" />
+        <p>
+          Вы можете написать и рассказать нам что Вам понравилось, а может даже
+          и не понравилось, это поможет улучшить приложение. Спасибо!
+        </p>
 
-        <FormInput control={control} name="email" label="Email" />
+        <FormInput
+          control={control}
+          name="name"
+          label="Имя"
+          rules={{ required: true }}
+        />
+
+        <FormInput
+          control={control}
+          label="Email"
+          name="email"
+          rules={{
+            required: true,
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: 'Entered value does not match email format',
+            },
+          }}
+        />
 
         <FormText
           control={control}
           label="Сообщение"
           name="message"
           className="feedback__form-textarea"
+          rules={{ required: true }}
         />
 
         <div className="feedback__btn-wrapper">

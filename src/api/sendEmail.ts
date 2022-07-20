@@ -15,7 +15,6 @@ const sendEmail = async (data: any) => {
     }
 
     const result = await response.json();
-    console.log('resp', result);
   } catch (error) {
     throw new Error('Ошибка', error as Error);
   }
