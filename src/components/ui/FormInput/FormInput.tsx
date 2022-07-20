@@ -8,6 +8,7 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   rules?: any;
   defaultValue?: string;
   label: string;
+  error?: string;
 }
 
 const FormInput: FC<FormInputProps> = ({
@@ -16,8 +17,10 @@ const FormInput: FC<FormInputProps> = ({
   label,
   rules,
   defaultValue,
+  error,
   ...props
 }) => {
+  const isRequired = rules?.required;
   const {
     field: { onChange, onBlur, value, ref },
   } = useController({
@@ -27,15 +30,20 @@ const FormInput: FC<FormInputProps> = ({
     defaultValue: defaultValue || '',
   });
   return (
-    <div className="form-item">
-      {label ? <div className="form-item__title">{label}</div> : null}
-      <div className="form-item__value-wrapper">
+    <div className="form-input">
+      {label ? (
+        <div className="form-input__title">
+          {label}
+          {isRequired ? <sup className="form-input__required">*</sup> : null}
+        </div>
+      ) : null}
+      <div className="form-input__value-wrapper">
         <input
           ref={ref}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          className="form-item__value-input"
+          className="form-input__value-input"
           {...props}
         />
       </div>

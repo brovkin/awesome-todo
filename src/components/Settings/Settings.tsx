@@ -55,7 +55,12 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
       <form onSubmit={handleSubmit(onSubmit)} className="settings">
         <p>Информация</p>
 
-        <FormInput control={control} label="Имя" name="name" />
+        <FormInput
+          control={control}
+          label="Имя"
+          name="name"
+          rules={{ required: true }}
+        />
 
         <FormInput control={control} label="Фамилия" name="surname" />
 
