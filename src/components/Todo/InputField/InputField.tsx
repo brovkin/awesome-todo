@@ -19,6 +19,7 @@ interface InputFieldProps {
 
 const InputField: FC<InputFieldProps> = ({ listId }) => {
   const [todoText, setTodoText] = useState<string>('Buy a cup of coffee');
+  const [error, setError] = useState<boolean>(false);
   const [inputRef, setInputRef] =
     useState<React.RefObject<HTMLInputElement> | null>(null);
   const dispatch = useAppDispatch();
@@ -26,6 +27,10 @@ const InputField: FC<InputFieldProps> = ({ listId }) => {
   useEffect(() => {
     inputRef?.current?.focus();
   }, [listId]);
+
+  useEffect(() => {
+    setError(false);
+  }, [todoText]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -45,6 +50,8 @@ const InputField: FC<InputFieldProps> = ({ listId }) => {
       dispatch(addTodo({ listId, newTodo }));
 
       setTodoText('');
+    } else {
+      setError(true);
     }
 
     inputRef?.current?.focus();
@@ -70,6 +77,7 @@ const InputField: FC<InputFieldProps> = ({ listId }) => {
         onMount="focus"
         value={todoText}
         getRef={getRef}
+        error={error}
       />
       <Button className="input-field__add-btn" clickHandler={addNewTodo}>
         Добавить

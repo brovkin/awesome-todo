@@ -6,6 +6,7 @@ export const fields: { [key: string]: string } = {
   surname: 'Фамилия',
   email: 'E-mail',
   message: 'Сообщение',
+  title: 'Название списка',
 };
 
 const FormErrors: FC<{ errors: any }> = ({ errors }) => {
@@ -14,6 +15,8 @@ const FormErrors: FC<{ errors: any }> = ({ errors }) => {
     switch (type) {
       case 'required':
         return 'Обязательное поле';
+      case 'listAlreadyExists':
+        return 'Список с таким названием уже существует';
       case 'pattern':
         return error.message;
       default:

@@ -6,7 +6,7 @@
   align-items: center;
 
   &.error {
-    margin-bottom: 50px;
+    //margin-bottom: 50px;
     & .ui-input__input {
       border-bottom-color: $error-bg;
       padding-right: 25px;
@@ -15,17 +15,18 @@
   }
 
   &__input {
-    margin-right: 10px;
+    margin-right: 20px;
     outline: none;
     border: none;
     border-bottom: 2px solid #E9E3FF;
     padding: 5px 5px 5px 0;
     background-color: transparent;
+    width: 220px;
   }
 
   &__error {
     position: absolute;
-    right: 10px;
+    right: 20px;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -33,7 +34,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
 
     &-tooltip {
       font-size: 10px;

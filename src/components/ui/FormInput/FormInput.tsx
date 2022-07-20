@@ -1,4 +1,4 @@
-import React, { FC, InputHTMLAttributes } from 'react';
+import React, { FC, InputHTMLAttributes, useEffect } from 'react';
 import { useController } from 'react-hook-form';
 import './FormInput.scss';
 
@@ -8,6 +8,7 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   rules?: any;
   defaultValue?: string;
   label: string;
+  onMount?: 'focus' | 'select';
   error?: string;
 }
 
@@ -29,6 +30,7 @@ const FormInput: FC<FormInputProps> = ({
     rules,
     defaultValue: defaultValue || '',
   });
+
   return (
     <div className="form-input">
       {label ? (
