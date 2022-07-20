@@ -1,43 +1,47 @@
-import React, {
-  ChangeEvent,
-  FC,
-  KeyboardEvent,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FC, useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { INTERFACE_ERRORS } from '@components/Notification/Notification';
+import FormErrors from '@components/Errors/FormErrors';
 import Button from '@components/ui/Button';
-import Input from '@components/ui/Input';
+import FormInput from '@components/ui/FormInput';
 import Modal from '@components/ui/Modal';
 import { TodoList, createList } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import { RootState } from '@app/store';
 import { CreateListContext } from '@context/CreateListContext';
+import './ListModal.scss';
 
 const ListModal: FC = () => {
   const { listModal, setListModal } = useContext(
     CreateListContext
   ) as CreateListContext;
-  const [title, setTitle] = useState<string>('Новый список');
-  const [error, setError] = useState<string>('');
+
+  const defaultValues = { title: 'Новый список' };
+  const {
+    handleSubmit,
+    formState: { isDirty, isValid, errors },
+    control,
+    reset,
+  } = useForm({ defaultValues });
 
   const allLists = useSelector((state: RootState) => state.todo.lists);
 
   const allListsTitles = allLists.map((list) => list.title);
 
-  useEffect(() => {
-    setError('');
-  }, [title, listModal]);
+  const isDefaultValueExists = allListsTitles.includes(defaultValues.title);
 
   const dispatch = useAppDispatch();
 
-  const handleCreateList = () => {
-    if (allListsTitles.includes(title)) {
-      setError(INTERFACE_ERRORS.listAlreadyExists);
-    } else {
+  const cancel = () => {
+    reset(defaultValues);
+    setListModal(false);
+  };
+
+  const onSubmit = (data: any) => {
+    const { title } = data;
+
+    if (isValid) {
       const newList: TodoList = {
         id: uuid(),
         title,
@@ -47,20 +51,7 @@ const ListModal: FC = () => {
       };
 
       dispatch(createList(newList));
-      setTitle('Новый список');
       setListModal(false);
-    }
-  };
-
-  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-
-    setTitle(value);
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleCreateList();
     }
   };
   return (
@@ -69,24 +60,47 @@ const ListModal: FC = () => {
       closeHandler={() => setListModal(false)}
       title="Введите название нового списка"
     >
-      <div className="actions__modal-create-form">
-        <Input
-          className="actions__modal-create-input"
-          type="text"
-          onChange={handleChangeTitle}
-          onKeyDown={handleKeyDown}
-          onClick={() => setError('')}
-          value={title}
-          error={error}
-          onMount="select"
+      <form onSubmit={handleSubmit(onSubmit)} className="list-modal__form">
+        <FormInput
+          control={control}
+          label="Название списка"
+          name="title"
+          rules={{
+            required: true,
+            validate: {
+              listAlreadyExists: (value: string) =>
+                !allListsTitles.includes(value),
+            },
+          }}
+          autoFocus
         />
-        <Button
-          clickHandler={handleCreateList}
-          className="actions__modal-create-btn"
-        >
-          Создать список
-        </Button>
-      </div>
+
+        <FormErrors errors={errors} />
+
+        <div className="list-modal__btn-wrapper">
+          {isDirty || !isDefaultValueExists ? (
+            <>
+              <Button
+                className="list-modal__btn-cancel"
+                type="cancel"
+                clickHandler={cancel}
+              >
+                Отмена
+              </Button>
+              <Button className="list-modal__btn-submit" type="submit">
+                Изменить
+              </Button>
+            </>
+          ) : (
+            <Button
+              className="list-modal__btn-close"
+              clickHandler={() => setListModal(false)}
+            >
+              Закрыть
+            </Button>
+          )}
+        </div>
+      </form>
     </Modal>
   );
 };
