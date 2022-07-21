@@ -24,7 +24,6 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
     formState: { isDirty },
     control,
     reset,
-    register,
   } = useForm({ defaultValues });
   const dispatch = useAppDispatch();
 
