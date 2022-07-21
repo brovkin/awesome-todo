@@ -173,7 +173,19 @@ export const todoSlice: Slice<State> = createSlice({
 
     deleteList: (state, action) => {
       const id = action.payload;
-      const updatedLists = state.lists.filter((list) => list.id !== id);
+      const foundList = state.lists.find((list) => list.id === id);
+      const updatedLists = state.lists
+        .filter((list) => list.id !== id)
+        .map((list, idx) => {
+          if (idx === 0 && foundList?.active === true) {
+            return {
+              ...list,
+              active: true,
+            };
+          }
+
+          return list;
+        });
 
       state.lists = updatedLists;
       updateLocalStorage(STORAGE_LISTS, updatedLists);

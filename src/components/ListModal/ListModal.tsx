@@ -10,6 +10,7 @@ import { TodoList, createList } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import { RootState } from '@app/store';
 import { CreateListContext } from '@context/CreateListContext';
+import isEmpty from '@helpers/isEmpty';
 import './ListModal.scss';
 
 const ListModal: FC = () => {
@@ -23,7 +24,7 @@ const ListModal: FC = () => {
     formState: { isDirty, isValid, errors },
     control,
     reset,
-  } = useForm({ defaultValues });
+  } = useForm({ mode: 'onChange', defaultValues });
 
   const allLists = useSelector((state: RootState) => state.todo.lists);
 
@@ -41,7 +42,7 @@ const ListModal: FC = () => {
   const onSubmit = (data: any) => {
     const { title } = data;
 
-    if (isValid) {
+    if (isEmpty(errors)) {
       const newList: TodoList = {
         id: uuid(),
         title,
@@ -87,8 +88,12 @@ const ListModal: FC = () => {
               >
                 Отмена
               </Button>
-              <Button className="list-modal__btn-submit" type="submit">
-                Изменить
+              <Button
+                className="list-modal__btn-submit"
+                type="submit"
+                disabled={!isEmpty(errors)}
+              >
+                Добавить
               </Button>
             </>
           ) : (
