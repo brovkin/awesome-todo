@@ -31,7 +31,7 @@ const FormErrors: FC<{ errors: any }> = ({ errors }) => {
         if (key) {
           const message = getMessage(errors[key]);
           return (
-            <p className="form-errors__error">
+            <p key={key} className="form-errors__error">
               Ошибка в поле {fields[key]} - {message}
             </p>
           );
