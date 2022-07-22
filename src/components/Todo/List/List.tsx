@@ -1,7 +1,9 @@
 import React, { FC, MouseEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import cn from 'classnames';
 import Button from '@components/ui/Button';
+import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
 import Icon from '@components/ui/Icon';
 import Modal from '@components/ui/Modal';
@@ -12,19 +14,24 @@ import {
   setActiveList,
 } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
+import { RootState } from '@app/store';
 import './List.scss';
 
 const List: FC<TodoList> = ({ id, title, todos, active }) => {
   const [showIcons, setShowIcons] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
-
   const defaultValues = { title };
+
+  const allLists = useSelector((state: RootState) => state.todo.lists);
+
+  const allListsTitles = allLists.map((list) => list.title);
+
   const {
     handleSubmit,
-    formState: { isDirty },
+    formState: { isDirty, errors },
     control,
     reset,
-  } = useForm({ defaultValues });
+  } = useForm({ mode: 'onChange', defaultValues });
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -97,30 +104,28 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
         <div className="list__todos-quantity">{todos.length}</div>
       )}
       <Modal title={renderModalTitle} isOpen={modal} closeHandler={close}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormInput label="Название" name="title" control={control} />
-
-          <div className="list__btn-wrapper">
-            {isDirty ? (
-              <>
-                <Button
-                  className="settings__btn-cancel"
-                  type="cancel"
-                  clickHandler={cancel}
-                >
-                  Отмена
-                </Button>
-                <Button className="settings__btn-submit" type="submit">
-                  Изменить
-                </Button>
-              </>
-            ) : (
-              <Button className="settings__btn-close" clickHandler={close}>
-                Закрыть
-              </Button>
-            )}
-          </div>
-        </form>
+        <Form
+          isDirty={isDirty}
+          errors={errors}
+          close={close}
+          cancel={cancel}
+          onSubmit={handleSubmit(onSubmit)}
+          submitText="Изменить"
+        >
+          <FormInput
+            control={control}
+            label="Название списка"
+            name="title"
+            rules={{
+              required: true,
+              validate: {
+                listAlreadyExists: (value: string) =>
+                  !allListsTitles.includes(value),
+              },
+            }}
+            autoFocus
+          />
+        </Form>
       </Modal>
     </div>
   );

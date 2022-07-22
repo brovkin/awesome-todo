@@ -1,23 +1,13 @@
 import React, { FC } from 'react';
-import { FieldError, useForm } from 'react-hook-form';
-import FormErrors from '@components/Errors/FormErrors';
-import Button from '@components/ui/Button';
+import { useForm } from 'react-hook-form';
+import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
 import Modal from '@components/ui/Modal';
 import { PersonalInfo, savePersonalInfo } from '@features/personalSlice';
 import { setAuth } from '@features/settingsSlice';
 import { useAppDispatch } from '@app/hooks';
+import { PATTERNS } from '@constants';
 import './Welcome.scss';
-
-const getError = (error: FieldError | undefined) => {
-  if (error) {
-    if (error.type === 'required') {
-      return 'Обязательное поле';
-    }
-  }
-
-  return '';
-};
 
 const Welcome: FC = () => {
   const defaultValues = { name: '', surname: '', email: '' };
@@ -46,15 +36,20 @@ const Welcome: FC = () => {
   return (
     <div className="welcome">
       <Modal title="Добро пожаловать! Вы в первый раз?" isOpen={true}>
-        <p>Заполните Вашу персональную информацию</p>
-
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Form
+          isDirty={isDirty}
+          errors={errors}
+          close={() => window.location.reload()}
+          cancel={cancel}
+          onSubmit={handleSubmit(onSubmit)}
+          submitText="Начать"
+          text="Заполните Вашу персональную информацию"
+        >
           <FormInput
             control={control}
             label="Имя"
             name="name"
             rules={{ required: true }}
-            error={getError(errors.name)}
           />
           <FormInput control={control} label="Фамилия" name="surname" />
           <FormInput
@@ -63,41 +58,10 @@ const Welcome: FC = () => {
             name="email"
             rules={{
               required: true,
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message:
-                  'E-mail должен соответствовать формату email@example.com',
-              },
+              pattern: PATTERNS.email,
             }}
           />
-
-          <FormErrors errors={errors} />
-
-          <div className="welcome__btn-wrapper">
-            {isDirty ? (
-              <>
-                <Button
-                  className="welcome__btn-cancel"
-                  type="cancel"
-                  clickHandler={cancel}
-                >
-                  Очистить
-                </Button>
-
-                <Button className="welcome__btn-submit" type="submit">
-                  Начать
-                </Button>
-              </>
-            ) : (
-              <Button
-                className="settings__btn-close"
-                clickHandler={() => window.location.reload()}
-              >
-                Закрыть
-              </Button>
-            )}
-          </div>
-        </form>
+        </Form>
       </Modal>
     </div>
   );

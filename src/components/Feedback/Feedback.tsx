@@ -1,11 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '@components/ui/Button';
+import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
 import FormText from '@components/ui/FormText';
 import Modal from '@components/ui/Modal';
-import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { useAppSelector } from '@app/hooks';
 import sendEmail from '@api/sendEmail';
+import { PATTERNS } from '@constants';
 import './Feedback.scss';
 
 const Feedback: FC<{ isOpen: boolean; closeHandler: () => void }> = ({
@@ -13,20 +14,16 @@ const Feedback: FC<{ isOpen: boolean; closeHandler: () => void }> = ({
   closeHandler,
 }) => {
   const { name, email } = useAppSelector((state) => state.personal?.info);
-  const [error, setError] = useState<string>('');
-
-  const dispatch = useAppDispatch();
   const defaultValues = { name, email, message: '' };
   const {
     handleSubmit,
-    formState: { isDirty },
+    formState: { isDirty, errors },
     control,
     reset,
-  } = useForm({ defaultValues });
+  } = useForm({ mode: 'onChange', defaultValues });
 
   const cancel = () => {
     reset(defaultValues);
-    closeHandler();
   };
 
   const onSubmit = async (data: any) => {
@@ -37,12 +34,16 @@ const Feedback: FC<{ isOpen: boolean; closeHandler: () => void }> = ({
 
   return (
     <Modal isOpen={isOpen} closeHandler={closeHandler} title="Нашел ошибку?">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <p>
-          Вы можете написать и рассказать нам что Вам понравилось, а может даже
-          и не понравилось, это поможет улучшить наше приложение. Спасибо!
-        </p>
-
+      <Form
+        isDirty={isDirty}
+        errors={errors}
+        close={closeHandler}
+        cancel={cancel}
+        onSubmit={handleSubmit(onSubmit)}
+        submitText="Отправить"
+        text="Вы можете написать и рассказать нам что Вам понравилось, а может даже
+          и не понравилось, это поможет улучшить наше приложение. Спасибо!"
+      >
         <FormInput
           control={control}
           name="name"
@@ -56,10 +57,7 @@ const Feedback: FC<{ isOpen: boolean; closeHandler: () => void }> = ({
           name="email"
           rules={{
             required: true,
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: 'Entered value does not match email format',
-            },
+            pattern: PATTERNS.email,
           }}
         />
 
@@ -70,28 +68,7 @@ const Feedback: FC<{ isOpen: boolean; closeHandler: () => void }> = ({
           className="feedback__form-textarea"
           rules={{ required: true }}
         />
-
-        <div className="feedback__btn-wrapper">
-          {isDirty ? (
-            <>
-              <Button
-                className="feedback__btn-cancel"
-                type="cancel"
-                clickHandler={cancel}
-              >
-                Отмена
-              </Button>
-              <Button className="feedback__btn-submit" type="submit">
-                Отправить
-              </Button>
-            </>
-          ) : (
-            <Button className="feedback__btn-close" clickHandler={closeHandler}>
-              Закрыть
-            </Button>
-          )}
-        </div>
-      </form>
+      </Form>
     </Modal>
   );
 };

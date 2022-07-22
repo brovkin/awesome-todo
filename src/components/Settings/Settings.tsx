@@ -1,12 +1,14 @@
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '@components/ui/Button';
+import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
 import Modal from '@components/ui/Modal';
 import Switch from '@components/ui/Switch';
 import { savePersonalInfo } from '@features/personalSlice';
 import { setSavePositionListMenu } from '@features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { PATTERNS } from '@constants';
 import './Settings.scss';
 
 interface SettingsProps {
@@ -32,10 +34,10 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
   const defaultValues = { name, surname, email, savePositionListMenu };
   const {
     handleSubmit,
-    formState: { isDirty },
+    formState: { isDirty, errors },
     control,
     reset,
-  } = useForm({ defaultValues });
+  } = useForm({ mode: 'onChange', defaultValues });
 
   const cancel = () => {
     reset(defaultValues);
@@ -52,9 +54,15 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
 
   return (
     <Modal isOpen={isOpen} closeHandler={closeHandler} title="Настройки">
-      <form onSubmit={handleSubmit(onSubmit)} className="settings">
-        <p>Информация</p>
-
+      <Form
+        isDirty={isDirty}
+        errors={errors}
+        close={closeHandler}
+        cancel={cancel}
+        onSubmit={handleSubmit(onSubmit)}
+        submitText="Изменить"
+        text="Информация"
+      >
         <FormInput
           control={control}
           label="Имя"
@@ -70,10 +78,7 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
           name="email"
           rules={{
             required: true,
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: 'Entered value does not match email format',
-            },
+            pattern: PATTERNS.email,
           }}
         />
 
@@ -82,28 +87,7 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
           name="savePositionListMenu"
           label="Закрепить меню со списками"
         />
-
-        <div className="settings__btn-wrapper">
-          {isDirty ? (
-            <>
-              <Button
-                className="settings__btn-cancel"
-                type="cancel"
-                clickHandler={cancel}
-              >
-                Отмена
-              </Button>
-              <Button className="settings__btn-submit" type="submit">
-                Изменить
-              </Button>
-            </>
-          ) : (
-            <Button className="settings__btn-close" clickHandler={closeHandler}>
-              Закрыть
-            </Button>
-          )}
-        </div>
-      </form>
+      </Form>
     </Modal>
   );
 };

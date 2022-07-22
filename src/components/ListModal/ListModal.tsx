@@ -2,8 +2,7 @@ import React, { FC, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import FormErrors from '@components/Errors/FormErrors';
-import Button from '@components/ui/Button';
+import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
 import Modal from '@components/ui/Modal';
 import { TodoList, createList } from '@features/todoSlice';
@@ -21,7 +20,7 @@ const ListModal: FC = () => {
   const defaultValues = { title: 'Новый список' };
   const {
     handleSubmit,
-    formState: { isDirty, isValid, errors },
+    formState: { isDirty, errors },
     control,
     reset,
   } = useForm({ mode: 'onChange', defaultValues });
@@ -61,7 +60,14 @@ const ListModal: FC = () => {
       closeHandler={() => setListModal(false)}
       title="Введите название нового списка"
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="list-modal__form">
+      <Form
+        isDirty={isDirty}
+        errors={errors}
+        close={() => setListModal(false)}
+        cancel={cancel}
+        onSubmit={handleSubmit(onSubmit)}
+        submitText="Добавить"
+      >
         <FormInput
           control={control}
           label="Название списка"
@@ -75,37 +81,7 @@ const ListModal: FC = () => {
           }}
           autoFocus
         />
-
-        <FormErrors errors={errors} />
-
-        <div className="list-modal__btn-wrapper">
-          {isDirty || !isDefaultValueExists ? (
-            <>
-              <Button
-                className="list-modal__btn-cancel"
-                type="cancel"
-                clickHandler={cancel}
-              >
-                Отмена
-              </Button>
-              <Button
-                className="list-modal__btn-submit"
-                type="submit"
-                disabled={!isEmpty(errors)}
-              >
-                Добавить
-              </Button>
-            </>
-          ) : (
-            <Button
-              className="list-modal__btn-close"
-              clickHandler={() => setListModal(false)}
-            >
-              Закрыть
-            </Button>
-          )}
-        </div>
-      </form>
+      </Form>
     </Modal>
   );
 };
