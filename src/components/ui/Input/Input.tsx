@@ -19,7 +19,8 @@ interface InputProps {
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
   onClick?: (e: MouseEvent<HTMLInputElement>) => void;
   value?: string;
-  error?: string;
+  error?: boolean;
+  errorMessage?: string;
   onMount?: 'select' | 'focus';
   getRef?: (ref: RefObject<HTMLInputElement>) => void;
 }
@@ -32,6 +33,7 @@ const Input: FC<InputProps> = ({
   type,
   onMount,
   error,
+  errorMessage,
   getRef,
   ...props
 }) => {
@@ -54,7 +56,7 @@ const Input: FC<InputProps> = ({
   }, [ref]);
 
   const Tooltip: FC = () => (
-    <div className="ui-input__error-tooltip">{error}</div>
+    <div className="ui-input__error-tooltip">{errorMessage}</div>
   );
 
   return (
@@ -72,8 +74,10 @@ const Input: FC<InputProps> = ({
         type={type}
         {...props}
       />
-      {error ? <Icon type="exclamation" className="ui-input__error" /> : null}
-      {error ? <Tooltip /> : null}
+      {error || errorMessage ? (
+        <Icon type="exclamation" className="ui-input__error" />
+      ) : null}
+      {errorMessage ? <Tooltip /> : null}
     </div>
   );
 };

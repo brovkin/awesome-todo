@@ -8,6 +8,7 @@
     "^@components/(.*)$",
     "^@features/(.*)$",
     "^@app/(.*)$",
+    "^@api/(.*)$",
     "^@assets/(.*)$",
     "^@hooks/(.*)$",
     "^@context/(.*)$",

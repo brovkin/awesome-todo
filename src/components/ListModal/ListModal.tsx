@@ -1,43 +1,47 @@
-import React, {
-  ChangeEvent,
-  FC,
-  KeyboardEvent,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FC, useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { INTERFACE_ERRORS } from '@components/Notification/Notification';
-import Button from '@components/ui/Button';
-import Input from '@components/ui/Input';
+import Form from '@components/ui/Form';
+import FormInput from '@components/ui/FormInput';
 import Modal from '@components/ui/Modal';
 import { TodoList, createList } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import { RootState } from '@app/store';
 import { CreateListContext } from '@context/CreateListContext';
+import isEmpty from '@helpers/isEmpty';
+import './ListModal.scss';
 
 const ListModal: FC = () => {
   const { listModal, setListModal } = useContext(
     CreateListContext
   ) as CreateListContext;
-  const [title, setTitle] = useState<string>('Новый список');
-  const [error, setError] = useState<string>('');
+
+  const defaultValues = { title: 'Новый список' };
+  const {
+    handleSubmit,
+    formState: { isDirty, errors },
+    control,
+    reset,
+  } = useForm({ mode: 'onChange', defaultValues });
 
   const allLists = useSelector((state: RootState) => state.todo.lists);
 
   const allListsTitles = allLists.map((list) => list.title);
 
-  useEffect(() => {
-    setError('');
-  }, [title, listModal]);
+  const isDefaultValueExists = allListsTitles.includes(defaultValues.title);
 
   const dispatch = useAppDispatch();
 
-  const handleCreateList = () => {
-    if (allListsTitles.includes(title)) {
-      setError(INTERFACE_ERRORS.listAlreadyExists);
-    } else {
+  const cancel = () => {
+    reset(defaultValues);
+    setListModal(false);
+  };
+
+  const onSubmit = (data: any) => {
+    const { title } = data;
+
+    if (isEmpty(errors)) {
       const newList: TodoList = {
         id: uuid(),
         title,
@@ -47,20 +51,7 @@ const ListModal: FC = () => {
       };
 
       dispatch(createList(newList));
-      setTitle('Новый список');
       setListModal(false);
-    }
-  };
-
-  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-
-    setTitle(value);
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleCreateList();
     }
   };
   return (
@@ -69,24 +60,28 @@ const ListModal: FC = () => {
       closeHandler={() => setListModal(false)}
       title="Введите название нового списка"
     >
-      <div className="actions__modal-create-form">
-        <Input
-          className="actions__modal-create-input"
-          type="text"
-          onChange={handleChangeTitle}
-          onKeyDown={handleKeyDown}
-          onClick={() => setError('')}
-          value={title}
-          error={error}
-          onMount="select"
+      <Form
+        isDirty={isDirty}
+        errors={errors}
+        close={() => setListModal(false)}
+        cancel={cancel}
+        onSubmit={handleSubmit(onSubmit)}
+        submitText="Добавить"
+      >
+        <FormInput
+          control={control}
+          label="Название списка"
+          name="title"
+          rules={{
+            required: true,
+            validate: {
+              listAlreadyExists: (value: string) =>
+                !allListsTitles.includes(value),
+            },
+          }}
+          autoFocus
         />
-        <Button
-          clickHandler={handleCreateList}
-          className="actions__modal-create-btn"
-        >
-          Создать список
-        </Button>
-      </div>
+      </Form>
     </Modal>
   );
 };

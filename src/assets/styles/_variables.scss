@@ -4,6 +4,12 @@ $font-family: 'Lato Regular', sans-serif;
 $main-color: #E9E3FF;
 $secondary-color: #7EBC89;
 $error-bg: #f8d7da;
+$error-color: #F48668;
+
+// errors message
+
+$message-error-bg: $error-bg;
+$message-error-color: #721c24;
 
 
 $border-radius: 3px;
