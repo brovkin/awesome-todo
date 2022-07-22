@@ -1,23 +1,16 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import Loader from '@components/ui/Loader';
-import { getVersionInfo } from '@utils/api';
+import { useGetGithubInfoQuery } from '@features/api';
 import './GithubBadge.scss';
 
 const GithubBadge: FC = () => {
-  const [version, setVersion] = useState<string>('');
+  const { data, isLoading } = useGetGithubInfoQuery('/releases/latest');
 
-  useEffect(() => {
-    (async () => {
-      const result = await getVersionInfo();
-      const tagName = result?.tag_name;
-
-      setVersion(tagName);
-    })();
-  }, []);
+  const version = data?.tag_name;
 
   return (
     <div className="github-badge">
-      <Loader isLoading={!version}>
+      <Loader isLoading={isLoading}>
         <div className="github-badge__version">{version}</div>
       </Loader>
     </div>

@@ -11,7 +11,7 @@ interface ButtonProps {
   icon?: JSX.Element | React.ReactNode;
   disabled?: boolean;
   tooltip?: string;
-  type?: 'submit' | 'cancel';
+  type?: 'submit' | 'button' | 'reset';
 }
 
 const Button: FC<ButtonProps> = ({
@@ -19,7 +19,7 @@ const Button: FC<ButtonProps> = ({
   clickHandler,
   className,
   mode = 'button',
-  type,
+  type = 'button',
   icon,
   tooltip,
   disabled,
@@ -31,12 +31,12 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       className={cn('ui-button', mode, className, {
-        cancel: type === 'cancel',
         disabled,
       })}
       onClick={clickHandler}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
+      type={type}
       {...props}
     >
       {isButton && icon}
