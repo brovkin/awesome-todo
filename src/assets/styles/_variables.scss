@@ -11,5 +11,17 @@ $error-color: #F48668;
 $message-error-bg: $error-bg;
 $message-error-color: #721c24;
 
-
 $border-radius: 3px;
+
+// media queries
+
+$media-XS: 480px;
+$media-SM: 576px;
+$media-MD: 768px;
+$media-LG: 992px;
+$media-XL: 1200px;
+
+// common
+
+$common-font-size: 16px;
+$sm-font-size: 14px;

@@ -4,15 +4,18 @@ import RightMenu from '@components/Header/RightMenu';
 import ListMenu from '@components/ListMenu';
 import Icon from '@components/ui/Icon';
 import { useAppSelector } from '@app/hooks';
+import useMedia from '@hooks/useMedia';
+import { MEDIA_QUERIES } from '@constants';
 import './Header.scss';
 
 const Header: FC = () => {
   const { savePositionListMenu } = useAppSelector((state) => state.settings);
-
-  const [listMenu, setListMenu] = useState<boolean>(savePositionListMenu);
+  const isMediaMD = useMedia(MEDIA_QUERIES.md);
+  const showListMenuDefault = !isMediaMD && savePositionListMenu;
+  const [listMenu, setListMenu] = useState<boolean>(showListMenuDefault);
 
   useEffect(() => {
-    setListMenu(savePositionListMenu);
+    setListMenu(showListMenuDefault);
   }, [savePositionListMenu]);
 
   const modalHandler = () => {
@@ -40,7 +43,7 @@ const Header: FC = () => {
         </div>
       </div>
 
-      <ListMenu isOpen={listMenu} />
+      <ListMenu isOpen={listMenu} onClose={() => setListMenu(false)} />
     </>
   );
 };

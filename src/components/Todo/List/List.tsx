@@ -15,9 +15,12 @@ import {
 } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import { RootState } from '@app/store';
+import useMedia from '@hooks/useMedia';
+import { MEDIA_QUERIES } from '@constants';
 import './List.scss';
 
 const List: FC<TodoList> = ({ id, title, todos, active }) => {
+  const isMediaSM = useMedia(MEDIA_QUERIES.sm);
   const [showIcons, setShowIcons] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
   const defaultValues = { title };
@@ -33,10 +36,6 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
     reset,
   } = useForm({ mode: 'onChange', defaultValues });
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    !modal && setShowIcons(false);
-  }, [modal]);
 
   const handleClick = () => {
     dispatch(setActiveList(id));
@@ -62,12 +61,37 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
 
   const renderModalTitle = <>Редактировать &quot;{title}&quot;</>;
 
+  const renderIcons = () => (
+    <div className="list__icons-wrapper">
+      <Icon
+        type="edit"
+        className="list__icon list__icon-edit"
+        clickHandler={handleEdit}
+      />
+      <Icon
+        type="delete"
+        className="list__icon list__icon-delete"
+        clickHandler={handleDelete}
+      />
+    </div>
+  );
+
+  const renderQuantity = () => (
+    <div className="list__todos-quantity">{todos.length}</div>
+  );
+
+  const renderDesktopActionBlock = () =>
+    showIcons ? renderIcons() : renderQuantity();
+
+  const renderMobileActionBlock = () => renderIcons();
+
   const cancel = () => {
     reset(defaultValues);
     setModal(false);
   };
 
   const close = () => {
+    setShowIcons(false);
     setModal(false);
   };
 
@@ -87,22 +111,7 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
       onMouseLeave={onListMouseLeave}
     >
       <div className="list__title">{title}</div>
-      {showIcons ? (
-        <div className="list__icons-wrapper">
-          <Icon
-            type="edit"
-            className="list__icon list__icon-edit"
-            clickHandler={handleEdit}
-          />
-          <Icon
-            type="delete"
-            className="list__icon list__icon-delete"
-            clickHandler={handleDelete}
-          />
-        </div>
-      ) : (
-        <div className="list__todos-quantity">{todos.length}</div>
-      )}
+      {isMediaSM ? renderMobileActionBlock() : renderDesktopActionBlock()}
       <Modal title={renderModalTitle} isOpen={modal} closeHandler={close}>
         <Form
           isDirty={isDirty}

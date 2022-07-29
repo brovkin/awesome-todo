@@ -1,8 +1,22 @@
+@import './src/assets/styles/imports';
+
 .input-field {
   text-align: center;
   margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  &__input {}
+
+  @media (max-width: $media-SM) {
+    width: 100%;
+  }
+
+  &__input {
+    @media (max-width: $media-SM) {
+      flex: 1;
+      & .ui-input__input {
+        width: 100%;
+      }
+    }
+  }
 }

@@ -12,6 +12,10 @@
   outline: none;
   font-size: 14px;
 
+  @media (max-width: $media-SM) {
+    padding: 7px 15px;
+  }
+
   &.icon {
     display: flex;
     align-items: center;

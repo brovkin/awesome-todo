@@ -17,6 +17,10 @@
     & svg {
       width: 20px;
       height: 20px;
+
+      @media (max-width: $media-SM) {
+        @include sm-icon-size;
+      }
     }
   }
 
