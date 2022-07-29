@@ -9,7 +9,7 @@ const router = express.Router();
 
 // mail
 
-router.post('/send-email', async (req, res) => {
+router.post('/api/v1/send-email', async (req, res) => {
   const { YANDEX_LOGIN, YANDEX_PASSWORD } = process.env;
   const { name, email, message } = req.body;
   const transporter = nodeMailer.createTransport(
@@ -58,6 +58,10 @@ router.post('/send-email', async (req, res) => {
   return res.status(200).json({
     ok: true,
   });
+});
+
+router.get('/privacy-policy', (req, res, next) => {
+  res.render('privacy-policy', { layout: 'main' });
 });
 
 export default router;
