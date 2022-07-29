@@ -6,7 +6,6 @@
   align-items: center;
 
   &.error {
-    //margin-bottom: 50px;
     & .ui-input__input {
       border-bottom-color: $error-bg;
       padding-right: 25px;
@@ -22,6 +21,10 @@
     padding: 5px 5px 5px 0;
     background-color: transparent;
     width: 220px;
+
+    @media (max-width: $media-SM) {
+      font-size: $sm-font-size;
+    }
   }
 
   &__error {

@@ -15,3 +15,11 @@ export const PATTERNS = {
     message: 'E-mail должен соответствовать формату email@example.com',
   },
 };
+
+export const MEDIA_QUERIES = {
+  xs: '480px',
+  sm: '576px',
+  md: '768px',
+  lg: '992px',
+  xl: '1200px',
+};

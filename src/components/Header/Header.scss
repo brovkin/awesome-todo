@@ -1,3 +1,5 @@
+@import './src/assets/styles/imports';
+
 .header {
   background-color: #E9E3FF;
   &__wrapper {
@@ -23,6 +25,10 @@
       & svg {
         width: 20px;
         height: 20px;
+
+        @media (max-width: $media-SM) {
+          @include sm-icon-size;
+        }
       }
     }
   }
@@ -34,6 +40,15 @@
     margin: 0;
     font-size: 22px;
     font-weight: 300;
+
+    @media (max-width: $media-SM) {
+      flex: 3;
+      font-size: 16px;
+    }
+
+    @media (max-width: $media-XS) {
+      font-size: 14px;
+    }
 
     &-link {
       color: #000;
