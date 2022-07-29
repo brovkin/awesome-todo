@@ -43,6 +43,7 @@ const Feedback: FC<{ isOpen: boolean; closeHandler: () => void }> = ({
         submitText="Отправить"
         text="Вы можете написать и рассказать нам что Вам понравилось, а может даже
           и не понравилось, это поможет улучшить наше приложение. Спасибо!"
+        showPrivacyPolicy
       >
         <FormInput
           control={control}

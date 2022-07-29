@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import FormErrors from '@components/Errors/FormErrors';
 import Button from '@components/ui/Button';
 import isEmpty from '@helpers/isEmpty';
+import { APP_URL } from '@constants';
 import './Form.scss';
 
 interface FormProps {
@@ -12,6 +13,7 @@ interface FormProps {
   cancel: () => void;
   onSubmit: (data: any) => void;
   submitText?: string;
+  showPrivacyPolicy?: boolean;
   text?: string;
 }
 
@@ -22,8 +24,9 @@ const Form: FC<FormProps> = ({
   close,
   cancel,
   onSubmit,
-  submitText,
+  submitText = 'Изменить',
   text,
+  showPrivacyPolicy = false,
 }) => {
   const hasErrors = !isEmpty(errors);
   return (
@@ -33,6 +36,19 @@ const Form: FC<FormProps> = ({
       {children}
 
       <FormErrors errors={errors} />
+
+      {showPrivacyPolicy && isDirty ? (
+        <div className="form__privacy-policy">
+          Нажимая на кнопку «{submitText}», я даю&nbsp;
+          <a
+            href={`${APP_URL}/privacy-policy`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            согласие на обработку персональных данных
+          </a>
+        </div>
+      ) : null}
 
       <div className="form__btn-wrapper">
         {isDirty ? (
@@ -50,7 +66,7 @@ const Form: FC<FormProps> = ({
               type="submit"
               disabled={hasErrors}
             >
-              {submitText || 'Изменить'}
+              {submitText}
             </Button>
           </>
         ) : (

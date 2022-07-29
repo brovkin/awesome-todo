@@ -44,6 +44,7 @@ const Welcome: FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           submitText="Начать"
           text="Заполните Вашу персональную информацию"
+          showPrivacyPolicy
         >
           <FormInput
             control={control}
