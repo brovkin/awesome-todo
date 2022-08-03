@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import { getSettings } from '@selectors/settings';
 import GithubBadge from '@components/Header/GithubBadge';
 import RightMenu from '@components/Header/RightMenu';
 import ListMenu from '@components/ListMenu';
@@ -9,7 +10,7 @@ import { MEDIA_QUERIES } from '@constants';
 import './Header.scss';
 
 const Header: FC = () => {
-  const { savePositionListMenu } = useAppSelector((state) => state.settings);
+  const { savePositionListMenu } = useAppSelector(getSettings);
   const isMediaMD = useMedia(MEDIA_QUERIES.md);
   const showListMenuDefault = !isMediaMD && savePositionListMenu;
   const [listMenu, setListMenu] = useState<boolean>(showListMenuDefault);

@@ -12,6 +12,8 @@ const store = configureStore({
     settings: settingsSlice.reducer,
     [api.reducerPath]: api.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
   preloadedState: getStorage(),
 });
 

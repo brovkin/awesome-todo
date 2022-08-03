@@ -1,18 +1,20 @@
 import React, { FC, useContext } from 'react';
 import DragDrop from '@components/Todo/DragDrop';
 import InputField from '@components/Todo/InputField';
+import Title from '@components/Todo/ItemsList/Title';
 import Button from '@components/ui/Button';
 import { useAppSelector } from '@app/hooks';
 import { CreateListContext } from '@context/CreateListContext';
+import { getTodoLists } from '@selectors/todo';
 import Notification from '../../Notification';
 import './ItemsList.scss';
 
 const ItemsList: FC = () => {
   const { setListModal } = useContext(CreateListContext) as CreateListContext;
 
-  const activeList = useAppSelector(
-    (state) => state.todo.lists.find((list) => list.active) || null
-  );
+  const lists = useAppSelector(getTodoLists);
+
+  const activeList = lists.length ? lists.find((list) => list.active) : null;
 
   if (!activeList) {
     return (
@@ -28,7 +30,7 @@ const ItemsList: FC = () => {
     );
   }
 
-  const { id, todos } = activeList;
+  const { id, title, todos } = activeList;
 
   const renderList = () => {
     if (todos.length) {
@@ -40,6 +42,7 @@ const ItemsList: FC = () => {
 
   return (
     <>
+      <Title listId={id} title={title} />
       <InputField listId={id} />
       {renderList()}
     </>

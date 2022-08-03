@@ -5,6 +5,7 @@ import { getLocalStorage } from '@utils/localStorage';
 import { STORAGE_LISTS, STORAGE_PERSONAL, STORAGE_SETTINGS } from '@constants';
 
 const setInitialState = (initialState: any, localStorage: any) => {
+  // Todo
   return isEmpty(localStorage) ? initialState : localStorage;
 };
 
