@@ -28,7 +28,7 @@
 
       & .first-line {
         opacity: 0;
-        animation: line-animation 2s ease-in-out forwards infinite 0.2s;
+        animation: line-animation 2s ease-in-out forwards infinite .2s;
       }
 
       & .middle-line {
@@ -38,17 +38,13 @@
 
       & .last-line {
         opacity: 0;
-        animation: line-animation 2s ease-in-out forwards infinite 0.2s;
+        animation: line-animation 2s ease-in-out forwards infinite .2s;
       }
     }
   }
 }
 
 @keyframes line-animation {
-  0% {
-
-  }
-
   50% {
     transform: translateY(-20px);
 
@@ -63,10 +59,6 @@
 
 
 @keyframes title-animation {
-  0% {
-
-  }
-
   100% {
     opacity: 1;
     width: 100%;

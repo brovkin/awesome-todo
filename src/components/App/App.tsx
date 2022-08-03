@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { getSettings } from '@selectors/settings';
 import Actions from '@components/Actions';
 import ListModal from '@components/ListModal';
 import StartLoader from '@components/StartLoader';
@@ -10,7 +11,7 @@ import ItemsList from '../Todo/ItemsList';
 import './App.scss';
 
 const App: FC = () => {
-  const { isAuth } = useAppSelector((state) => state.settings);
+  const { isAuth } = useAppSelector(getSettings);
 
   return (
     <div className="app">

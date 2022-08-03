@@ -12,6 +12,7 @@
     "^@assets/(.*)$",
     "^@hooks/(.*)$",
     "^@context/(.*)$",
+    "^@selectors/(.*)$",
     "^@helpers/(.*)$",
     "^@utils/(.*)$",
     "^@constants(.*)$",

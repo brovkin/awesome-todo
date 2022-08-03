@@ -1,8 +1,7 @@
-import React, { FC, MouseEvent, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { FC, MouseEvent, useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import cn from 'classnames';
-import Button from '@components/ui/Button';
 import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
 import Icon from '@components/ui/Icon';
@@ -23,7 +22,7 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
   const isMediaSM = useMedia(MEDIA_QUERIES.sm);
   const [showIcons, setShowIcons] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
-  const defaultValues = { title };
+  const defaultValues: FieldValues = { title };
 
   const allLists = useSelector((state: RootState) => state.todo.lists);
 
@@ -31,7 +30,7 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
 
   const {
     handleSubmit,
-    formState: { isDirty, errors },
+    formState: { errors },
     control,
     reset,
   } = useForm({ mode: 'onChange', defaultValues });
@@ -95,7 +94,7 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
     setModal(false);
   };
 
-  const onSubmit = (data: { title: string }) => {
+  const onSubmit = (data: FieldValues) => {
     dispatch(editList({ id, data }));
     setModal(false);
     reset(data);
@@ -114,7 +113,6 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
       {isMediaSM ? renderMobileActionBlock() : renderDesktopActionBlock()}
       <Modal title={renderModalTitle} isOpen={modal} closeHandler={close}>
         <Form
-          isDirty={isDirty}
           errors={errors}
           close={close}
           cancel={cancel}

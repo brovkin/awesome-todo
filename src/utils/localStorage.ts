@@ -1,5 +1,9 @@
 import { STORAGE_LISTS, STORAGE_PERSONAL, STORAGE_SETTINGS } from '@constants';
 
+interface LocalStorageFields {
+  [key: string]: any;
+}
+
 export const getLocalStorage = (storageName: string) => {
   const json: string | null = localStorage.getItem(storageName);
 
@@ -14,7 +18,10 @@ export const getLocalStorage = (storageName: string) => {
   return {};
 };
 
-export const updateLocalStorage = (storageName: string, value: any): void => {
+export const updateLocalStorage = (
+  storageName: string,
+  value: LocalStorageFields
+): void => {
   const json = JSON.stringify(value);
   localStorage.setItem(storageName, json);
 };

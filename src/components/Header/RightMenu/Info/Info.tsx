@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { getPersonalInfo } from '@selectors/personal';
 import Icon from '@components/ui/Icon';
 import { clearAll } from '@features/todoSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
@@ -16,9 +17,7 @@ const Info: FC<InfoProps> = ({
   setRightMenu,
 }) => {
   const dispatch = useAppDispatch();
-  const { name, surname, email } = useAppSelector(
-    (state) => state.personal.info
-  );
+  const { name, surname, email } = useAppSelector(getPersonalInfo);
   const handleClear = () => {
     dispatch(clearAll(null));
     setRightMenu(false);

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { FieldErrors, FieldValues, SubmitHandler } from 'react-hook-form';
 import FormErrors from '@components/Errors/FormErrors';
 import Button from '@components/ui/Button';
 import isEmpty from '@helpers/isEmpty';
@@ -7,11 +8,10 @@ import './Form.scss';
 
 interface FormProps {
   children: JSX.Element | React.ReactNode;
-  isDirty: boolean;
-  errors: any;
+  errors: FieldErrors;
   close: () => void;
   cancel: () => void;
-  onSubmit: (data: any) => void;
+  onSubmit: any; // Todo
   submitText?: string;
   showPrivacyPolicy?: boolean;
   text?: string;
@@ -19,9 +19,7 @@ interface FormProps {
 
 const Form: FC<FormProps> = ({
   children,
-  isDirty,
   errors,
-  close,
   cancel,
   onSubmit,
   submitText = 'Изменить',
@@ -37,7 +35,7 @@ const Form: FC<FormProps> = ({
 
       <FormErrors errors={errors} />
 
-      {showPrivacyPolicy && isDirty ? (
+      {showPrivacyPolicy ? (
         <div className="form__privacy-policy">
           Нажимая на кнопку «{submitText}», я даю&nbsp;
           <a
@@ -51,29 +49,17 @@ const Form: FC<FormProps> = ({
       ) : null}
 
       <div className="form__btn-wrapper">
-        {isDirty ? (
-          <>
-            <Button
-              className="form__btn-cancel cancel"
-              type="reset"
-              clickHandler={cancel}
-            >
-              Очистить
-            </Button>
+        <Button
+          className="form__btn-cancel cancel"
+          type="reset"
+          clickHandler={cancel}
+        >
+          Очистить
+        </Button>
 
-            <Button
-              className="form__btn-submit"
-              type="submit"
-              disabled={hasErrors}
-            >
-              {submitText}
-            </Button>
-          </>
-        ) : (
-          <Button className="form__btn-close" clickHandler={close}>
-            Закрыть
-          </Button>
-        )}
+        <Button className="form__btn-submit" type="submit" disabled={hasErrors}>
+          {submitText}
+        </Button>
       </div>
     </form>
   );

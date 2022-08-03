@@ -1,12 +1,12 @@
 import React, { FC, InputHTMLAttributes } from 'react';
-import { useController } from 'react-hook-form';
+import { ControllerProps, useController } from 'react-hook-form';
 import cn from 'classnames';
 import './FormText.scss';
 
 interface FormTextProps extends InputHTMLAttributes<HTMLTextAreaElement> {
   name: string;
-  control: any;
-  rules?: any;
+  control: ControllerProps['control'];
+  rules?: ControllerProps['rules'];
   defaultValue?: string;
   className?: string;
   label: string;
