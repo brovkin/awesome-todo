@@ -21,6 +21,11 @@
     box-shadow: 0 0 10px -1px rgba(0,0,0, .3);
     border: 5px solid $main-color;
     border-radius: 15px;
+
+    @media (max-width: $media-SM) {
+      width: 100%;
+      padding: 15px;
+    }
   }
 
   &__close {
@@ -31,9 +36,24 @@
     opacity: 0.7;
     transition: all .3s ease-in-out;
 
+    @media (max-width: $media-SM) {
+      top: 3px;
+      right: 7px;
+    }
+
+    & svg {
+      @media (max-width: $media-SM) {
+        @include sm-icon-size;
+      }
+    }
+
     &:hover {
       opacity: 1;
       top: 19px;
+
+      @media (max-width: $media-SM) {
+        top: 2px;
+      }
     }
   }
 
@@ -46,9 +66,18 @@
     padding-bottom: 10px;
     margin-bottom: 10px;
     font-size: 20px;
+
+    @media (max-width: $media-SM) {
+      font-size: 16px;
+    }
   }
 }
 
 .react-modal {
   outline: none;
+
+  @media (max-width: $media-SM) {
+    width: 100%;
+    margin: 0 20px;
+  }
 }

@@ -1,5 +1,7 @@
+@import './src/assets/styles/imports';
+
 .header {
-  background-color: #E9E3FF;
+  background-color: #e9e3ff;
   &__wrapper {
     display: flex;
     flex-flow: row wrap;
@@ -13,7 +15,7 @@
     flex: 1;
     &-icon {
       cursor: pointer;
-      opacity: 0.7;
+      opacity: .7;
       transition: opacity .3s ease;
 
       &:hover {
@@ -23,6 +25,10 @@
       & svg {
         width: 20px;
         height: 20px;
+
+        @media (max-width: $media-SM) {
+          @include sm-icon-size;
+        }
       }
     }
   }
@@ -34,6 +40,15 @@
     margin: 0;
     font-size: 22px;
     font-weight: 300;
+
+    @media (max-width: $media-SM) {
+      flex: 3;
+      font-size: 16px;
+    }
+
+    @media (max-width: $media-XS) {
+      font-size: 14px;
+    }
 
     &-link {
       color: #000;

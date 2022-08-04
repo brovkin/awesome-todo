@@ -1,7 +1,7 @@
 .todo-checkbox {
   margin-right: 10px;
-  --check: #E9E3FF;
-  --tick-color: #48BF91;
+  --check: #e9e3ff;
+  --tick-color: #48bf91;
 
   &__checkbox {
     display: flex;
@@ -15,7 +15,7 @@
     position: relative;
 
     &:before {
-      content: "";
+      content: '';
       position: absolute;
       width: 0;
       height: 0;
@@ -26,12 +26,12 @@
     }
 
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       top: auto;
       width: 1px;
       height: 1px;
-      opacity: 0.1;
+      opacity: .1;
       border-radius: 50%;
       background: var(--check);
       transition: all .3s ease;
@@ -39,11 +39,11 @@
 
     &-tick {
       &:before {
-        content: "";
+        content: '';
         position: absolute;
         height: 20px;
         width: 9px;
-        transform: rotate(37deg) scale(0.3);
+        transform: rotate(37deg) scale(.3);
         border-bottom: 3px solid var(--tick-color);
         border-right: 3px solid var(--tick-color);
         border-bottom-left-radius: 2px;
@@ -66,7 +66,7 @@
         transition: none;
         &:after {
           opacity: 1;
-          box-shadow: 0 0 0 0 #E9E3FF;
+          box-shadow: 0 0 0 0 #e9e3ff;
           height: 20px;
           width: 20px;
         }
@@ -91,12 +91,13 @@
         // firework start
         &:before {
           opacity: 1;
-          box-shadow: 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0;
+          box-shadow: 0 0 0 -2px #4f29f0, 0 0 0 -2px #4f29f0, 0 0 0 -2px #4f29f0,
+            0 0 0 -2px #4f29f0, 0 0 0 -2px #4f29f0, 0 0 0 -2px #4f29f0;
         }
 
         // fill-circle start
         &:after {
-          box-shadow: 0 0 0 4px #4F29F0;
+          box-shadow: 0 0 0 4px #4f29f0;
           width: 10px;
           height: 10px;
         }
@@ -105,7 +106,7 @@
       & .todo-checkbox__checkbox-tick {
         // tick start
         &:before {
-          transform: rotate(35deg) scale(0.6);
+          transform: rotate(35deg) scale(.6);
           opacity: .5;
         }
       }
@@ -116,7 +117,9 @@
         // firework end
         &:before {
           opacity: 0;
-          box-shadow: 0 -15px 0 0px #4F29F0, 14px -8px 0 0px #4F29F0, 14px 8px 0 0px #4F29F0, 0 15px 0 0px #4F29F0, -14px 8px 0 0px #4F29F0, -14px -8px 0 0px #4F29F0;
+          box-shadow: 0 -15px 0 0px #4f29f0, 14px -8px 0 0px #4f29f0,
+            14px 8px 0 0px #4f29f0, 0 15px 0 0px #4f29f0,
+            -14px 8px 0 0px #4f29f0, -14px -8px 0 0px #4f29f0;
           width: 4px;
           height: 4px;
         }
@@ -124,7 +127,7 @@
         // fill-circle end
         &:after {
           opacity: 1;
-          box-shadow: 0 0 0 0 #E9E3FF;
+          box-shadow: 0 0 0 0 #e9e3ff;
           height: 20px;
           width: 20px;
         }
@@ -157,10 +160,6 @@
           transition: none;
         }
       }
-    }
-
-    &-done {
-
     }
   }
 }

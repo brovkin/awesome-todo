@@ -208,6 +208,24 @@ export const todoSlice: Slice<State> = createSlice({
       updateLocalStorage(STORAGE_LISTS, updatedLists);
     },
 
+    changeListTitle: (state, action) => {
+      const { id, value } = action.payload;
+
+      const updatedLists = state.lists.map((list) => {
+        if (list.id === id) {
+          return {
+            ...list,
+            title: value,
+          };
+        }
+
+        return list;
+      });
+
+      state.lists = updatedLists;
+      updateLocalStorage(STORAGE_LISTS, updatedLists);
+    },
+
     clearAll: (state) => {
       state.lists = [];
       clearLocalStorage();
@@ -229,6 +247,7 @@ export const {
   clearAll,
   deleteList,
   editList,
+  changeListTitle,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

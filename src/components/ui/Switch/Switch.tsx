@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { useController } from 'react-hook-form';
+import { ControllerProps, useController } from 'react-hook-form';
 import './Switch.scss';
 
 interface SwitchProps {
   name: string;
-  control: any;
-  rules?: any;
+  control: ControllerProps['control'];
+  rules?: ControllerProps['rules'];
   defaultValue?: boolean;
   label: string;
 }

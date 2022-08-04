@@ -1,3 +1,5 @@
+@import './src/assets/styles/imports';
+
 .list-menu {
   position: fixed;
   color: #000;
@@ -10,10 +12,38 @@
   z-index: 1000;
   transition: left .25s cubic-bezier( .4, 0, .2, 1);
 
+  &-wrapper {
+    &.active {
+      & ~ .app-content {
+        margin-left: 100px;
+
+        @media (max-width: $media-LG) {
+          margin-left: 220px;
+        }
+      }
+    }
+
+    &.md {
+      & ~ .app-content {
+        margin-left: 0;
+      }
+    }
+  }
+
   &.active {
     left: 0;
-    & ~ .app-content {
-      margin-left: 100px;
+  }
+
+  &__outside {
+    display: none;
+    width: 100%;
+    background: rgba(0,0,0, .3);
+    height: 100vh;
+    position: absolute;
+    z-index: 100;
+
+    &.md.active {
+      display: block;
     }
   }
 

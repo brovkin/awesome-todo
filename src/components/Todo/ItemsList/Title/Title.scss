@@ -1,0 +1,47 @@
+@import './src/assets/styles/imports';
+
+.list-title {
+  margin-top: 20px;
+  width: fit-content;
+
+  &__title {
+    font-size: 20px;
+    padding: 3px;
+    border-radius: 3px;
+    width: fit-content;
+    font-weight: 500;
+
+    &-wrapper {
+      margin-left: -3px;
+    }
+
+    &:hover {
+      background-color: $main-color;
+    }
+  }
+
+  &__edit {
+    display: flex;
+    flex-direction: column;
+
+    &-title {
+      padding: 5px 15px 5px 10px;
+      font-size: 16px;
+      border-radius: 3px;
+      outline: none;
+      border: 2px solid $main-color;
+      width: fit-content;
+      margin-bottom: 10px;
+    }
+
+    &-btn {
+      &-save {
+        margin-right: 10px;
+      }
+    }
+
+    &-btn-wrapper {
+
+    }
+  }
+}
