@@ -9,6 +9,7 @@ import { TodoList, createList } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import { RootState } from '@app/store';
 import { CreateListContext } from '@context/CreateListContext';
+import { NotificationContext } from '@context/NotificationContext';
 import isEmpty from '@helpers/isEmpty';
 import './ListModal.scss';
 
@@ -16,6 +17,10 @@ const ListModal: FC = () => {
   const { listModal, setListModal } = useContext(
     CreateListContext
   ) as CreateListContext;
+
+  const { showNotification } = useContext(
+    NotificationContext
+  ) as NotificationContext;
 
   const defaultValues: FieldValues = { title: '' };
   const {
@@ -50,6 +55,7 @@ const ListModal: FC = () => {
 
       dispatch(createList(newList));
       setListModal(false);
+      showNotification('success', `Список с названием ${title} создан`);
     }
   };
 

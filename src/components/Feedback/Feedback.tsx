@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
@@ -6,6 +6,7 @@ import FormText from '@components/ui/FormText';
 import Modal from '@components/ui/Modal';
 import { useAppSelector } from '@app/hooks';
 import sendEmail from '@api/sendEmail';
+import { NotificationContext } from '@context/NotificationContext';
 import { getPersonalInfo } from '@selectors/personal';
 import { PATTERNS } from '@constants';
 import './Feedback.scss';
@@ -23,14 +24,26 @@ const Feedback: FC<{ isOpen: boolean; closeHandler: () => void }> = ({
     reset,
   } = useForm({ mode: 'onChange', defaultValues });
 
+  const { showNotification } = useContext(
+    NotificationContext
+  ) as NotificationContext;
+
   const cancel = () => {
     reset(defaultValues);
   };
 
   const onSubmit = async (data: FieldValues) => {
-    await sendEmail(data);
-    reset(data);
-    closeHandler();
+    try {
+      await sendEmail(data);
+      reset(data);
+      closeHandler();
+      showNotification('success', 'Форма отправлена. Спасибо!');
+    } catch (e) {
+      showNotification(
+        'error',
+        'К сожалению не удалось отправить форму. Попробуйте позже. '
+      );
+    }
   };
 
   return (
