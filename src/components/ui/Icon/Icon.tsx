@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { ReactComponent as Adjust } from '@assets/icons/adjust.svg';
 import { ReactComponent as Broom } from '@assets/icons/broom.svg';
 import { ReactComponent as Bug } from '@assets/icons/bug.svg';
+import { ReactComponent as Cancel } from '@assets/icons/cancel.svg';
 import { ReactComponent as Cross } from '@assets/icons/cross.svg';
 import { ReactComponent as Cup } from '@assets/icons/cup.svg';
 import { ReactComponent as Delete } from '@assets/icons/delete.svg';
@@ -14,6 +15,7 @@ import { ReactComponent as Plus } from '@assets/icons/plus.svg';
 import { ReactComponent as Profile } from '@assets/icons/profile.svg';
 import { ReactComponent as Settings } from '@assets/icons/settings.svg';
 import { ReactComponent as Spinner } from '@assets/icons/spinner.svg';
+import { ReactComponent as Tick } from '@assets/icons/tick.svg';
 import './Icon.scss';
 
 interface IconMapProps {
@@ -41,6 +43,8 @@ const iconMap: IconMapProps = {
   delete: Delete,
   cup: Cup,
   bug: Bug,
+  tick: Tick,
+  cancel: Cancel,
 };
 
 const Icon: FC<IconProps> = ({ type, className, clickHandler }) => {

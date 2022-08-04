@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, useState } from 'react';
+import React, { FC, MouseEvent, useContext, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import cn from 'classnames';
@@ -15,6 +15,7 @@ import {
 import { useAppDispatch } from '@app/hooks';
 import { RootState } from '@app/store';
 import useMedia from '@hooks/useMedia';
+import { NotificationContext } from '@context/NotificationContext';
 import { MEDIA_QUERIES } from '@constants';
 import './List.scss';
 
@@ -23,6 +24,10 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
   const [showIcons, setShowIcons] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
   const defaultValues: FieldValues = { title };
+
+  const { showNotification } = useContext(
+    NotificationContext
+  ) as NotificationContext;
 
   const allLists = useSelector((state: RootState) => state.todo.lists);
 
@@ -56,6 +61,7 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
   const handleDelete = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     dispatch(deleteList(id));
+    showNotification('delete', `Удален список ${title}`);
   };
 
   const renderModalTitle = <>Редактировать &quot;{title}&quot;</>;

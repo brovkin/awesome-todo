@@ -1,0 +1,10 @@
+.notification-list {
+  position: absolute;
+  right: 0;
+  top: 55px;
+
+  &__column {
+    position: absolute;
+    right: 0;
+  }
+}

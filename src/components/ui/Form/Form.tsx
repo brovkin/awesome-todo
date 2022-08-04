@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { FieldErrors, FieldValues, SubmitHandler } from 'react-hook-form';
 import FormErrors from '@components/Errors/FormErrors';
 import Button from '@components/ui/Button';
@@ -27,6 +27,7 @@ const Form: FC<FormProps> = ({
   showPrivacyPolicy = false,
 }) => {
   const hasErrors = !isEmpty(errors);
+
   return (
     <form onSubmit={onSubmit} className="form">
       <p className="form__text">{text}</p>

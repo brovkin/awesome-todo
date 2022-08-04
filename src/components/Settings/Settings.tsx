@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
@@ -7,6 +7,7 @@ import Switch from '@components/ui/Switch';
 import { savePersonalInfo } from '@features/personalSlice';
 import { setSavePositionListMenu } from '@features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { NotificationContext } from '@context/NotificationContext';
 import { getPersonalInfo } from '@selectors/personal';
 import { getSettings } from '@selectors/settings';
 import { PATTERNS } from '@constants';
@@ -34,6 +35,10 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
     reset,
   } = useForm({ mode: 'onChange', defaultValues });
 
+  const { showNotification } = useContext(
+    NotificationContext
+  ) as NotificationContext;
+
   const cancel = () => {
     reset(defaultValues);
     closeHandler();
@@ -45,6 +50,7 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
     dispatch(setSavePositionListMenu(savePositionListMenu));
     reset(data);
     closeHandler();
+    showNotification('success', 'Настройки успешно изменены');
   };
 
   return (
