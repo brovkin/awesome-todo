@@ -7,7 +7,7 @@
   flex: 1;
   &__icon {
     cursor: pointer;
-    opacity: 0.7;
+    opacity: .7;
     transition: opacity .3s ease;
 
     &:hover {
@@ -17,6 +17,10 @@
     & svg {
       width: 20px;
       height: 20px;
+
+      @media (max-width: $media-SM) {
+        @include sm-icon-size;
+      }
     }
   }
 

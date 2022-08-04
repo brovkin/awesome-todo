@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import Form from '@components/ui/Form';
@@ -9,6 +9,7 @@ import { TodoList, createList } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import { RootState } from '@app/store';
 import { CreateListContext } from '@context/CreateListContext';
+import { NotificationContext } from '@context/NotificationContext';
 import isEmpty from '@helpers/isEmpty';
 import './ListModal.scss';
 
@@ -17,10 +18,14 @@ const ListModal: FC = () => {
     CreateListContext
   ) as CreateListContext;
 
-  const defaultValues = { title: 'Новый список' };
+  const { showNotification } = useContext(
+    NotificationContext
+  ) as NotificationContext;
+
+  const defaultValues: FieldValues = { title: '' };
   const {
     handleSubmit,
-    formState: { isDirty, errors },
+    formState: { errors },
     control,
     reset,
   } = useForm({ mode: 'onChange', defaultValues });
@@ -29,8 +34,6 @@ const ListModal: FC = () => {
 
   const allListsTitles = allLists.map((list) => list.title);
 
-  const isDefaultValueExists = allListsTitles.includes(defaultValues.title);
-
   const dispatch = useAppDispatch();
 
   const cancel = () => {
@@ -38,7 +41,7 @@ const ListModal: FC = () => {
     setListModal(false);
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FieldValues) => {
     const { title } = data;
 
     if (isEmpty(errors)) {
@@ -52,8 +55,10 @@ const ListModal: FC = () => {
 
       dispatch(createList(newList));
       setListModal(false);
+      showNotification('success', `Список с названием ${title} создан`);
     }
   };
+
   return (
     <Modal
       isOpen={listModal}
@@ -61,7 +66,6 @@ const ListModal: FC = () => {
       title="Введите название нового списка"
     >
       <Form
-        isDirty={isDirty}
         errors={errors}
         close={() => setListModal(false)}
         cancel={cancel}
@@ -70,6 +74,7 @@ const ListModal: FC = () => {
       >
         <FormInput
           control={control}
+          placeholder="Новый список"
           label="Название списка"
           name="title"
           rules={{

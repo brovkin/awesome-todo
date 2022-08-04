@@ -1,6 +1,5 @@
-import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
-import Button from '@components/ui/Button';
+import React, { FC, useContext } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
 import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
 import Modal from '@components/ui/Modal';
@@ -8,6 +7,9 @@ import Switch from '@components/ui/Switch';
 import { savePersonalInfo } from '@features/personalSlice';
 import { setSavePositionListMenu } from '@features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { NotificationContext } from '@context/NotificationContext';
+import { getPersonalInfo } from '@selectors/personal';
+import { getSettings } from '@selectors/settings';
 import { PATTERNS } from '@constants';
 import './Settings.scss';
 
@@ -16,46 +18,44 @@ interface SettingsProps {
   closeHandler: () => void;
 }
 
-const onError = (type: any) => {
-  switch (type) {
-    case 'required':
-      return 'Обязательное поле';
-    default:
-      return '';
-  }
-};
-
 const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
-  const { name, surname, email } = useAppSelector(
-    (state) => state.personal.info
-  );
-  const { savePositionListMenu } = useAppSelector((state) => state.settings);
+  const { name, surname, email } = useAppSelector(getPersonalInfo);
+  const { savePositionListMenu } = useAppSelector(getSettings);
   const dispatch = useAppDispatch();
-  const defaultValues = { name, surname, email, savePositionListMenu };
+  const defaultValues: FieldValues = {
+    name,
+    surname,
+    email,
+    savePositionListMenu,
+  };
   const {
     handleSubmit,
-    formState: { isDirty, errors },
+    formState: { errors },
     control,
     reset,
   } = useForm({ mode: 'onChange', defaultValues });
+
+  const { showNotification } = useContext(
+    NotificationContext
+  ) as NotificationContext;
 
   const cancel = () => {
     reset(defaultValues);
     closeHandler();
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FieldValues) => {
     const { name, surname, email, savePositionListMenu } = data;
     dispatch(savePersonalInfo({ name, surname, email }));
     dispatch(setSavePositionListMenu(savePositionListMenu));
     reset(data);
     closeHandler();
+    showNotification('success', 'Настройки успешно изменены');
   };
 
   return (
     <Modal isOpen={isOpen} closeHandler={closeHandler} title="Настройки">
       <Form
-        isDirty={isDirty}
         errors={errors}
         close={closeHandler}
         cancel={cancel}

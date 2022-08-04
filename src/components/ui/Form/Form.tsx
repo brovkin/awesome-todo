@@ -1,31 +1,33 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { FieldErrors, FieldValues, SubmitHandler } from 'react-hook-form';
 import FormErrors from '@components/Errors/FormErrors';
 import Button from '@components/ui/Button';
 import isEmpty from '@helpers/isEmpty';
+import { APP_URL } from '@constants';
 import './Form.scss';
 
 interface FormProps {
   children: JSX.Element | React.ReactNode;
-  isDirty: boolean;
-  errors: any;
+  errors: FieldErrors;
   close: () => void;
   cancel: () => void;
-  onSubmit: (data: any) => void;
+  onSubmit: any; // Todo
   submitText?: string;
+  showPrivacyPolicy?: boolean;
   text?: string;
 }
 
 const Form: FC<FormProps> = ({
   children,
-  isDirty,
   errors,
-  close,
   cancel,
   onSubmit,
-  submitText,
+  submitText = 'Изменить',
   text,
+  showPrivacyPolicy = false,
 }) => {
   const hasErrors = !isEmpty(errors);
+
   return (
     <form onSubmit={onSubmit} className="form">
       <p className="form__text">{text}</p>
@@ -34,30 +36,31 @@ const Form: FC<FormProps> = ({
 
       <FormErrors errors={errors} />
 
-      <div className="form__btn-wrapper">
-        {isDirty ? (
-          <>
-            <Button
-              className="form__btn-cancel cancel"
-              type="reset"
-              clickHandler={cancel}
-            >
-              Очистить
-            </Button>
+      {showPrivacyPolicy ? (
+        <div className="form__privacy-policy">
+          Нажимая на кнопку «{submitText}», я даю&nbsp;
+          <a
+            href={`${APP_URL}/privacy-policy`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            согласие на обработку персональных данных
+          </a>
+        </div>
+      ) : null}
 
-            <Button
-              className="form__btn-submit"
-              type="submit"
-              disabled={hasErrors}
-            >
-              {submitText || 'Изменить'}
-            </Button>
-          </>
-        ) : (
-          <Button className="form__btn-close" clickHandler={close}>
-            Закрыть
-          </Button>
-        )}
+      <div className="form__btn-wrapper">
+        <Button
+          className="form__btn-cancel cancel"
+          type="reset"
+          clickHandler={cancel}
+        >
+          Очистить
+        </Button>
+
+        <Button className="form__btn-submit" type="submit" disabled={hasErrors}>
+          {submitText}
+        </Button>
       </div>
     </form>
   );

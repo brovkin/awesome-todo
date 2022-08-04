@@ -1,7 +1,16 @@
 import React, { FC } from 'react';
+import { FieldError, FieldErrors } from 'react-hook-form';
 import './FormErrors.scss';
 
-export const fields: { [key: string]: string } = {
+interface Errors {
+  [key: string]: string;
+}
+
+interface FormErrorsProps {
+  errors: FieldErrors<FieldError>;
+}
+
+export const fields: Errors = {
   name: 'Имя',
   surname: 'Фамилия',
   email: 'E-mail',
@@ -9,8 +18,9 @@ export const fields: { [key: string]: string } = {
   title: 'Название списка',
 };
 
-const FormErrors: FC<{ errors: any }> = ({ errors }) => {
+const FormErrors: FC<FormErrorsProps> = ({ errors }) => {
   const getMessage = (error: any) => {
+    // Todo
     const type = error.type;
     switch (type) {
       case 'required':
@@ -26,10 +36,10 @@ const FormErrors: FC<{ errors: any }> = ({ errors }) => {
 
   const renderErrors = () => {
     const object = Object.keys(errors);
-    if (object.length) {
-      return Object.keys(errors).map((key) => {
-        if (key) {
-          const message = getMessage(errors[key]);
+    if (object?.length) {
+      return object.map((key) => {
+        if (key as string) {
+          const message = getMessage((errors as any)[key]); // Todo
           return (
             <p key={key} className="form-errors__error">
               Ошибка в поле {fields[key]} - {message}

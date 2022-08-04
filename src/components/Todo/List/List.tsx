@@ -1,8 +1,7 @@
-import React, { FC, MouseEvent, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { FC, MouseEvent, useContext, useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import cn from 'classnames';
-import Button from '@components/ui/Button';
 import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
 import Icon from '@components/ui/Icon';
@@ -15,12 +14,20 @@ import {
 } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
 import { RootState } from '@app/store';
+import useMedia from '@hooks/useMedia';
+import { NotificationContext } from '@context/NotificationContext';
+import { MEDIA_QUERIES } from '@constants';
 import './List.scss';
 
 const List: FC<TodoList> = ({ id, title, todos, active }) => {
+  const isMediaSM = useMedia(MEDIA_QUERIES.sm);
   const [showIcons, setShowIcons] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
-  const defaultValues = { title };
+  const defaultValues: FieldValues = { title };
+
+  const { showNotification } = useContext(
+    NotificationContext
+  ) as NotificationContext;
 
   const allLists = useSelector((state: RootState) => state.todo.lists);
 
@@ -28,15 +35,11 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
 
   const {
     handleSubmit,
-    formState: { isDirty, errors },
+    formState: { errors },
     control,
     reset,
   } = useForm({ mode: 'onChange', defaultValues });
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    !modal && setShowIcons(false);
-  }, [modal]);
 
   const handleClick = () => {
     dispatch(setActiveList(id));
@@ -58,9 +61,34 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
   const handleDelete = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     dispatch(deleteList(id));
+    showNotification('delete', `Удален список ${title}`);
   };
 
   const renderModalTitle = <>Редактировать &quot;{title}&quot;</>;
+
+  const renderIcons = () => (
+    <div className="list__icons-wrapper">
+      <Icon
+        type="edit"
+        className="list__icon list__icon-edit"
+        clickHandler={handleEdit}
+      />
+      <Icon
+        type="delete"
+        className="list__icon list__icon-delete"
+        clickHandler={handleDelete}
+      />
+    </div>
+  );
+
+  const renderQuantity = () => (
+    <div className="list__todos-quantity">{todos.length}</div>
+  );
+
+  const renderDesktopActionBlock = () =>
+    showIcons ? renderIcons() : renderQuantity();
+
+  const renderMobileActionBlock = () => renderIcons();
 
   const cancel = () => {
     reset(defaultValues);
@@ -68,10 +96,11 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
   };
 
   const close = () => {
+    setShowIcons(false);
     setModal(false);
   };
 
-  const onSubmit = (data: { title: string }) => {
+  const onSubmit = (data: FieldValues) => {
     dispatch(editList({ id, data }));
     setModal(false);
     reset(data);
@@ -87,25 +116,9 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
       onMouseLeave={onListMouseLeave}
     >
       <div className="list__title">{title}</div>
-      {showIcons ? (
-        <div className="list__icons-wrapper">
-          <Icon
-            type="edit"
-            className="list__icon list__icon-edit"
-            clickHandler={handleEdit}
-          />
-          <Icon
-            type="delete"
-            className="list__icon list__icon-delete"
-            clickHandler={handleDelete}
-          />
-        </div>
-      ) : (
-        <div className="list__todos-quantity">{todos.length}</div>
-      )}
+      {isMediaSM ? renderMobileActionBlock() : renderDesktopActionBlock()}
       <Modal title={renderModalTitle} isOpen={modal} closeHandler={close}>
         <Form
-          isDirty={isDirty}
           errors={errors}
           close={close}
           cancel={cancel}
