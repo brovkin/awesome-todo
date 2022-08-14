@@ -1,11 +1,26 @@
 {
   "name": "awesome-todo",
   "version": "0.7.0",
+  "description": "Curious to-do list app with a nice animation",
+  "author": "Brovkin Artem <brovkin.on@gmail.com>",
+  "keywords": [
+    "todo",
+    "list",
+    "productivity",
+    "react",
+    "typescript",
+    "frontend",
+    "brovkin"
+  ],
+  "homepage": "https://brovkin.github.io/awesome-todo",
   "private": true,
+  "license": "MIT",
+  "repository": "https://github.com/brovkin/awesome-todo",
   "scripts": {
+    "deploy": "gh-pages -d build",
     "start:all": "concurrently \"craco start\" \"cd ./backend && yarn start\"",
     "start": "craco start",
-    "build": "react-scripts build",
+    "build": "craco build",
     "test": "jest --coverage",
     "eject": "react-scripts eject"
   },
@@ -25,6 +40,7 @@
     "bootstrap": "^5.1.3",
     "classnames": "^2.3.1",
     "concurrently": "^7.2.2",
+    "gh-pages": "^4.0.0",
     "react": "^18.1.0",
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^18.1.0",
