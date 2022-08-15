@@ -20,7 +20,7 @@
     "deploy": "gh-pages -d build",
     "start:all": "concurrently \"craco start\" \"cd ./backend && yarn start\"",
     "start": "craco start",
-    "build": "craco build",
+    "build": "CI=false && craco build",
     "test": "jest --coverage",
     "eject": "react-scripts eject"
   },
