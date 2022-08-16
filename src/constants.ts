@@ -8,6 +8,8 @@ export const GITHUB_API_URL =
 export const API_URL = 'http://localhost:5000/api/v1';
 export const APP_URL = 'http://localhost:5000';
 
+export const SITE_URL = '/awesome-todo';
+
 export const SESSION_STORAGE_NAME = 'TODO_APP';
 
 export const PATTERNS = {
@@ -24,3 +26,5 @@ export const MEDIA_QUERIES = {
   lg: '992px',
   xl: '1200px',
 };
+
+export const IS_PROD = process.env.NODE_ENV === 'production';

@@ -35,7 +35,11 @@ const Welcome: FC = () => {
 
   return (
     <div className="welcome">
-      <Modal title="Добро пожаловать! Вы в первый раз?" isOpen={true}>
+      <Modal
+        title="Добро пожаловать! Вы в первый раз?"
+        isOpen={true}
+        showCloseIcon={false}
+      >
         <Form
           errors={errors}
           close={() => window.location.reload()}
