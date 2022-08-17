@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { getPersonalInfo } from '@selectors/personal';
 import Icon from '@components/ui/Icon';
 import { clearAll } from '@features/todoSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { getPersonalInfo } from '@selectors/personal';
 import './Info.scss';
 
 interface InfoProps {
@@ -42,10 +42,10 @@ const Info: FC<InfoProps> = ({
             <div className="info__menu-item-title">Настройки</div>
           </div>
           <hr />
-          <div className="info__menu-item" onClick={openFeedbackModal}>
-            <Icon type="bug" className="info__menu-item-icon" />
-            <div className="info__menu-item-title">Ошибка?</div>
-          </div>
+          {/*<div className="info__menu-item" onClick={openFeedbackModal}>*/}
+          {/*  <Icon type="bug" className="info__menu-item-icon" />*/}
+          {/*  <div className="info__menu-item-title">Ошибка?</div>*/}
+          {/*</div>*/}
           <div className="info__menu-item" onClick={handleClear}>
             <Icon type="broom" className="info__menu-item-icon" />
             <div className="info__menu-item-title">Очистить все</div>
