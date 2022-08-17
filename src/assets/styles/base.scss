@@ -4,13 +4,12 @@
   background-color: #fff;
 }
 
-html {
+html, body {
   overflow-x: hidden;
 }
 
 body {
-  //font-family: $font-family;
-  // by default
+  position: relative
 }
 
 hr {

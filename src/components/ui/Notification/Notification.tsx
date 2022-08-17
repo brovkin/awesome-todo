@@ -21,7 +21,7 @@ const Notification: FC<NotificationProps> = ({ type, message, show }) => {
 
     setTimeout(() => {
       setShowNote(false);
-    }, 2000);
+    }, 2500);
   }, [show]);
 
   return (

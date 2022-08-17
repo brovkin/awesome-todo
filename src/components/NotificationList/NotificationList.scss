@@ -2,9 +2,11 @@
   position: absolute;
   right: 0;
   top: 55px;
+  background-color: purple;
 
   &__column {
     position: absolute;
-    right: 0;
+    right: -300px;
+    background: yellowgreen;
   }
 }
