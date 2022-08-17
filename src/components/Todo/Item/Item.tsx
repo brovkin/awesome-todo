@@ -42,12 +42,12 @@ const Item: FC<ItemProps> = ({ id, title, done, edit, listId, children }) => {
           <Icon
             type="edit"
             clickHandler={handleEdit}
-            className="todo-item__icon"
+            className="todo-item__icon todo-item__menu-edit"
           />
           <Icon
             type="delete"
             clickHandler={handleDelete}
-            className="todo-item__icon"
+            className="todo-item__icon todo-item__menu-delete"
           />
         </div>
       )}

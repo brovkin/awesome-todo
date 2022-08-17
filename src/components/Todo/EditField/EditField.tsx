@@ -1,9 +1,8 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
+import Icon from '@components/ui/Icon';
 import Input from '@components/ui/Input';
 import { confirmEditTodo, editTodo } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
-import { ReactComponent as Cancel } from '@assets/icons/cancel.svg';
-import { ReactComponent as Tick } from '@assets/icons/tick.svg';
 import './EditField.scss';
 
 interface EditFieldProps {
@@ -63,18 +62,16 @@ const EditField: FC<EditFieldProps> = ({ id, listId, value }) => {
       />
 
       <div className="todo-item__menu">
-        <i
+        <Icon
           className="todo-item__icon todo-item__menu-tick"
-          onClick={handleConfirmUpdate}
-        >
-          <Tick />
-        </i>
-        <i
+          type="tick"
+          clickHandler={handleConfirmUpdate}
+        />
+        <Icon
           className="todo-item__icon todo-item__menu-cancel"
-          onClick={handleCancelUpdate}
-        >
-          <Cancel />
-        </i>
+          type="cancel"
+          clickHandler={handleCancelUpdate}
+        />
       </div>
     </div>
   );
