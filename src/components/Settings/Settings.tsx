@@ -7,10 +7,11 @@ import Switch from '@components/ui/Switch';
 import { savePersonalInfo } from '@features/personalSlice';
 import { setSavePositionListMenu } from '@features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
+import useMedia from '@hooks/useMedia';
 import { NotificationContext } from '@context/NotificationContext';
 import { getPersonalInfo } from '@selectors/personal';
 import { getSettings } from '@selectors/settings';
-import { PATTERNS } from '@constants';
+import { MEDIA_QUERIES, PATTERNS } from '@constants';
 import './Settings.scss';
 
 interface SettingsProps {
@@ -21,6 +22,7 @@ interface SettingsProps {
 const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
   const { name, surname, email } = useAppSelector(getPersonalInfo);
   const { savePositionListMenu } = useAppSelector(getSettings);
+  const isMediaMD = useMedia(MEDIA_QUERIES.md);
   const dispatch = useAppDispatch();
   const defaultValues: FieldValues = {
     name,
@@ -82,11 +84,13 @@ const Settings: FC<SettingsProps> = ({ isOpen, closeHandler }) => {
           }}
         />
 
-        <Switch
-          control={control}
-          name="savePositionListMenu"
-          label="Закрепить меню со списками"
-        />
+        {!isMediaMD ? (
+          <Switch
+            control={control}
+            name="savePositionListMenu"
+            label="Закрепить меню со списками"
+          />
+        ) : null}
       </Form>
     </Modal>
   );

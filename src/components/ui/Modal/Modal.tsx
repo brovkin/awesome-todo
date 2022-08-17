@@ -8,11 +8,18 @@ interface ModalProps {
   closeHandler?: () => void;
   children: JSX.Element | React.ReactNode;
   title: JSX.Element | React.ReactNode;
+  showCloseIcon?: boolean;
 }
 
 ReactModal.setAppElement('#root');
 
-const Modal: FC<ModalProps> = ({ isOpen, closeHandler, children, title }) => {
+const Modal: FC<ModalProps> = ({
+  isOpen,
+  closeHandler,
+  children,
+  title,
+  showCloseIcon = true,
+}) => {
   useEffect(() => {
     const close = (e: KeyboardEvent): void => {
       if (e.key === 'Escape' && closeHandler) {
@@ -34,11 +41,13 @@ const Modal: FC<ModalProps> = ({ isOpen, closeHandler, children, title }) => {
       shouldCloseOnOverlayClick={true}
     >
       <div className="modal__wrapper">
-        <Icon
-          className="modal__close"
-          type="cross"
-          clickHandler={closeHandler}
-        />
+        {showCloseIcon ? (
+          <Icon
+            className="modal__close"
+            type="cross"
+            clickHandler={closeHandler}
+          />
+        ) : null}
         <h3 className="modal__title">{title}</h3>
         {children}
       </div>

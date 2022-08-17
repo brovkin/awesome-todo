@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
-import { getSettings } from '@selectors/settings';
 import GithubBadge from '@components/Header/GithubBadge';
 import RightMenu from '@components/Header/RightMenu';
 import ListMenu from '@components/ListMenu';
 import Icon from '@components/ui/Icon';
 import { useAppSelector } from '@app/hooks';
 import useMedia from '@hooks/useMedia';
-import { MEDIA_QUERIES } from '@constants';
+import { getSettings } from '@selectors/settings';
+import { IS_PROD, MEDIA_QUERIES, SITE_URL } from '@constants';
 import './Header.scss';
 
 const Header: FC = () => {
@@ -35,7 +35,7 @@ const Header: FC = () => {
             />
           </div>
           <h1 className="header__title">
-            <a className="header__title-link" href="/">
+            <a className="header__title-link" href={IS_PROD ? SITE_URL : '/'}>
               Awesome Todo App
             </a>
             <GithubBadge />
