@@ -46,9 +46,7 @@ const ListMenu: FC<ListMenuProps> = ({ isOpen, onClose }) => {
             md: isMediaMD,
           })}
           onClick={onClose}
-        >
-          test
-        </div>
+        />
       </div>
     </CSSTransition>
   );

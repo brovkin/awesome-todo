@@ -12,6 +12,10 @@
   z-index: 1000;
   transition: left .25s cubic-bezier( .4, 0, .2, 1);
 
+  @media (max-width: $media-SM) {
+    top: 40px;
+  }
+
   &-wrapper {
     &.active {
       & ~ .app-content {
@@ -39,7 +43,7 @@
     width: 100%;
     background: rgba(0,0,0, .3);
     height: 100vh;
-    position: absolute;
+    position: fixed;
     z-index: 100;
 
     &.md.active {
