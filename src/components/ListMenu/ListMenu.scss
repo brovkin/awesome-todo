@@ -30,6 +30,8 @@
     &.md {
       & ~ .app-content {
         margin-left: 0;
+        margin-top: 60px;
+        height: 100%;
       }
     }
   }
@@ -45,6 +47,7 @@
     height: 100vh;
     position: fixed;
     z-index: 100;
+    top: 0;
 
     &.md.active {
       display: block;
