@@ -24,12 +24,6 @@
     transition: all .3s ease-in-out;
     padding: 3px;
 
-    &:hover {
-      svg {
-        //animation: icon-animation .5s ease-in-out forwards 0s;
-      }
-    }
-
     &:last-child {
       margin-right: 0;
     }
