@@ -2,6 +2,7 @@
   position: fixed;
   right: 0;
   top: 55px;
+  z-index: 999;
 
   &__column {
     position: absolute;
