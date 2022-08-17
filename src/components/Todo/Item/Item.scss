@@ -24,12 +24,6 @@
     transition: all .3s ease-in-out;
     padding: 3px;
 
-    &:hover {
-      svg {
-        animation: icon-animation .5s ease-in-out forwards 0s;
-      }
-    }
-
     &:last-child {
       margin-right: 0;
     }
@@ -42,7 +36,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      background-color: #e9e3ff;
+      background-color: $main-color;
     }
 
     &:hover {
@@ -53,7 +47,6 @@
 
       & > svg {
         transition: .2s .2s fill ease-in-out;
-        fill: #48bf91;
       }
     }
   }
@@ -84,6 +77,23 @@
 
   &__menu {
     display: flex;
+    &-tick,
+    &-edit {
+      &:hover {
+        svg {
+          animation: icon-animation-secondary .5s ease-in-out forwards 0s;
+        }
+      }
+    }
+
+    &-cancel,
+    &-delete {
+      &:hover {
+        svg {
+          animation: icon-animation-error .5s ease-in-out forwards 0s;
+        }
+      }
+    }
   }
 
   &__wrapper {
@@ -92,7 +102,7 @@
   }
 }
 
-@keyframes icon-animation {
+@keyframes icon-animation-secondary {
   0% {
     transform: translateY(2px);
   }
@@ -105,5 +115,21 @@
   100% {
     transform: translateY(0);
     fill: $secondary-color;
+  }
+}
+
+@keyframes icon-animation-error {
+  0% {
+    transform: translateY(2px);
+  }
+
+  50% {
+    transform: translateY(-1px);
+    fill: $error-color;
+  }
+
+  100% {
+    transform: translateY(0);
+    fill: $error-color;
   }
 }
