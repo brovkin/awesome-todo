@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/awesome-todo/static/css/main.4a11b17f.css",
-    "main.js": "/awesome-todo/static/js/main.c795365b.js",
+    "main.css": "/awesome-todo/static/css/main.f40a815a.css",
+    "main.js": "/awesome-todo/static/js/main.c91dcf93.js",
     "static/media/Lato-Light.ttf": "/awesome-todo/static/media/Lato-Light.c7400fcad9e48ca9043f.ttf",
     "static/media/Lato-Regular.ttf": "/awesome-todo/static/media/Lato-Regular.9d883d540ee2b4de8024.ttf",
     "static/media/Lato-Bold.ttf": "/awesome-todo/static/media/Lato-Bold.636be8de934918e38ed9.ttf",
@@ -24,11 +24,11 @@
     "static/media/cross.svg": "/awesome-todo/static/media/cross.3543323e620ea0055d32f9a3214cc438.svg",
     "static/media/dragger.svg": "/awesome-todo/static/media/dragger.a2b28ac1cd97d8a9458b1a1408c3cd2b.svg",
     "static/media/exclamation.svg": "/awesome-todo/static/media/exclamation.3b9d30e1a719ff5a5fa4bda4b4beaee7.svg",
-    "main.4a11b17f.css.map": "/awesome-todo/static/css/main.4a11b17f.css.map",
-    "main.c795365b.js.map": "/awesome-todo/static/js/main.c795365b.js.map"
+    "main.f40a815a.css.map": "/awesome-todo/static/css/main.f40a815a.css.map",
+    "main.c91dcf93.js.map": "/awesome-todo/static/js/main.c91dcf93.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a11b17f.css",
-    "static/js/main.c795365b.js"
+    "static/css/main.f40a815a.css",
+    "static/js/main.c91dcf93.js"
   ]
 }
