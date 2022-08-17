@@ -1,9 +1,9 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { FieldErrors, FieldValues, SubmitHandler } from 'react-hook-form';
 import FormErrors from '@components/Errors/FormErrors';
 import Button from '@components/ui/Button';
 import isEmpty from '@helpers/isEmpty';
-import { APP_URL } from '@constants';
+import { APP_URL, PRIVACY_POLICY_TEXT } from '@constants';
 import './Form.scss';
 
 interface FormProps {
@@ -26,6 +26,7 @@ const Form: FC<FormProps> = ({
   text,
   showPrivacyPolicy = false,
 }) => {
+  const [privacyPolicy, setPrivacyPolicy] = useState<boolean>(false);
   const hasErrors = !isEmpty(errors);
 
   return (
@@ -39,13 +40,22 @@ const Form: FC<FormProps> = ({
       {showPrivacyPolicy ? (
         <div className="form__privacy-policy">
           Нажимая на кнопку «{submitText}», я даю&nbsp;
-          <a
-            href={`${APP_URL}/privacy-policy`}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href="#" rel="noreferrer" onClick={() => setPrivacyPolicy(true)}>
             согласие на обработку персональных данных
           </a>
+          {privacyPolicy ? (
+            <div className="form__privacy-policy-modal">
+              {PRIVACY_POLICY_TEXT}
+
+              <Button
+                type="button"
+                className="form__privacy-policy-modal-btn"
+                clickHandler={() => setPrivacyPolicy(false)}
+              >
+                Закрыть
+              </Button>
+            </div>
+          ) : null}
         </div>
       ) : null}
 

@@ -2,6 +2,7 @@ import React, {
   ChangeEvent,
   FC,
   KeyboardEvent,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -9,6 +10,7 @@ import React, {
 import Button from '@components/ui/Button';
 import { changeListTitle } from '@features/todoSlice';
 import { useAppDispatch } from '@app/hooks';
+import { NotificationContext } from '@context/NotificationContext';
 import './Title.scss';
 
 interface TitleProps {
@@ -20,6 +22,10 @@ const Title: FC<TitleProps> = ({ listId, title }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editTitle, setEditTitle] = useState<string>('');
   const ref = useRef<HTMLInputElement | null>(null);
+
+  const { showNotification } = useContext(
+    NotificationContext
+  ) as NotificationContext;
 
   const dispatch = useAppDispatch();
 
@@ -45,8 +51,12 @@ const Title: FC<TitleProps> = ({ listId, title }) => {
   };
 
   const handleSaveListTitle = () => {
-    dispatch(changeListTitle({ id: listId, value: editTitle }));
-    setEdit(false);
+    if (editTitle.length) {
+      dispatch(changeListTitle({ id: listId, value: editTitle }));
+      setEdit(false);
+    } else {
+      showNotification('error', 'Введите название списка');
+    }
   };
 
   return (
