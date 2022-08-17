@@ -1,7 +1,15 @@
 @import './src/assets/styles/imports';
 
 .header {
-  background-color: #e9e3ff;
+  background-color: $main-color;
+
+  @media (max-width: $media-SM) {
+    position: fixed;
+    z-index: 100000;
+    width: 100%;
+    top: 0;
+  }
+
   &__wrapper {
     display: flex;
     flex-flow: row wrap;
