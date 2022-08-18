@@ -49,9 +49,9 @@ const Item: FC<ItemProps> = ({ id, title, done, edit, listId, children }) => {
             clickHandler={handleDelete}
             className="todo-item__icon todo-item__menu-delete"
           />
+          {children}
         </div>
       )}
-      {children}
     </div>
   );
 };
