@@ -4,9 +4,16 @@
   position: relative;
   transition: all .3s ease;
   user-select: none;
+  max-width: 250px;
+  word-wrap: break-word;
 
   @media (max-width: $media-SM) {
     font-size: $sm-font-size;
+
+  }
+
+  @media (max-width: $media-XS) {
+    max-width: 130px;
   }
 
   &:before {
@@ -22,17 +29,8 @@
   }
 
   &.crossout {
+    text-decoration: line-through;
     opacity: 0.5;
-    &:before {
-      opacity: 0.3;
-    }
-  }
-
-  &:not(.crossout) {
-    overflow: hidden;
-    &:before {
-      opacity: 0;
-    }
   }
 }
 
@@ -44,41 +42,10 @@
         transform: translateX(5px);
       }
 
-      &.todo-title.crossout {
-        &:before {
-          right: 50px;
-        }
-      }
-    }
-
-    &-done {
-      &.todo-title {
-        transform: translateX(0px);
-      }
-
-      &.todo-title.crossout {
-        &:before {
-          opacity: 0.3;
-          right: -2px;
-          width: 104%;
-        }
-      }
-    }
-  }
-
-  &-exit {
-    &-active {
-
-    }
-
-    &-done {
-      &.todo-title {
-        &:not(.crossout) {
-          &:before {
-            width: 0;
-            opacity: 0;
-            right: -100px;
-          }
+      &-done {
+        &.todo-title {
+          transform: translateX(0px);
+          text-decoration: line-through;
         }
       }
     }

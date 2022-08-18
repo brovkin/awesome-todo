@@ -7,7 +7,11 @@
   transition: box-shadow .3s ease-in-out;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+
+  &-container {
+    width: 100%;
+  }
 
   &__icon {
     cursor: pointer;
@@ -23,6 +27,12 @@
     margin-right: 3px;
     transition: all .3s ease-in-out;
     padding: 3px;
+
+    @media (max-width: $media-SM) {
+      width: 25px;
+      height: 25px;
+      margin-right: 5px;
+    }
 
     &:last-child {
       margin-right: 0;
@@ -53,12 +63,27 @@
 
   &__dragger {
     cursor: pointer;
-    padding: 15px 10px;
+    margin-left: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: .7;
     transition: opacity .3s;
+    padding-top: 4px;
+
+    & svg {
+      width: auto;
+      height: auto;
+    }
+
+    @media (max-width: $media-SM) {
+      padding: 1px;
+      & svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
     &:hover {
       opacity: 1;
     }
@@ -73,10 +98,15 @@
     width: 100%;
     cursor: pointer;
     padding: 15px;
+
+    @media (max-width: $media-SM) {
+      padding: 10px;
+    }
   }
 
   &__menu {
     display: flex;
+    padding: 10px;
     &-tick,
     &-edit {
       &:hover {
@@ -98,7 +128,7 @@
 
   &__wrapper {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   }
 }
 

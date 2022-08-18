@@ -1,0 +1,20 @@
+@import './src/assets/styles/imports';
+
+.ui-tooltip {
+  position: relative;
+
+  &__content {
+    position: absolute;
+    left: 5px;
+    font-size: 14px;
+    z-index: 99;
+    background-color: $main-color;
+    padding: 5px 10px;
+    border-radius: 3px;
+    word-break: break-word;
+    max-width: 250px;
+    min-width: 150px;
+    width: auto;
+    font-weight: 300;
+  }
+}
