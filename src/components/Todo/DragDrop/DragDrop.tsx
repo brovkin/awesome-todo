@@ -39,7 +39,7 @@ const DragDrop: FC<DragDropProps> = ({ listId, draggableList }) => {
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided) => (
                   <div
-                    className="item-container"
+                    className="todo-item-container"
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                   >

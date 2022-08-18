@@ -6,6 +6,7 @@ import Form from '@components/ui/Form';
 import FormInput from '@components/ui/FormInput';
 import Icon from '@components/ui/Icon';
 import Modal from '@components/ui/Modal';
+import Tooltip from '@components/ui/Tooltip';
 import {
   TodoList,
   deleteList,
@@ -106,6 +107,17 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
     reset(data);
   };
 
+  const transformTitle = (title: string, symbols: number) => {
+    let newTitle = title;
+    if (title.length > symbols) {
+      newTitle = newTitle.substring(0, symbols) + '...';
+    }
+
+    return newTitle;
+  };
+
+  const transformedTitle = transformTitle(title, 20);
+
   return (
     <div
       className={cn('list', {
@@ -115,7 +127,9 @@ const List: FC<TodoList> = ({ id, title, todos, active }) => {
       onMouseEnter={onListMouseEnter}
       onMouseLeave={onListMouseLeave}
     >
-      <div className="list__title">{title}</div>
+      <Tooltip content={title} condition={title.length > 20}>
+        <div className="list__title">{transformedTitle}</div>
+      </Tooltip>
       {isMediaSM ? renderMobileActionBlock() : renderDesktopActionBlock()}
       <Modal title={renderModalTitle} isOpen={modal} closeHandler={close}>
         <Form
