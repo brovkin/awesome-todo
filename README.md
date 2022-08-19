@@ -15,8 +15,8 @@
 ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 
-### Приложение в стадии активного тестирования
-### Если Вы заметили ошибку - напишите мне или создайте PR. Спасибо! 😊
+### 💻 Приложение в стадии активного тестирования
+Если Вы заметили ошибку - напишите мне или создайте PR. Спасибо! 😊
 
 ### [Live App](https://brovkin.github.io/awesome-todo/)
 
